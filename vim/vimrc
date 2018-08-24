@@ -10,24 +10,40 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
+" Install git status
+Plug 'tpope/vim-fugitive'
+
+" Install fzf
+" first install `fzf` using brew
+" ref, https://github.com/junegunn/fzf.vim
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
 " Install rust.vim
 Plug 'rust-lang/rust.vim'
 
 " Install vim-go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go'
 
 " Install lightline.vim
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
+
+" Install airline.vim
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Go autocomplete
+Plug 'Shougo/deoplete.nvim'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
 
 " Install Nord color scheme
 Plug 'arcticicestudio/nord-vim'
 
-" Install solarized color scheme
-" Plug 'altercation/vim-colors-solarized'
-
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+" Customized Setting
 
 " use nord color scheme as default
 syntax enable
@@ -36,3 +52,39 @@ let g:nord_comment_brightness = 20
 
 " syntax on
 colorscheme nord
+
+
+" fzf setting 
+nnoremap <C-p> :FZF<CR>
+    command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+    \   <bang>0 ? fzf#vim#with_preview('up:60%')
+    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+    \   <bang>0)
+ 
+nnoremap <C-s> :Rg<space>
+nnoremap <C-b> :Buffers<CR>
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+
+" deoplete setting
+" Enable deoplete on startup
+let g:deoplete#enable_at_startup = 1
+filetype plugin on
+
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#mappings#manual_complete()
+
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+
