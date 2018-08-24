@@ -49,7 +49,9 @@ rm -rf ~/tmpdotfile
 ```
 
 ## iTerm2
-nord-iterm2, <https://github.com/arcticicestudio/nord-iterm2>
+
+* color scheme -- nord-iterm2, <https://github.com/arcticicestudio/nord-iterm2>
+* font -- `16pt Droid Sans Mono for Powerline` 
 
 ## font
 Patched fonts for Powerline users, https://github.com/powerline/fonts
