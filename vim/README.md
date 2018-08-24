@@ -20,6 +20,7 @@ mv ~/tmpdotfile/vim/vimrc ~/.vimrc
 
 # 1.4 use vimrc for `neovim`
 # refer, <https://neovim.io/doc/user/nvim.html#nvim-from-vim> 
+mkdir -p ~/.config/nvim && copy ~/tmpdotfile/vim/nvim_init.vim ~/.config/nvim/init.vim
 
 # 2. tmux
 
