@@ -32,7 +32,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 " Go autocomplete
 " NOTE: need `gocode` and `neovim` module for python3 installed firstly
-" `gocode` -- https://github.com/mdempsky/gocode
+" 1. go get -u github.com/mdempsky/gocode
+" 2. pip3 install --user neovim
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 
