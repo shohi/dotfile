@@ -45,14 +45,16 @@ call plug#end()
 
 " Customized Setting
 
+" base setting
+" turn on line number
+set number
+
+" color setting
 " use nord color scheme as default
 syntax enable
 set termguicolors
 let g:nord_comment_brightness = 20 
-
-" syntax on
 colorscheme nord
-
 
 " fzf setting 
 nnoremap <C-p> :FZF<CR>
