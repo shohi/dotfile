@@ -9,6 +9,9 @@ call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins
 
+" Install surround
+Plug 'tpope/vim-surround'
+
 " Install NERDtree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
