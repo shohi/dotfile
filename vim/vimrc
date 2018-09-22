@@ -1,6 +1,9 @@
 " use vim-plug as plugin manager. Automatically executes filetype plugin indent on and syntax enable.
 set nocompatible              " be iMproved, required
 
+" change the mapleader from \ to ,
+let mapleader=","
+
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
@@ -21,19 +24,20 @@ Plug 'junegunn/fzf.vim'
 
 " Install rust.vim
 Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 
 " Install vim-go
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'fatih/vim-go'
+
+" Install lightline.vim
+" Plug 'itchyny/lightline.vim'
 
 " Install airline.vim
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Go autocomplete
-" NOTE: need `gocode` and `neovim` module for python3 installed firstly
-" 1. go get -u github.com/mdempsky/gocode
-" 2. pip3 install --user neovim
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 
@@ -46,17 +50,46 @@ call plug#end()
 " Customized Setting
 
 " base setting
-" turn on line number
 set number
 
-" color setting
+" Clear highlighting on escape in normal mode
+nnoremap <esc> :noh<return><esc>
+nnoremap <esc>^[ <esc>^[
+
+" nord setting
 " use nord color scheme as default
 syntax enable
 set termguicolors
-let g:nord_comment_brightness = 20 
+let g:nord_comment_brightness = 20
 colorscheme nord
 
-" fzf setting 
+" golang setting
+let g:go_fmt_command = "goimports"
+
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+" rust setting
+let g:rustfmt_autosave = 1
+
+autocmd FileType rust nmap gd <Plug>(rust-def)
+autocmd FileType rust nmap gs <Plug>(rust-def-split)
+autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
+autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
+
+
+" fzf setting
 nnoremap <C-p> :FZF<CR>
     command! -bang -nargs=* Rg
     \ call fzf#vim#grep(
@@ -64,7 +97,7 @@ nnoremap <C-p> :FZF<CR>
     \   <bang>0 ? fzf#vim#with_preview('up:60%')
     \           : fzf#vim#with_preview('right:50%:hidden', '?'),
     \   <bang>0)
- 
+
 nnoremap <C-s> :Rg<space>
 nnoremap <C-b> :Buffers<CR>
 
@@ -73,7 +106,6 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
-
 
 " deoplete setting
 " Enable deoplete on startup
@@ -89,4 +121,3 @@ function! s:check_back_space() abort "{{{
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
-
