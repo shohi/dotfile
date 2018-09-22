@@ -50,15 +50,23 @@ Plug 'arcticicestudio/nord-vim'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-" Customized Setting
+" ------------------------------------------- "
+"              Customized Setting             "
+" ------------------------------------------- "
 
-" base setting
+" -------------- basic  ----------------------
+" show number line
 set number
 
-" Clear highlighting on escape in normal mode
+" enable folding and set unfolded to default when to open a file
+set foldmethod=indent
+set foldlevel=99
+
+" clear highlighting on escape in normal mode
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
 
+" -------------- color scheme ----------------
 " nord setting
 " use nord color scheme as default
 syntax enable
@@ -66,7 +74,7 @@ set termguicolors
 let g:nord_comment_brightness = 20
 colorscheme nord
 
-" golang setting
+" -------------- golang ----------------------
 let g:go_fmt_command = "goimports"
 
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
@@ -83,7 +91,7 @@ function! s:build_go_files()
   endif
 endfunction
 
-" rust setting
+" -------------- rust ------------------------
 let g:rustfmt_autosave = 1
 
 autocmd FileType rust nmap gd <Plug>(rust-def)
@@ -92,6 +100,7 @@ autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
 autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 
+" -------------- fzf -------------------------
 " fzf setting
 nnoremap <C-p> :FZF<CR>
     command! -bang -nargs=* Rg
@@ -110,7 +119,7 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
-" deoplete setting
+" -------------- deoplete --------------------
 " Enable deoplete on startup
 let g:deoplete#enable_at_startup = 1
 filetype plugin on
