@@ -62,6 +62,9 @@ set number
 set foldmethod=indent
 set foldlevel=99
 
+" enable copy/paste between clipboard and vim
+set clipboard^=unnamed
+
 " clear highlighting on escape in normal mode
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
@@ -76,6 +79,7 @@ colorscheme nord
 
 " -------------- golang ----------------------
 let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1
 
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>t <Plug>(go-test)
@@ -93,6 +97,7 @@ endfunction
 
 " -------------- rust ------------------------
 let g:rustfmt_autosave = 1
+let g:racer_experimental_completer = 1
 
 autocmd FileType rust nmap gd <Plug>(rust-def)
 autocmd FileType rust nmap gs <Plug>(rust-def-split)
@@ -123,6 +128,9 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " Enable deoplete on startup
 let g:deoplete#enable_at_startup = 1
 filetype plugin on
+
+" disable scratch preview window
+set completeopt-=preview
 
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
