@@ -1,5 +1,5 @@
 # README
-vim configuration integrated with `tmux` and `iterm2` on MacOS using `neovim` distribution. 
+vim configuration integrated with `tmux` and `iterm2` on MacOS using `neovim` distribution.
 
 
 ## Setup
@@ -16,10 +16,11 @@ brew install neovim
 # refer, <https://github.com/junegunn/vim-plug>
 
 # 1.3 update vim config
+# or create a soft link -- `ln -s ~/tmpdotfile/vim/vimrc ~/.vimrc`
 mv ~/tmpdotfile/vim/vimrc ~/.vimrc
 
 # 1.4 use vimrc for `neovim`
-# refer, <https://neovim.io/doc/user/nvim.html#nvim-from-vim> 
+# refer, <https://neovim.io/doc/user/nvim.html#nvim-from-vim>
 mkdir -p ~/.config/nvim && copy ~/tmpdotfile/vim/nvim_init.vim ~/.config/nvim/init.vim
 
 # 2. tmux
@@ -28,23 +29,24 @@ mkdir -p ~/.config/nvim && copy ~/tmpdotfile/vim/nvim_init.vim ~/.config/nvim/in
 brew install tmux
 
 # 2.2 install tpm
-# refer, <https://github.com/tmux-plugins/tpm> 
+# refer, <https://github.com/tmux-plugins/tpm>
 
 # 2.3 update tmux config
 mv ~/tmpdotfile/vim/tmux.conf ~/.tmux.conf
 
 # 2.4 install tmux plugins
 # $> tmux
-# $> prefix + `I` 
+# $> prefix + `I`
 
 # 3. iterm2
-# refer section `iterm2` for details 
+# refer section `iterm2` for details
 
 
 # 4. font
 # refer `font` section for details
 
 # 5. cleanup
+# if `.vimrc` is created by soft link, it will be invalid after cleanup
 rm -rf ~/tmpdotfile
 
 ```
@@ -69,4 +71,4 @@ use `nord` color scheme for all - `vim/tmux/iTerm2`
 4. `tmux`, <https://github.com/tmux/tmux>
 5. `tpm` -- Tmux Plugin Manager, <https://github.com/tmux-plugins/tpm>
 6. `nord` -- nord color scheme for iTerm2, <https://github.com/arcticicestudio/nord-iterm2>
-7. `fonts` -- Patched fonts for Powerline users, <https://github.com/powerline/fonts> 
+7. `fonts` -- Patched fonts for Powerline users, <https://github.com/powerline/fonts>

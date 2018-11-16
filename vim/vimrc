@@ -47,6 +47,9 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 " Install Nord color scheme
 Plug 'arcticicestudio/nord-vim'
 
+" yaml
+Plug 'stephpy/vim-yaml'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -58,7 +61,10 @@ call plug#end()
 " show number line
 set number
 
-" enable folding and set unfolded to default when to open a file
+" set utf-8 as default encoding
+set encoding=utf-8
+
+" enable folding and keep unfolded when opening a file
 set foldmethod=indent
 set foldlevel=99
 
@@ -69,6 +75,9 @@ set clipboard^=unnamed
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
 
+" add shortcut for listing buffers
+nnoremap <C-b> :Buffers<CR>
+
 " -------------- color scheme ----------------
 " nord setting
 " use nord color scheme as default
@@ -76,6 +85,12 @@ syntax enable
 set termguicolors
 let g:nord_comment_brightness = 20
 colorscheme nord
+
+" -------------- NERDTree --------------------
+" refer, https://superuser.com/questions/195022/vim-how-to-synchronize-nerdtree-with-current-opened-tab-file-path
+" refer, https://stackoverflow.com/questions/6467634/create-a-command-shortcut-for-nerdtree-in-vim-editor
+map <leader>r :NERDTreeFind<cr>
+map <leader>ne :NERDTree<cr>
 
 " -------------- golang ----------------------
 let g:go_fmt_command = "goimports"
@@ -106,7 +121,6 @@ autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 
 " -------------- fzf -------------------------
-" fzf setting
 nnoremap <C-p> :FZF<CR>
     command! -bang -nargs=* Rg
     \ call fzf#vim#grep(
@@ -116,16 +130,15 @@ nnoremap <C-p> :FZF<CR>
     \   <bang>0)
 
 nnoremap <C-s> :Rg<space>
-nnoremap <C-b> :Buffers<CR>
 
-" Insert mode completion
+" insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " -------------- deoplete --------------------
-" Enable deoplete on startup
+" enable deoplete on startup
 let g:deoplete#enable_at_startup = 1
 filetype plugin on
 
