@@ -2,7 +2,9 @@
 set nocompatible              " be iMproved, required
 
 " change the mapleader from \ to ,
+" and keep reverse character search command
 let mapleader=","
+noremap \ ,
 
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
