@@ -52,6 +52,9 @@ Plug 'arcticicestudio/nord-vim'
 " yaml
 Plug 'stephpy/vim-yaml'
 
+" Install markdown preview plugin
+Plug 'junegunn/vim-xmark', { 'do': 'make' }
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -62,6 +65,9 @@ call plug#end()
 " -------------- basic  ----------------------
 " show number line
 set number
+
+" enable dictionary completion
+set dictionary=/usr/share/dict/words
 
 " set utf-8 as default encoding
 set encoding=utf-8
@@ -91,8 +97,9 @@ colorscheme nord
 " -------------- NERDTree --------------------
 " refer, https://superuser.com/questions/195022/vim-how-to-synchronize-nerdtree-with-current-opened-tab-file-path
 " refer, https://stackoverflow.com/questions/6467634/create-a-command-shortcut-for-nerdtree-in-vim-editor
-map <leader>r :NERDTreeFind<cr>
-map <leader>ne :NERDTree<cr>
+map <leader>r :NERDTreeFind<CR>
+map <leader>ne :NERDTree<CR>
+map <leader>nt :NERDTreeToggle<CR>
 
 " -------------- golang ----------------------
 let g:go_fmt_command = "goimports"
