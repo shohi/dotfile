@@ -55,6 +55,9 @@ Plug 'stephpy/vim-yaml'
 " Install markdown preview plugin
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
 
+" Install multiple selection plugin (a.k.a column edit mode)
+Plug 'terryma/vim-multiple-cursors'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
