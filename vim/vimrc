@@ -191,6 +191,9 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
+" show history
+map <leader>h :History<CR>
+
 " -------------- deoplete --------------------
 " enable deoplete on startup
 let g:deoplete#enable_at_startup = 1
