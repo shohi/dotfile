@@ -99,7 +99,7 @@ runtime macros/matchit.vim
 set autoread
 
 " fast saving
-nmap <leader>w :w!<CR>
+nnoremap <leader>w :w!<CR>
 
 " when searching try to be smart about cases
 set smartcase
@@ -130,6 +130,12 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
+" fast editing vimrc
+" $MYVIMRC is not `~/.vimrc` when using neovim
+nnoremap <leader>ev :vsplit ~/.vimrc<CR>
+
+" fast sourcing vimrc
+nnoremap <leader>sv :source ~/.vimrc<CR>
 
 " -------------- color scheme ----------------
 " nord setting
@@ -192,7 +198,7 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " show history
-map <leader>h :History<CR>
+noremap <leader>h :History<CR>
 
 " -------------- deoplete --------------------
 " enable deoplete on startup
