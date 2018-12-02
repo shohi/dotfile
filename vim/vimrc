@@ -121,9 +121,9 @@ function! s:visual_selection(direction, extra_filter) range
     let l:pattern = substitute(l:pattern, "\n$", "", "")
 
     if a:direction == 'gv'
-        call <SID>cmd_line("Ack '" . l:pattern . "' " )
+        call s:cmd_line("Ack '" . l:pattern . "' " )
     elseif a:direction == 'replace'
-        call <SID>cmd_line("%s" . '/'. l:pattern . '/')
+        call s:cmd_line("%s" . '/'. l:pattern . '/')
     endif
 
     let @/ = l:pattern
