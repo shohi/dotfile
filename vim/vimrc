@@ -148,9 +148,9 @@ colorscheme nord
 " -------------- NERDTree --------------------
 " refer, https://superuser.com/questions/195022/vim-how-to-synchronize-nerdtree-with-current-opened-tab-file-path
 " refer, https://stackoverflow.com/questions/6467634/create-a-command-shortcut-for-nerdtree-in-vim-editor
-map <leader>r :NERDTreeFind<CR>
-map <leader>ne :NERDTree<CR>
-map <leader>nt :NERDTreeToggle<CR>
+noremap <leader>r :NERDTreeFind<CR>
+noremap <leader>ne :NERDTree<CR>
+noremap <leader>nt :NERDTreeToggle<CR>
 
 " -------------- golang ----------------------
 let g:go_fmt_command = "goimports"
@@ -169,6 +169,9 @@ function! s:build_go_files()
     call go#cmd#Build(0)
   endif
 endfunction
+
+" fast editing go alternative files
+autocmd FileType go nmap <leader>ga :GoAlternate<CR>
 
 " -------------- rust ------------------------
 let g:rustfmt_autosave = 1
