@@ -172,6 +172,7 @@ endfunction
 
 " fast editing go alternative files
 autocmd FileType go nmap <leader>ga :GoAlternate<CR>
+autocmd FileType go nmap <leader>ft :GoTestFunc<CR>
 
 " -------------- rust ------------------------
 let g:rustfmt_autosave = 1
