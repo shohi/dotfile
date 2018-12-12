@@ -66,14 +66,23 @@ call plug#end()
 " ------------------------------------------- "
 
 " -------------- basic  ----------------------
+" set utf-8 as default encoding
+set encoding=utf-8
+
 " show number line
 set number
 
+" show existing tab with 4 spaces width
+set tabstop=4
+
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+
+" On pressing tab, insert 4 spaces
+set expandtab
+
 " enable dictionary completion
 set dictionary=/usr/share/dict/words
-
-" set utf-8 as default encoding
-set encoding=utf-8
 
 " enable folding and keep unfolded when opening a file
 set foldmethod=indent
