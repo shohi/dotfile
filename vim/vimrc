@@ -58,6 +58,10 @@ Plug 'junegunn/vim-xmark', { 'do': 'make' }
 " Install multiple selection plugin (a.k.a column edit mode)
 Plug 'terryma/vim-multiple-cursors'
 
+" Elixir and formatter
+Plug 'elixir-editors/vim-elixir'
+Plug 'mhinz/vim-mix-format'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
