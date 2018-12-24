@@ -62,6 +62,11 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'elixir-editors/vim-elixir'
 Plug 'mhinz/vim-mix-format'
 
+" Clojure
+Plug 'tpope/vim-fireplace'
+Plug 'venantius/vim-cljfmt'
+Plug 'guns/vim-clojure-static'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
