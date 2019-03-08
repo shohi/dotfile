@@ -11,34 +11,34 @@ call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins
 
-" Install surround
+" surround
 Plug 'tpope/vim-surround'
 
-" Install NERDtree
+" NERDtree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" Install git status
+" git status
 Plug 'tpope/vim-fugitive'
 
-" Install fzf
+" fzf
 " first install `fzf` using brew
 " ref, https://github.com/junegunn/fzf.vim
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
-" Install rust.vim
+" rust.vim
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 
-" Install vim-go
+" vim-go
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'fatih/vim-go'
 
-" Install lightline.vim
+" lightline.vim
 " Plug 'itchyny/lightline.vim'
 
-" Install airline.vim
+" airline.vim
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -46,16 +46,16 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'Shougo/deoplete.nvim'
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 
-" Install Nord color scheme
+" Nord color scheme
 Plug 'arcticicestudio/nord-vim'
 
 " yaml
 Plug 'stephpy/vim-yaml'
 
-" Install markdown preview plugin
+" markdown preview plugin
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
 
-" Install multiple selection plugin (a.k.a column edit mode)
+" multiple selection plugin (a.k.a column edit mode)
 Plug 'terryma/vim-multiple-cursors'
 
 " Elixir and formatter
@@ -66,6 +66,12 @@ Plug 'mhinz/vim-mix-format'
 Plug 'tpope/vim-fireplace'
 Plug 'venantius/vim-cljfmt'
 Plug 'guns/vim-clojure-static'
+
+" permut - swap columns
+Plug 'jlemetay/permut'
+
+" vim-easy-align
+Plug 'junegunn/vim-easy-align'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -240,3 +246,10 @@ function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+
+" -------------- easy align --------------------
+" start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
