@@ -2,3 +2,4 @@
 personal configuration files
 
 * Vim
+* Bash
