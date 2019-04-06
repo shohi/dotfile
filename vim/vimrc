@@ -166,7 +166,6 @@ nnoremap <leader>sv :source ~/.vimrc<CR>
 " use nord color scheme as default
 syntax enable
 set termguicolors
-let g:nord_comment_brightness = 20
 colorscheme nord
 
 " -------------- NERDTree --------------------
