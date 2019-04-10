@@ -63,6 +63,13 @@ Patched fonts for Powerline users, https://github.com/powerline/fonts
 use `nord` color scheme for all - `vim/tmux/iTerm2`
 
 
+## FAQ
+1. such error occurs when opening `.go` file -- `..#SNR..go#lsp#DidOpen`
+
+    reinstall related go binaries required by `vim-go`, `:GoInstallBinaries`
+
+
+
 ## Reference
 
 1. `neovim`, <https://github.com/neovim/neovim>
