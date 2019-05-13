@@ -1,5 +1,6 @@
 # dotfile
 personal configuration files
 
-* Vim
-* Bash
+* [Vim](vim/README.md)
+* [Bash](bash/README.md)
+* [Zsh](zsh/README.md)
