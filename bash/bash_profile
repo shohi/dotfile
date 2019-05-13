@@ -39,3 +39,14 @@ export PATH=$PATH:$FLUTTER_HOME/bin
 
 # autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+# Kubernetes
+# load kubectl aliases
+[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+
+# print kubectl full command before running
+function kubectl() { echo "+ kubectl $@"; command kubectl $@; }
+
+# list all ready nodes
+alias kgnoa='kubectl get node | grep -v "NotReady"'
+alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
