@@ -199,9 +199,8 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
-" Enable NERDCommenterToggle to check all selected lines is commented or not 
+" Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
-
 
 
 " -------------- golang ----------------------
@@ -234,6 +233,7 @@ autocmd FileType rust nmap gd <Plug>(rust-def)
 autocmd FileType rust nmap gs <Plug>(rust-def-split)
 autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
 autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
+autocmd FileType rust nmap <leader>ta :RustTest! -- --nocapture<CR>
 autocmd FileType rust nmap <leader>tt :RustTest -- --nocapture<CR>
 
 

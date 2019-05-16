@@ -3,9 +3,15 @@ export PATH=/usr/local/bin:/usr/bin/sbin:$PATH
 # Golang
 export GOROOT=/usr/local/opt/go/libexec
 export DEFAULT_GOPATH=$HOME/workshop/go
-export GOPATH=$DEFAULT_GOPATH
+export GOPATH=$DEFAULT_GOPATH:$HOME/workshop/github/golang/go
+export GOBIN=$DEFAULT_GOPATH/bin
 
-alias gws="cd $GOPATH/src"
+# export GOPROXY=https://goproxy.io
+export GOPROXY=https://athens.azurefd.net
+
+alias gws="cd $DEFAULT_GOPATH/src"
+alias ggh="cd $DEFAULT_GOPATH/src/github.com"
+alias gsc="cd $HOME/workshop/github/golang/go"
 
 export PATH=$PATH:$GOROOT/bin:$DEFAULT_GOPATH/bin
 
@@ -26,9 +32,9 @@ alias git='LANG=en_US git'
 # Ruby
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-# Rust
+# Firefox
 export FIREFOX_HOME=/Applications/Firefox.app/Contents/MacOS
-export PATH=$PATH:$HOME/.cargo/bin:$FIREFOX_HOME
+export PATH=$PATH:$FIREFOX_HOME
 
 # Flutter
 export FLUTTER_HOME=$HOME/workshop/flutter
@@ -50,3 +56,7 @@ function kubectl() { echo "+ kubectl $@"; command kubectl $@; }
 # list all ready nodes
 alias kgnoa='kubectl get node | grep -v "NotReady"'
 alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
+
+# Rust
+export PATH=$HOME/.cargo/bin:$PATH
+alias sgh="cd $HOME/workshop/github/shohi"
