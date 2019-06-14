@@ -22,6 +22,9 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " git status
 Plug 'tpope/vim-fugitive'
 
+" async lint engine
+Plug 'w0rp/ale'
+
 " fzf
 " first install `fzf` using brew
 " ref, https://github.com/junegunn/fzf.vim
@@ -72,6 +75,9 @@ Plug 'jlemetay/permut'
 
 " vim-easy-align
 Plug 'junegunn/vim-easy-align'
+
+" nim
+Plug 'zah/nim.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -174,6 +180,7 @@ colorscheme nord
 noremap <leader>r :NERDTreeFind<CR>
 noremap <leader>ne :NERDTree<CR>
 noremap <leader>nt :NERDTreeToggle<CR>
+noremap <leader>nf :NERDTreeFocus<CR>
 
 " ----------- NERDTree Commenter-------------
 " refer, https://github.com/scrooloose/nerdcommenter
@@ -207,6 +214,7 @@ let g:NERDToggleCheckAllLines = 1
 " -------------- golang ----------------------
 let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
+let g:go_test_show_name = 1
 
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>t <Plug>(go-test)
@@ -282,3 +290,17 @@ xmap ga <Plug>(EasyAlign)
 
 " start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+
+" ------------------ nim --------------------
+fun! JumpToDef()
+  if exists("*GotoDefinition_" . &filetype)
+    call GotoDefinition_{&filetype}()
+  else
+    exe "norm! \<C-]>"
+  endif
+endf
+
+" Jump to tag
+nn <M-g> :call JumpToDef()<cr>
+ino <M-g> <esc>:call JumpToDef()<cr>i
