@@ -60,3 +60,7 @@ alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
 # Rust
 export PATH=$HOME/.cargo/bin:$PATH
 alias sgh="cd $HOME/workshop/github/shohi"
+
+# Nim
+export PATH=$HOME/.nimble/bin:$PATH
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
