@@ -34,6 +34,9 @@ alias aws_proxy='ssh -qTfnN -D 127.0.0.1:62222 ${SSH_VIA}'
 # autojump
 [[ -f /usr/local/etc/profile.d/autojump.sh ]] && . /usr/local/etc/profile.d/autojump.sh
 
+# homebrew
+# export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+
 
 ##############################################################
 ####                                                     #####
@@ -79,6 +82,10 @@ set_kubectl_alias()
 
 # print kubectl full command before running
 function kubectl() { echo "+ kubectl $@"; command kubectl $@; }
+
+# proxy
+# export GOPROXY=https://goproxy.io
+# export GOPROXY=https://athens.azurefd.net
 
 
 ##############################################################
