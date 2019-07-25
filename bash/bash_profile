@@ -1,52 +1,142 @@
-export PATH=/usr/local/bin:/usr/bin/sbin:$PATH
+# NOTE: load `~/.bashrc` first which contains personal sensitive setting
+[[ -f ~/.bashrc ]] && source ~/.bashrc
 
-# Golang
+##############################################################
+####                                                     #####
+####                BASIC                                #####
+####                                                     #####
+##############################################################
+# locale
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export EDITOR=nvim
+export FIREFOX_HOME=/Applications/Firefox.app/Contents/MacOS
+
+export PATH=/usr/local/bin:/usr/bin/sbin:$PATH:$FIREFOX_HOME
+
+# useful env
+export HOSTIP=`ipconfig getifaddr en0`
+
+# git & hub
+eval "$(hub alias -s)"
+alias git='LANG=en_US git'
+alias sgh='cd $HOME/workshop/github/shohi'
+
+# SSH
+# Dynamic Port Forwarding
+# alias aws_proxy='ssh -qTfnN -D [local_ip]:[local_port] [via_user]@[via_ip]'
+alias aws_proxy='ssh -qTfnN -D 127.0.0.1:62222 ${SSH_VIA}'
+
+# Port Forwarding
+# ssh -fN -L [local_port]:[remote_ip]:[remote_port] [via_user]:[via_ip]
+# ssh -fN -L 7002:172.31.6.103:6443 ${SSH_VIA}
+
+# autojump
+[[ -f /usr/local/etc/profile.d/autojump.sh ]] && . /usr/local/etc/profile.d/autojump.sh
+
+
+##############################################################
+####                                                     #####
+####                Golang                               #####
+####                                                     #####
+##############################################################
 export GOROOT=/usr/local/opt/go/libexec
 export DEFAULT_GOPATH=$HOME/workshop/go
-export GOPATH=$DEFAULT_GOPATH
+export GOBIN=$DEFAULT_GOPATH/bin
 
-alias gws="cd $GOPATH/src"
+if [[ -z "$WORK_GOPATH" ]]; then
+  export GOPATH=$DEFAULT_GOPATH
+  export PATH=$PATH:$GOROOT/bin:$GOBIN
+else
+  export GOPATH=$DEFAULT_GOPATH:$WORK_GOPATH
+  export PATH=$PATH:$GOROOT/bin:$GOBIN:$WORK_GOPATH/bin
+fi
 
-export PATH=$PATH:$GOROOT/bin:$DEFAULT_GOPATH/bin
+alias gws='cd $DEFAULT_GOPATH/src'
+alias gwp='cd $DEFAULT_GOPATH/pkg'
+alias gwb='cd $DEFAULT_GOPATH/bin'
+alias ggh='cd $DEFAULT_GOPATH/src/github.com'
+alias gosc='cd $HOME/workshop/github/golang/go'
+alias gosrc='cd $GOROOT'
 
-# Java
+
+##############################################################
+####                                                     #####
+####                K8s                                  #####
+####                                                     #####
+##############################################################
+function set_kubectl_alias() {
+  if [ ! -f ~/.kubectl_aliases ]; then
+    curl -L -o ~/.kubectl_aliases https://rawgit.com/ahmetb/kubectl-alias/master/.kubectl_aliases
+  fi
+
+  [[ -f ~/.kubectl_aliases ]] && source ~/.kubectl_aliases
+  alias kgnoa='kubectl get node | grep -v "NotReady"'
+  alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
+}
+
+set_kubectl_alias()
+
+# print kubectl full command before running
+function kubectl() { echo "+ kubectl $@"; command kubectl $@; }
+
+
+##############################################################
+####                                                     #####
+####                Java                                 #####
+####                                                     #####
+##############################################################
 export JAVA_HOME=$(/usr/libexec/java_home)
 export GRADLE_HOME=/usr/local/opt/gradle/libexec
 export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
+export M2_HOME=/usr/local/Cellar/maven/3.6.0/libexec
 
 export PATH=$PATH:$GRADLE_HOME/bin
 
-# Python
+
+##############################################################
+####                                                     #####
+####                Python                               #####
+####                                                     #####
+##############################################################
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 
-# Github
-eval "$(hub alias -s)"
-alias git='LANG=en_US git'
 
-# Ruby
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+##############################################################
+####                                                     #####
+####                Ruby                                 #####
+####                                                     #####
+##############################################################
+# load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-# Rust
-export FIREFOX_HOME=/Applications/Firefox.app/Contents/MacOS
-export PATH=$PATH:$HOME/.cargo/bin:$FIREFOX_HOME
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
 
-# Flutter
+
+##############################################################
+####                                                     #####
+####                Rust                                 #####
+####                                                     #####
+##############################################################
+export PATH=$HOME/.cargo/bin:$PATH:$HOME/workshop/github/brendangregg/FlameGraph
+
+
+##############################################################
+####                                                     #####
+####                Flutter                              #####
+####                                                     #####
+##############################################################
 export FLUTTER_HOME=$HOME/workshop/flutter
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
 export PATH=$PATH:$FLUTTER_HOME/bin
 
-# autojump
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
-# Kubernetes
-# load kubectl aliases
-[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
-
-# print kubectl full command before running
-function kubectl() { echo "+ kubectl $@"; command kubectl $@; }
-
-# list all ready nodes
-alias kgnoa='kubectl get node | grep -v "NotReady"'
-alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
+##############################################################
+####                                                     #####
+####                Nim                                  #####
+####                                                     #####
+##############################################################
+export PATH=$HOME/.nimble/bin:$PATH
