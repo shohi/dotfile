@@ -25,7 +25,13 @@ alias sgh='cd $HOME/workshop/github/shohi'
 # SSH
 # Dynamic Port Forwarding
 # alias aws_proxy='ssh -qTfnN -D [local_ip]:[local_port] [via_user]@[via_ip]'
-alias aws_proxy='ssh -qTfnN -D 127.0.0.1:62222 ${SSH_VIA}'
+function set_aws_proxy() {
+  if [[ -n "$SSH_VIA" ]]; then
+    alias aws_proxy='ssh -qTfnN -D 127.0.0.1:62222 ${SSH_VIA}'
+  fi
+}
+
+set_aws_proxy
 
 # Port Forwarding
 # ssh -fN -L [local_port]:[remote_ip]:[remote_port] [via_user]:[via_ip]
@@ -78,7 +84,7 @@ function set_kubectl_alias() {
   alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
 }
 
-set_kubectl_alias()
+set_kubectl_alias
 
 # print kubectl full command before running
 function kubectl() { echo "+ kubectl $@"; command kubectl $@; }
