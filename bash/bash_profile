@@ -68,6 +68,10 @@ alias ggh='cd $DEFAULT_GOPATH/src/github.com'
 alias gosc='cd $HOME/workshop/github/golang/go'
 alias gosrc='cd $GOROOT'
 
+# proxy
+# export GOPROXY=https://goproxy.io
+export GOPROXY=https://athens.azurefd.net
+
 
 ##############################################################
 ####                                                     #####
@@ -88,10 +92,6 @@ set_kubectl_alias
 
 # print kubectl full command before running
 function kubectl() { echo "+ kubectl $@"; command kubectl $@; }
-
-# proxy
-# export GOPROXY=https://goproxy.io
-# export GOPROXY=https://athens.azurefd.net
 
 
 ##############################################################
