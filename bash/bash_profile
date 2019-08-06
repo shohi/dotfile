@@ -9,7 +9,7 @@
 # refer, https://github.com/ruanyf/fortunes
 if [[ -x "$(command -v fortune)" ]]; then
   echo
-  echo "=============== Quote Of The Day ==============="
+  # echo "=============== Quote Of The Day ==============="
   echo
   fortune
   echo
