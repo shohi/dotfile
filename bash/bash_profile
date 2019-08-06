@@ -3,6 +3,23 @@
 
 ##############################################################
 ####                                                     #####
+####                QUOTE                                #####
+####                                                     #####
+##############################################################
+# refer, https://github.com/ruanyf/fortunes
+if [[ -x "$(command -v fortune)" ]]; then
+  echo
+  echo "=============== Quote Of The Day ==============="
+  echo
+  fortune
+  echo
+  # echo "================================================"
+  echo
+fi
+
+
+##############################################################
+####                                                     #####
 ####                BASIC                                #####
 ####                                                     #####
 ##############################################################
@@ -61,6 +78,8 @@ else
   export PATH=$PATH:$GOROOT/bin:$GOBIN:$WORK_GOPATH/bin
 fi
 
+alias gotest='go test -v -count=1'
+
 alias gws='cd $DEFAULT_GOPATH/src'
 alias gwp='cd $DEFAULT_GOPATH/pkg'
 alias gwb='cd $DEFAULT_GOPATH/bin'
@@ -70,7 +89,9 @@ alias gosrc='cd $GOROOT'
 
 # proxy
 # export GOPROXY=https://goproxy.io
-export GOPROXY=https://athens.azurefd.net
+if [[ -z "ENABLE_GOPROXY" ]]; then
+  export GOPROXY=https://athens.azurefd.net
+fi
 
 
 ##############################################################
