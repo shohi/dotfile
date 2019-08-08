@@ -43,7 +43,7 @@ alias sgh='cd $HOME/workshop/github/shohi'
 # Dynamic Port Forwarding
 # alias aws_proxy='ssh -qTfnN -D [local_ip]:[local_port] [via_user]@[via_ip]'
 function set_aws_proxy() {
-  if [[ -n "$SSH_VIA" ]]; then
+  if [[ -n "${SSH_VIA}" ]]; then
     alias aws_proxy='ssh -qTfnN -D 127.0.0.1:62222 ${SSH_VIA}'
   fi
 }
