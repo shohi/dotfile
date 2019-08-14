@@ -70,7 +70,7 @@ export GOROOT=/usr/local/opt/go/libexec
 export DEFAULT_GOPATH=$HOME/workshop/go
 export GOBIN=$DEFAULT_GOPATH/bin
 
-if [[ -z "$WORK_GOPATH" ]]; then
+if [[ -z "${WORK_GOPATH}" ]]; then
   export GOPATH=$DEFAULT_GOPATH
   export PATH=$PATH:$GOROOT/bin:$GOBIN
 else
@@ -89,7 +89,7 @@ alias gosrc='cd $GOROOT'
 
 # proxy
 # export GOPROXY=https://goproxy.io
-if [[ -z "ENABLE_GOPROXY" ]]; then
+if [[ -z "${DISABLE_GOPROXY}" ]]; then
   export GOPROXY=https://athens.azurefd.net
 fi
 
