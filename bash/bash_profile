@@ -100,7 +100,7 @@ fi
 ####                                                     #####
 ##############################################################
 function set_kubectl_alias() {
-  if [ ! -f ~/.kubectl_aliases ]; then
+  if [[ ! -f ~/.kubectl_aliases ]]; then
     curl -L -o ~/.kubectl_aliases https://rawgit.com/ahmetb/kubectl-alias/master/.kubectl_aliases
   fi
 
@@ -174,3 +174,21 @@ export PATH=$PATH:$FLUTTER_HOME/bin
 ####                                                     #####
 ##############################################################
 export PATH=$HOME/.nimble/bin:$PATH
+
+
+##############################################################
+####                                                     #####
+####                Emacs                                #####
+####                                                     #####
+##############################################################
+# refer, https://emacsformacosx.com/tips
+function setup_emacs() {
+  if [[ ! -x  "/Applications/Emacs.app/Contents/MacOS/Emacs" ]]; then
+    echo "plz install Emacs firstly, e.g. `brew cask install emacs`."
+  else
+    alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+    alias emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+  fi
+}
+
+setup_emacs
