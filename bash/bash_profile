@@ -50,6 +50,10 @@ function set_aws_proxy() {
 
 set_aws_proxy
 
+# shortcuts for accessing folder
+alias sdl='cd ~/Downloads'
+alias sdc='cd ~/Documents'
+
 # Port Forwarding
 # ssh -fN -L [local_port]:[remote_ip]:[remote_port] [via_user]:[via_ip]
 # ssh -fN -L 7002:172.31.6.103:6443 ${SSH_VIA}

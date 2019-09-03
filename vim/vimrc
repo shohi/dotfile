@@ -22,6 +22,9 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " git status
 Plug 'tpope/vim-fugitive'
 
+" git gutter
+Plug 'airblade/vim-gitgutter'
+
 " async lint engine
 Plug 'w0rp/ale'
 
@@ -82,6 +85,24 @@ Plug 'zah/nim.vim'
 " translator
 Plug 'voldikss/vim-translate-me'
 
+" undotree
+Plug 'mbbill/undotree'
+
+" repeat
+Plug 'tpope/vim-repeat'
+
+" unimpaired - pairs of handy bracket mappings
+Plug 'tpope/vim-unimpaired'
+
+" auto-pairs
+Plug 'jiangmiao/auto-pairs'
+
+" match-up
+Plug 'andymass/vim-matchup'
+
+" matchquote
+Plug 'airblade/vim-matchquote'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -125,8 +146,9 @@ nnoremap <C-b> :Buffers<CR>
 " enable filetype plugin
 filetype plugin on
 
-" enable matchit plugin
-runtime macros/matchit.vim
+" enable matchit plugin. this plugin does not work well with
+" `match-up`.
+" runtime macros/matchit.vim
 
 " set to auto read when a file is changed from the outside
 set autoread
