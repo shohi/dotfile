@@ -70,9 +70,54 @@ alias sdc='cd ~/Documents'
 ####                Golang                               #####
 ####                                                     #####
 ##############################################################
-export GOROOT=/usr/local/opt/go/libexec
-export DEFAULT_GOPATH=$HOME/workshop/go
+
+# install gvm
+function setup_gvm() {
+  mkdir -p ~/.github/moovweb && pushd -q "$_"
+
+  local repo="gvm"
+
+  # install gvm
+  if [[ ! -d  "$repo" ]]; then
+    git clone https://github.com/moovweb/$repo.git
+    source gvm/binscripts/gvm-installer
+  fi
+
+  # activate it
+  source ~/.gvm/scripts/gvm
+
+  popd -q
+}
+
+# update gvm
+function update_gvm() {
+  mkdir -p ~/.github/moovweb && pushd -q "$_"
+
+  local repo="gvm"
+
+  # update gvm
+  if [[ ! -d  "$repo" ]]; then
+    setup_gvm
+  else
+    pushd -q $PWD/$repo
+
+    # update repo and activate it
+    git pull --all
+    source ~/.gvm/scripts/gvm
+
+    popd -q
+  fi
+
+  popd -q
+}
+
+
+setup_gvm
+
+export GOROOT=${GOROOT:-/usr/local/opt/go/libexec}
+export DEFAULT_GOPATH=${GOPATH:-$HOME/workshop/go}
 export GOBIN=$DEFAULT_GOPATH/bin
+mkdir -p $DEFAULT_GOPATH/{src,bin,pkg}
 
 if [[ -z "${WORK_GOPATH}" ]]; then
   export GOPATH=$DEFAULT_GOPATH
@@ -104,13 +149,36 @@ fi
 ####                                                     #####
 ##############################################################
 function set_kubectl_alias() {
-  if [[ ! -f ~/.kubectl_aliases ]]; then
-    curl -L -o ~/.kubectl_aliases https://rawgit.com/ahmetb/kubectl-alias/master/.kubectl_aliases
+  mkdir -p ~/.github/ahmetb && pushd -q "$_"
+
+  # download kubectl-alias
+  if [[ ! -d  "kubectl-alias" ]]; then
+    git clone https://github.com/ahmetb/kubectl-alias.git
+    source kubectl-alias/.kubectl_aliases
   fi
 
-  [[ -f ~/.kubectl_aliases ]] && source ~/.kubectl_aliases
   alias kgnoa='kubectl get node | grep -v "NotReady"'
   alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
+
+  popd -q
+}
+
+# update kubectl alias
+function update_kubectl_alias() {
+  mkdir -p ~/.github/ahmetb && pushd -q "$_"
+
+  local repo="kubectl-alias"
+
+  # install gvm
+  if [[ ! -d  "$repo" ]]; then
+    set_kubectl_alias
+  else
+    pushd -q $PWD/$repo
+    git pull --all
+    popd -q
+  fi
+
+  popd -q
 }
 
 set_kubectl_alias
