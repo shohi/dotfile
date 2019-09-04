@@ -103,9 +103,8 @@ Plug 'andymass/vim-matchup'
 " matchquote
 Plug 'airblade/vim-matchquote'
 
-" FIXME: not work
 " rainbow
-" Plug 'kien/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -325,14 +324,19 @@ nmap ga <Plug>(EasyAlign)
 
 
 " ------------------ nim --------------------
-fun! JumpToDef()
+function! JumpToDef()
   if exists("*GotoDefinition_" . &filetype)
     call GotoDefinition_{&filetype}()
   else
     exe "norm! \<C-]>"
   endif
-endf
+endfunction
 
 " Jump to tag
 nn <M-g> :call JumpToDef()<cr>
 ino <M-g> <esc>:call JumpToDef()<cr>i
+
+" ------------------ rainbow --------------------
+" disable it by default as it does not work well with nord-theme.
+" use :RainbowToggle to enable it later.
+let g:rainbow_active = 0
