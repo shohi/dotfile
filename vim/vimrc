@@ -103,6 +103,10 @@ Plug 'andymass/vim-matchup'
 " matchquote
 Plug 'airblade/vim-matchquote'
 
+" FIXME: not work
+" rainbow
+" Plug 'kien/rainbow_parentheses.vim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
