@@ -129,6 +129,7 @@ fi
 
 alias gotest='go test -v -count=1'
 
+alias gop='cd $DEFAULT_GOPATH'
 alias gws='cd $DEFAULT_GOPATH/src'
 alias gwp='cd $DEFAULT_GOPATH/pkg'
 alias gwb='cd $DEFAULT_GOPATH/bin'
