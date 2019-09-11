@@ -49,7 +49,13 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Go autocomplete
-Plug 'Shougo/deoplete.nvim'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
 " Nord color scheme
@@ -109,8 +115,13 @@ Plug 'luochen1990/rainbow'
 " vim-move
 Plug 'matze/vim-move'
 
+" ultisnips
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
 
 " ------------------------------------------- "
 "              Customized Setting             "
@@ -367,3 +378,12 @@ let g:move_key_modifier = 'A'
 " keybinds for ale
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" ------------------ snippets --------------------
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
