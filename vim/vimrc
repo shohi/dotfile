@@ -26,7 +26,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " async lint engine
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 
 " fzf
 " first install `fzf` using brew
@@ -215,6 +215,17 @@ noremap <leader>nr :NERDTreeFind<CR>
 noremap <leader>ne :NERDTree<CR>
 noremap <leader>nt :NERDTreeToggle<CR>
 noremap <leader>nf :NERDTreeFocus<CR>
+noremap <leader>no :<C-u>call <SID>only_and_nerdtree()<CR>
+
+" Close all windows except the current one and NERDTree
+" https://vi.stackexchange.com/questions/13331/close-all-windows-except-the-current-one-and-nerdtree
+" only work on vim 8+
+" command! Only call only_and_nerdtree()
+function! s:only_and_nerdtree()
+    let l:currentWindowID = win_getid()
+    windo if win_getid() != l:currentWindowID && &filetype != 'nerdtree' | close | endif
+endfunction
+
 
 " ----------- NERDTree Commenter-------------
 " refer, https://github.com/scrooloose/nerdcommenter
@@ -347,6 +358,12 @@ let g:rainbow_active = 0
 
 " ------------------ vim-move --------------------
 " https://github.com/matze/vim-move
-" set a custom modifier for key bindings
-" use `Ctrl` instead of default `Alt`
-let g:move_key_modifier = 'C'
+" set a custom modifier for key bindings to `Alt`
+" set `C` to use `Ctrl`.
+let g:move_key_modifier = 'A'
+
+
+" ------------------ ale --------------------
+" keybinds for ale
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
