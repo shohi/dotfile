@@ -67,6 +67,9 @@ Plug 'stephpy/vim-yaml'
 " markdown preview plugin
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
 
+" markdown toc (table of contents)
+Plug 'mzlogin/vim-markdown-toc'
+
 " multiple selection plugin (a.k.a column edit mode)
 Plug 'terryma/vim-multiple-cursors'
 
@@ -399,3 +402,11 @@ set timeoutlen=500
 " After pressing leader the guide buffer will pop up
 " when there are no further keystrokes within timeoutlen.
 nnoremap <silent> <leader> :WhichKey ','<CR>
+
+
+" ------------------ markdown --------------------
+" disable auto update toc on save as it doesn't work well
+let g:vmt_auto_update_on_save = 0
+
+" don't insert fence
+let g:vmt_dont_insert_fence = 1
