@@ -119,6 +119,9 @@ Plug 'matze/vim-move'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 
+" whichkey
+Plug 'liuchengxu/vim-which-key'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -387,3 +390,12 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+
+" ------------------ whichkey --------------------
+" By default timeoutlen is 1000 ms
+set timeoutlen=500
+
+" After pressing leader the guide buffer will pop up
+" when there are no further keystrokes within timeoutlen.
+nnoremap <silent> <leader> :WhichKey ','<CR>
