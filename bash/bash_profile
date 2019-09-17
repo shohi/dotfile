@@ -155,8 +155,9 @@ function set_kubectl_alias() {
   # download kubectl-alias
   if [[ ! -d  "kubectl-alias" ]]; then
     git clone https://github.com/ahmetb/kubectl-alias.git
-    source kubectl-alias/.kubectl_aliases
   fi
+
+  source kubectl-alias/.kubectl_aliases
 
   alias kgnoa='kubectl get node | grep -v "NotReady"'
   alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
