@@ -410,3 +410,12 @@ let g:vmt_auto_update_on_save = 0
 
 " don't insert fence
 let g:vmt_dont_insert_fence = 1
+
+
+" ------------------ git-gutter --------------------
+"  default keybinds (https://github.com/airblade/vim-gitgutter)
+" [c - previous hunk
+" ]c - next hunk
+" <leader>hp - preview hunk
+" <leader>hs - stage hunk
+" <leader>hu - undo hunk
