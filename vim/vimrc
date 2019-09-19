@@ -131,6 +131,9 @@ Plug 'easymotion/vim-easymotion'
 " tagbar
 Plug 'majutsushi/tagbar'
 
+" supertab for autocomplete
+Plug 'ervandew/supertab'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -474,3 +477,11 @@ let g:tagbar_type_go = {
 	\ 'ctagsbin'  : 'gotags',
 	\ 'ctagsargs' : '-sort -silent'
 \ }
+
+" set keybind for tagbar toggle
+map <Leader>tb :TagbarToggle<CR>
+
+
+" ------------------ tagbar --------------------
+" Perform all your vim insert mode completions with Tab
+" run `:help supertab` for accessing supertab documentation.
