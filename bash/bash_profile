@@ -266,3 +266,19 @@ function setup_emacs() {
 }
 
 setup_emacs
+
+
+##############################################################
+####                                                     #####
+####                ctags                                #####
+####                                                     #####
+##############################################################
+# refer, https://gist.github.com/nazgob/1570678
+# replace macOS builtin one with `brew` one
+# first install - `brew install ctags`
+# TODO: install ctags if not exist
+alias ctags="`brew --prefix`/bin/ctags"
+
+# ctags setup for golang
+# require `gotags` installed first - https://github.com/jstemmer/gotags
+# TODO: check whether `gotags` is installed in $GOBIN
