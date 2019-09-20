@@ -447,7 +447,10 @@ map <Leader>k <Plug>(easymotion-k)
 
 
 " ------------------ tagbar --------------------
-" golang setting
+" set keybind for tagbar toggle
+map <Leader>tb :TagbarToggle<CR>
+
+" golang tagbar setting
 " refer-1, https://github.com/majutsushi/tagbar/wiki#google-go
 " refer-2, https://github.com/jstemmer/gotags
 let g:tagbar_type_go = {
@@ -478,10 +481,47 @@ let g:tagbar_type_go = {
 	\ 'ctagsargs' : '-sort -silent'
 \ }
 
-" set keybind for tagbar toggle
-map <Leader>tb :TagbarToggle<CR>
+" rust tagbar setting
+" refer-1, https://github.com/majutsushi/tagbar/wiki#rust
+" need `universal-ctags` installed first (https://github.com/universal-ctags/ctags)
+let g:rust_use_custom_ctags_defs = 1  " if using rust.vim
 
+"  use following config to set ctagsbin, by default `ctagsbin` is search in PATH
+"  TODO: how to use ENV variable in vimrc
+"  'ctagsbin' : '/path/to/your/universal/ctags'
+let g:tagbar_type_rust = {
+  \ 'ctagstype' : 'rust',
+  \ 'kinds' : [
+      \ 'n:modules',
+      \ 's:structures:1',
+      \ 'i:interfaces',
+      \ 'c:implementations',
+      \ 'f:functions:1',
+      \ 'g:enumerations:1',
+      \ 't:type aliases:1:0',
+      \ 'v:constants:1:0',
+      \ 'M:macros:1',
+      \ 'm:fields:1:0',
+      \ 'e:enum variants:1:0',
+      \ 'P:methods:1',
+  \ ],
+  \ 'sro': '::',
+  \ 'kind2scope' : {
+      \ 'n': 'module',
+      \ 's': 'struct',
+      \ 'i': 'interface',
+      \ 'c': 'implementation',
+      \ 'f': 'function',
+      \ 'g': 'enum',
+      \ 't': 'typedef',
+      \ 'v': 'variable',
+      \ 'M': 'macro',
+      \ 'm': 'field',
+      \ 'e': 'enumerator',
+      \ 'P': 'method',
+  \ },
+\ }
 
-" ------------------ tagbar --------------------
+" ------------------ supertab --------------------
 " Perform all your vim insert mode completions with Tab
 " run `:help supertab` for accessing supertab documentation.
