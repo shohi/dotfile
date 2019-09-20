@@ -70,6 +70,13 @@ Plug 'junegunn/vim-xmark', { 'do': 'make' }
 " markdown toc (table of contents)
 Plug 'mzlogin/vim-markdown-toc'
 
+" markdown syntax
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+" table mode (also support markdown table)
+Plug 'dhruvasagar/vim-table-mode'
+
 " multiple selection plugin (a.k.a column edit mode)
 Plug 'terryma/vim-multiple-cursors'
 
@@ -134,6 +141,9 @@ Plug 'majutsushi/tagbar'
 " supertab for autocomplete
 Plug 'ervandew/supertab'
 
+" window maximizer
+Plug 'szw/vim-maximizer'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -189,6 +199,7 @@ set autoread
 nnoremap <leader>w :w!<CR>
 
 " when searching try to be smart about cases
+set ignorecase
 set smartcase
 
 " visual mode pressing * or # searches for the current selection
@@ -525,3 +536,24 @@ let g:tagbar_type_rust = {
 " ------------------ supertab --------------------
 " Perform all your vim insert mode completions with Tab
 " run `:help supertab` for accessing supertab documentation.
+
+" ------------------ vim-maximizer --------------------
+" disable default keymapping
+let g:maximizer_set_default_mapping = 0
+
+" set keybind for tagbar toggle
+map <Leader>ww :MaximizerToggle<CR>
+
+
+" ------------------ vim-markdown --------------------
+" Markdown Vim Mode (https://github.com/plasticboy/vim-markdown)
+
+
+" ------------------ vim-table-mode --------------------
+" VIM Table Mode for instant table creation.
+
+" set keybind for table model toggle
+" map <Leader>tm :TableModeToggle<CR> " default
+
+" for Markdown-compatible tables use
+let g:table_mode_corner='|'
