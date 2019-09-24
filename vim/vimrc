@@ -557,3 +557,23 @@ map <Leader>ww :MaximizerToggle<CR>
 
 " for Markdown-compatible tables use
 let g:table_mode_corner='|'
+
+
+" ------------------ terminal-mode --------------------
+" setting for terminals, see :help terminal-emulator for details
+
+" map <Esc> to exit terminal-mode
+tnoremap <Esc> <C-\><C-n>
+
+" use `ALT+{h,j,k,l}` to navigate windows from terminal mode
+tnoremap <A-h> <C-\><C-N><C-w>h
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+
+" ------------------ vim-translate-me --------------------
+" https://github.com/voldikss/vim-translate-me
+" default configuration
+" <Leader>w - translate word under cursor
+" <Leader>w again - focus on translator window
+" q - close translator window
