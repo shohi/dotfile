@@ -65,7 +65,8 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'stephpy/vim-yaml'
 
 " markdown preview plugin
-Plug 'junegunn/vim-xmark', { 'do': 'make' }
+" Plug 'junegunn/vim-xmark', { 'do': 'make' } " not work on macOS 10.14.6
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
 
 " markdown toc (table of contents)
 Plug 'mzlogin/vim-markdown-toc'
@@ -645,4 +646,26 @@ endfunction
 nmap <silent> <Leader>gl :<C-u>call <SID>toggle_limelight()<CR>
 xmap <silent> <Leader>gl :<C-u>call <SID>toggle_limelight()<CR>
 
-nmap <Leader>gy :Goyo<CR>
+nmap <Leader>gg :Goyo<CR>
+
+
+" ------------------ markdown-preview --------------------
+" https://github.com/iamcco/markdown-preview.nvim
+" TODO: documentation for markdown-prview
+
+"" do not close the preview tab when switching to other buffers
+" https://jdhao.github.io/2019/01/15/markdown_edit_preview_nvim/
+let g:mkdp_auto_close = 0
+
+let s:enable_mkdp=0
+function! s:toggle_mkdp()
+    if s:enable_mkdp
+        MarkdownPreviewStop
+        let s:enable_mkdp=0
+    else
+        MarkdownPreview
+        let s:enable_mkdp=1
+    endif
+endfunction
+
+nmap <silent> <Leader>m :<C-u>call <SID>toggle_mkdp()<CR>
