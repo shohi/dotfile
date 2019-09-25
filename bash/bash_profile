@@ -38,6 +38,7 @@ export HOSTIP=`ipconfig getifaddr en0`
 eval "$(hub alias -s)"
 alias git='LANG=en_US git'
 alias sgh='cd $HOME/workshop/github/shohi'
+alias sws='cd $HOME/workshop'
 
 # SSH
 # Dynamic Port Forwarding
