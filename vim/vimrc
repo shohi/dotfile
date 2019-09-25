@@ -144,6 +144,9 @@ Plug 'ervandew/supertab'
 " window maximizer
 Plug 'szw/vim-maximizer'
 
+" copy-filename
+Plug 'adamwhittingham/vim-copy-filename'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -577,3 +580,12 @@ tnoremap <A-l> <C-\><C-N><C-w>l
 " <Leader>w - translate word under cursor
 " <Leader>w again - focus on translator window
 " q - close translator window
+
+
+" ------------------ vim-translate-me --------------------
+" https://github.com/AdamWhittingham/vim-copy-filename
+nmap <leader>fp :CopyRelativePath<CR>
+nmap <leader>fl :CopyRelativePathAndLine<CR>
+nmap <leader>fa :CopyAbsolutePath<CR>
+nmap <leader>fn :CopyFileName<CR>
+nmap <leader>fd :CopyDirectoryPath<CR>
