@@ -44,7 +44,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " lightline.vim
 " Plug 'itchyny/lightline.vim'
 
-" airline.vim
+" airline.vim - lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -146,6 +146,13 @@ Plug 'szw/vim-maximizer'
 
 " copy-filename
 Plug 'adamwhittingham/vim-copy-filename'
+
+" targets provides additional text objects
+Plug 'wellle/targets.vim'
+
+" goyo - Distraction-free writing
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -589,10 +596,53 @@ tnoremap <A-l> <C-\><C-N><C-w>l
 " q - close translator window
 
 
-" ------------------ vim-translate-me --------------------
+" ------------------ vim-copy-filename --------------------
 " https://github.com/AdamWhittingham/vim-copy-filename
 nmap <leader>fp :CopyRelativePath<CR>
 nmap <leader>fl :CopyRelativePathAndLine<CR>
 nmap <leader>fa :CopyAbsolutePath<CR>
 nmap <leader>fn :CopyFileName<CR>
 nmap <leader>fd :CopyDirectoryPath<CR>
+
+
+" ------------------ targets --------------------
+" Vim plugin that provides additional text objects
+" https://github.com/wellle/targets.vim#quote-text-objects
+
+" Targets.vim comes with five kinds for text objects:
+"   * Pair text objects
+"   * Quote text objects
+"   * Separator text objects
+"   * Argument text objects
+"   * Tag text objects
+
+
+" ------------------ goyo --------------------
+" goyo - distraction-free writing in Vim
+" https://github.com/junegunn/goyo.vim
+"
+" limelight - Hyperfocus-writing in Vim.
+" https://github.com/junegunn/limelight.vim
+
+" goyo & limeligth integration
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" kbd for goyo and limelight
+" https://stackoverflow.com/questions/20579142/toggle-function-in-vim
+let s:enable_limelight=0
+function! s:toggle_limelight()
+    if s:enable_limelight
+        Limelight!
+        let s:enable_limelight=0
+    else
+        Limelight
+        let s:enable_limelight=1
+    endif
+endfunction
+
+" toggle functions for goyo and limelight
+nmap <silent> <Leader>gl :<C-u>call <SID>toggle_limelight()<CR>
+xmap <silent> <Leader>gl :<C-u>call <SID>toggle_limelight()<CR>
+
+nmap <Leader>gy :Goyo<CR>
