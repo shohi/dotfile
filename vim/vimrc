@@ -566,7 +566,14 @@ let g:table_mode_corner='|'
 " setting for terminals, see :help terminal-emulator for details
 
 " map <Esc> to exit terminal-mode
-tnoremap <Esc> <C-\><C-n>
+" fix fzf terminal issue - https://github.com/junegunn/fzf.vim/issues/544
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+
+" or use following snippets
+" if has("nvim")
+"  au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
+"  au FileType fzf tunmap <buffer> <Esc>
+" endif
 
 " use `ALT+{h,j,k,l}` to navigate windows from terminal mode
 tnoremap <A-h> <C-\><C-N><C-w>h
