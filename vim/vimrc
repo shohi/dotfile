@@ -266,7 +266,7 @@ colorscheme nord
 " refer, https://stackoverflow.com/questions/6467634/create-a-command-shortcut-for-nerdtree-in-vim-editor
 noremap <leader>nr :NERDTreeFind<CR>
 noremap <leader>ne :NERDTree<CR>
-noremap <leader>nt :NERDTreeToggle<CR>
+noremap <leader>nn :NERDTreeToggle<CR>
 noremap <leader>nf :NERDTreeFocus<CR>
 noremap <leader>no :<C-u>call <SID>only_and_nerdtree()<CR>
 
@@ -392,7 +392,8 @@ nmap ga <Plug>(EasyAlign)
 
 
 " ------------------ nim --------------------
-function! JumpToDef()
+" https://github.com/zah/nim.vim/
+function! s:nim_go_to_def()
   if exists("*GotoDefinition_" . &filetype)
     call GotoDefinition_{&filetype}()
   else
@@ -401,8 +402,10 @@ function! JumpToDef()
 endfunction
 
 " Jump to tag
-nn <M-g> :call JumpToDef()<cr>
-ino <M-g> <esc>:call JumpToDef()<cr>i
+" TODO: use autogroup
+autocmd FileType nim nmap gd :<C-u>call <SID>nim_go_to_def()<CR>
+" nn <M-g> :call JumpToDef()<cr>
+" ino <M-g> <esc>:call JumpToDef()<cr>i
 
 " ------------------ rainbow --------------------
 " disable it by default as it does not work well with nord-theme.
@@ -550,9 +553,11 @@ let g:tagbar_type_rust = {
   \ },
 \ }
 
+
 " ------------------ supertab --------------------
 " Perform all your vim insert mode completions with Tab
 " run `:help supertab` for accessing supertab documentation.
+
 
 " ------------------ vim-maximizer --------------------
 " disable default keymapping
@@ -802,9 +807,22 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+" coc for golang
+" refer, https://octetz.com/posts/vim-as-go-ide
+" add following setting to :CocConfig
+"  {
+"    "languageserver": {
+"      "golang": {
+"        "command": "gopls",
+"        "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+"        "filetypes": ["go"]
+"      }
+"    }
+"  }
+"
+
 
 " ------------------ vim-go --------------------
-" refer, https://octetz.com/posts/vim-as-go-ide
 "
 " use vim-go's :GoDef short cut (gd)
 " which work better that LanguageClient [LC]
