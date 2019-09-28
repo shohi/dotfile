@@ -141,7 +141,8 @@ alias gosrc='cd $GOROOT'
 # proxy
 # export GOPROXY=https://goproxy.io
 if [[ -z "${DISABLE_GOPROXY}" ]]; then
-  export GOPROXY=https://athens.azurefd.net
+  export GOPROXY=https://goproxy.io
+  # export GOPROXY=https://athens.azurefd.net
 fi
 
 
