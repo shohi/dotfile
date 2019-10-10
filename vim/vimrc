@@ -267,6 +267,7 @@ colorscheme nord
 noremap <leader>nr :NERDTreeFind<CR>
 noremap <leader>ne :NERDTree<CR>
 noremap <leader>nn :NERDTreeToggle<CR>
+noremap <leader>nt :NERDTreeToggle<CR>
 noremap <leader>nf :NERDTreeFocus<CR>
 noremap <leader>no :<C-u>call <SID>only_and_nerdtree()<CR>
 
