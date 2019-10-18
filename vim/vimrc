@@ -160,6 +160,11 @@ Plug 'junegunn/limelight.vim'
 " go autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" protobuf syntax highlighting
+" Plug 'uarun/vim-protobuf'
+
+" Plug 'mustache/vim-mustache-handlebars'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -658,7 +663,7 @@ endfunction
 nmap <silent> <Leader>gl :<C-u>call <SID>toggle_limelight()<CR>
 xmap <silent> <Leader>gl :<C-u>call <SID>toggle_limelight()<CR>
 
-nmap <Leader>gg :Goyo<CR>
+nmap <silent> <Leader>gg :Goyo<CR>
 
 
 " ------------------ markdown-preview --------------------
