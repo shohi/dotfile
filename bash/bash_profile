@@ -71,6 +71,8 @@ alias sdc='cd ~/Documents'
 ####                Golang                               #####
 ####                                                     #####
 ##############################################################
+# use following accessible `GO_BINARY_BASE_URL`.
+export GO_BINARY_BASE_URL="https://dl.google.com/go"
 
 # install gvm
 function setup_gvm() {
@@ -80,8 +82,9 @@ function setup_gvm() {
 
   # install gvm
   if [[ ! -d  "$repo" ]]; then
-    git clone https://github.com/moovweb/$repo.git
-    source gvm/binscripts/gvm-installer
+    # git clone https://github.com/moovweb/$repo.git
+    git clone https://github.com/shohi/$repo.git
+    SRC_REPO="https://github.com/shohi/$repo.git" source gvm/binscripts/gvm-installer
   fi
 
   # activate it
