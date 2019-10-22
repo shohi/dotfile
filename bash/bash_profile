@@ -1,3 +1,5 @@
+# -*- vim: set ft=bash: -*-
+
 # NOTE: load `~/.bashrc` first which contains personal sensitive setting
 [[ -f ~/.bashrc ]] && source ~/.bashrc
 
@@ -287,3 +289,24 @@ alias ctags="`brew --prefix`/bin/ctags"
 # ctags setup for golang
 # require `gotags` installed first - https://github.com/jstemmer/gotags
 # TODO: check whether `gotags` is installed in $GOBIN
+
+
+##############################################################
+####                                                     #####
+####                bash                                 #####
+####                                                     #####
+##############################################################
+# refer, https://stackoverflow.com/questions/370047/what-is-the-most-elegant-way-to-remove-a-path-from-the-path-variable-in-bash
+function path_append() {
+  path_remove $1
+  export PATH="$PATH:$1"
+}
+
+function path_prepend() {
+  path_remove $1
+  export PATH="$1:$PATH"
+}
+
+function path_remove() {
+  export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`
+}
