@@ -39,6 +39,7 @@ export HOSTIP=`ipconfig getifaddr en0`
 # git & hub
 eval "$(hub alias -s)"
 alias git='LANG=en_US git'
+alias ghh='cd $HOME/workshop/github'
 alias sgh='cd $HOME/workshop/github/shohi'
 alias sws='cd $HOME/workshop'
 
