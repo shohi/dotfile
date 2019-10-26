@@ -1,0 +1,22 @@
+{
+  "createBy": "http://liujiacai.net/gooreplacer/",
+  "version": "3.10.0",
+  "createAt": "Sat Oct 26 2019 11:30:30 GMT+0800 (China Standard Time)",
+  "redirect-rules": [
+    {
+      "src": "*.googleapis.com",
+      "kind": "wildcard",
+      "dst": "*.lug.ustc.edu.cn",
+      "enable": true
+    },
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/*",
+      "kind": "wildcard",
+      "dst": "https://cdn.bootcss.com/*",
+      "enable": true
+    }
+  ],
+  "cancel-rules": [],
+  "request-headers": [],
+  "response-headers": []
+}
