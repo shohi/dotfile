@@ -9,15 +9,19 @@
 ####                                                     #####
 ##############################################################
 # refer, https://github.com/ruanyf/fortunes
-if [[ -x "$(command -v fortune)" ]]; then
-  echo
-  # echo "=============== Quote Of The Day ==============="
-  echo
-  fortune
-  echo
-  # echo "================================================"
-  echo
-fi
+function run_fortune() {
+  if [[ -x "$(command -v fortune)" ]]; then
+    echo
+    # echo "=============== Quote Of The Day ==============="
+    echo
+    fortune
+    echo
+    # echo "================================================"
+    echo
+  fi
+}
+
+run_fortune
 
 
 ##############################################################
@@ -118,38 +122,42 @@ function update_gvm() {
   popd -q
 }
 
-
 setup_gvm
 
-export GOROOT=${GOROOT:-/usr/local/opt/go/libexec}
-export DEFAULT_GOPATH=${GOPATH:-$HOME/workshop/go}
-export GOBIN=$DEFAULT_GOPATH/bin
-mkdir -p $DEFAULT_GOPATH/{src,bin,pkg}
+# setup gopath and aliases
+function setup_golang() {
+  export GOROOT=${GOROOT:-/usr/local/opt/go/libexec}
+  export DEFAULT_GOPATH=${GOPATH:-$HOME/workshop/go}
+  export GOBIN=$DEFAULT_GOPATH/bin
+  mkdir -p $DEFAULT_GOPATH/{src,bin,pkg}
 
-if [[ -z "${WORK_GOPATH}" ]]; then
-  export GOPATH=$DEFAULT_GOPATH
-  export PATH=$PATH:$GOROOT/bin:$GOBIN
-else
-  export GOPATH=$DEFAULT_GOPATH:$WORK_GOPATH
-  export PATH=$PATH:$GOROOT/bin:$GOBIN:$WORK_GOPATH/bin
-fi
+  if [[ -z "${WORK_GOPATH}" ]]; then
+    export GOPATH=$DEFAULT_GOPATH
+    export PATH=$PATH:$GOROOT/bin:$GOBIN
+  else
+    export GOPATH=$DEFAULT_GOPATH:$WORK_GOPATH
+    export PATH=$PATH:$GOROOT/bin:$GOBIN:$WORK_GOPATH/bin
+  fi
 
-alias gotest='go test -v -count=1'
+  alias gotest='go test -v -count=1'
 
-alias gop='cd $DEFAULT_GOPATH'
-alias gws='cd $DEFAULT_GOPATH/src'
-alias gwp='cd $DEFAULT_GOPATH/pkg'
-alias gwb='cd $DEFAULT_GOPATH/bin'
-alias ggh='cd $DEFAULT_GOPATH/src/github.com'
-alias gosc='cd $HOME/workshop/github/golang/go'
-alias gosrc='cd $GOROOT'
+  alias gop='cd $DEFAULT_GOPATH'
+  alias gws='cd $DEFAULT_GOPATH/src'
+  alias gwp='cd $DEFAULT_GOPATH/pkg'
+  alias gwb='cd $DEFAULT_GOPATH/bin'
+  alias ggh='cd $DEFAULT_GOPATH/src/github.com'
+  alias gosc='cd $HOME/workshop/github/golang/go'
+  alias gosrc='cd $GOROOT'
 
-# proxy
-# export GOPROXY=https://goproxy.io
-if [[ -z "${DISABLE_GOPROXY}" ]]; then
-  export GOPROXY=https://goproxy.io
-  # export GOPROXY=https://athens.azurefd.net
-fi
+  # proxy
+  # export GOPROXY=https://goproxy.io
+  if [[ -z "${DISABLE_GOPROXY}" ]]; then
+    export GOPROXY=https://goproxy.io
+    # export GOPROXY=https://athens.azurefd.net
+  fi
+}
+
+setup_golang
 
 
 ##############################################################
@@ -202,20 +210,30 @@ function kubectl() { echo "+ kubectl $@"; command kubectl $@; }
 ####                Java                                 #####
 ####                                                     #####
 ##############################################################
-export JAVA_HOME=$(/usr/libexec/java_home)
-export GRADLE_HOME=/usr/local/opt/gradle/libexec
-export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
-export M2_HOME=/usr/local/Cellar/maven/3.6.0/libexec
 
-export PATH=$PATH:$GRADLE_HOME/bin
+# setup env for java
+function setup_java() {
 
+  export JAVA_HOME=$(/usr/libexec/java_home)
+  export GRADLE_HOME=/usr/local/opt/gradle/libexec
+  export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
+  export M2_HOME=/usr/local/Cellar/maven/3.6.0/libexec
+
+  export PATH=$PATH:$GRADLE_HOME/bin
+}
+
+setup_java
 
 ##############################################################
 ####                                                     #####
 ####                Python                               #####
 ####                                                     #####
 ##############################################################
-alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+function setup_python() {
+  alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+}
+
+setup_python
 
 
 ##############################################################
@@ -223,19 +241,26 @@ alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance
 ####                Ruby                                 #####
 ####                                                     #####
 ##############################################################
-# load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+function setup_ruby() {
+  # load RVM into a shell session *as a function*
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-# add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+  # add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+  export PATH="$PATH:$HOME/.rvm/bin"
+}
 
+setup_ruby
 
 ##############################################################
 ####                                                     #####
 ####                Rust                                 #####
 ####                                                     #####
 ##############################################################
-export PATH=$HOME/.cargo/bin:$PATH:$HOME/workshop/github/brendangregg/FlameGraph
+function setup_rust() {
+  export PATH=$HOME/.cargo/bin:$PATH:$HOME/workshop/github/brendangregg/FlameGraph
+}
+
+setup_rust
 
 
 ##############################################################
@@ -243,19 +268,24 @@ export PATH=$HOME/.cargo/bin:$PATH:$HOME/workshop/github/brendangregg/FlameGraph
 ####                Flutter                              #####
 ####                                                     #####
 ##############################################################
-export FLUTTER_HOME=$HOME/workshop/flutter
-export PUB_HOSTED_URL=https://pub.flutter-io.cn
-export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+function setup_flutter() {
+  export FLUTTER_HOME=$HOME/workshop/flutter
+  export PUB_HOSTED_URL=https://pub.flutter-io.cn
+  export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
-export PATH=$PATH:$FLUTTER_HOME/bin
+  export PATH=$PATH:$FLUTTER_HOME/bin
+}
 
+setup_flutter
 
 ##############################################################
 ####                                                     #####
 ####                Nim                                  #####
 ####                                                     #####
 ##############################################################
-export PATH=$HOME/.nimble/bin:$PATH
+function setup_nim() {
+  export PATH=$HOME/.nimble/bin:$PATH
+}
 
 
 ##############################################################
@@ -281,16 +311,20 @@ setup_emacs
 ####                ctags                                #####
 ####                                                     #####
 ##############################################################
-# refer, https://gist.github.com/nazgob/1570678
-# replace macOS builtin one with `brew` one
-# first install - `brew install ctags`
-# TODO: install ctags if not exist
-alias ctags="`brew --prefix`/bin/ctags"
+function setup_ctags() {
+  # refer, https://gist.github.com/nazgob/1570678
+  # replace macOS builtin one with `brew` one
+  # first install - `brew install ctags`
+  # TODO: install ctags if not exist
+  alias ctags="`brew --prefix`/bin/ctags"
 
-# ctags setup for golang
-# require `gotags` installed first - https://github.com/jstemmer/gotags
-# TODO: check whether `gotags` is installed in $GOBIN
+  # ctags setup for golang
+  # require `gotags` installed first - https://github.com/jstemmer/gotags
+  # TODO: check whether `gotags` is installed in $GOBIN
 
+}
+
+setup_ctags
 
 ##############################################################
 ####                                                     #####
@@ -311,3 +345,43 @@ function path_prepend() {
 function path_remove() {
   export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`
 }
+
+# load customized scripts from github repo.
+function load_customized_scripts() {
+  mkdir -p ~/.github/shohi && pushd -q "$_"
+
+  local repo="blond"
+
+  # download "blond"
+  if [[ ! -d  "blond" ]]; then
+    git clone https://github.com/shohi/blond.git
+  fi
+
+  # TODO: use main entry
+  source "${repo}/repo_update_gen.sh"
+
+  popd -q
+}
+
+# update kubectl alias
+function update_customized_scripts() {
+  mkdir -p ~/.github/shohi && pushd -q "$_"
+
+  local repo="blond"
+
+  # install gvm
+  if [[ ! -d  "${repo}" ]]; then
+    load_customized_scripts
+  else
+    pushd -q "${PWD}/${repo}"
+
+    git pull --all
+    source "repo_update_gen.sh"
+
+    popd -q
+  fi
+
+  popd -q
+}
+
+load_customized_scripts
