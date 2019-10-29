@@ -279,6 +279,9 @@ noremap <leader>nt :NERDTreeToggle<CR>
 noremap <leader>nf :NERDTreeFocus<CR>
 noremap <leader>no :<C-u>call <SID>only_and_nerdtree()<CR>
 
+" turn on case-sensitive sort
+let g:NERDTreeCaseSensitiveSort=1
+
 " Close all windows except the current one and NERDTree
 " https://vi.stackexchange.com/questions/13331/close-all-windows-except-the-current-one-and-nerdtree
 " only work on vim 8+
