@@ -839,6 +839,9 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "    }
 "  }
 "
+" coc for python
+" https://github.com/neoclide/coc-python
+" :CocInstall coc-python
 
 
 " ------------------ vim-go --------------------
