@@ -1,0 +1,18 @@
+# setting for SSH keep-alive
+Host *
+ ServerAliveInterval 60
+ AddKeysToAgent yes
+ UseKeychain yes
+ IdentityFile ~/.ssh/id_rsa
+
+# rules for dynamic port forwarding.
+# where `172.31.*` is the remote private ip pattern.
+# NOTE: It requires jump server running (start following command).
+# ssh -qTfnN -D 127.0.0.1:62222 ${SSH_VIA}'
+Host 172.31.* # [REMOTE_ADDRESS_RANGE]
+ ProxyCommand /usr/bin/nc -X 4 -x 127.0.0.1:62222 %h %p
+ StrictHostKeyChecking no
+ UserKnownHostsFile=/dev/null
+ user core # [DEFAULT_USER_FOR_REMOTE]
+ IdentityFile [KEY_PAIR]
+ LogLevel ERROR
