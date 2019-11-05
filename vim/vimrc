@@ -168,6 +168,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " visual indent
 Plug 'nathanaelkane/vim-indent-guides'
 
+" A git commit browser in Vim
+Plug 'junegunn/gv.vim'
+"
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
