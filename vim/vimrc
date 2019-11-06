@@ -852,3 +852,12 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " use vim-go's :GoDef short cut (gd)
 " which work better that LanguageClient [LC]
 let g:go_def_mapping_enabled = 1
+
+
+" ------------------ nord-theme --------------------
+" # set comment color
+" augroup nord-theme-overrides
+"  autocmd!
+"  " Use 'nord7' as foreground color for Vim comment titles.
+"  autocmd ColorScheme nord highlight Comment ctermfg=3 guifg=#7b88a1
+" augroup END
