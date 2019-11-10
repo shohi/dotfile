@@ -29,27 +29,63 @@ run_fortune
 ####                BASIC                                #####
 ####                                                     #####
 ##############################################################
-# locale
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export EDITOR=nvim
-export FIREFOX_HOME=/Applications/Firefox.app/Contents/MacOS
 
-export PATH=/usr/local/bin:/usr/bin/sbin:$PATH:$FIREFOX_HOME
+function setup_homebrew() {
+  # https://juejin.im/post/5c738bacf265da2deb6aaf97
+  # https://www.zhihu.com/question/31360766
+  export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
-# useful env
-export HOSTIP=`ipconfig getifaddr en0`
+  # Homebrew's sbin
+  export PATH="/usr/local/sbin:$PATH"
+}
 
-# git & hub
-eval "$(hub alias -s)"
-alias git='LANG=en_US git'
-alias ghh='cd $HOME/workshop/github'
-alias sgh='cd $HOME/workshop/github/shohi'
-alias sws='cd $HOME/workshop'
+function setup_locale() {
+  # locale
+  export LC_ALL=en_US.UTF-8
+  export LANG=en_US.UTF-8
+}
+
+function setup_path() {
+  export EDITOR=nvim
+  export FIREFOX_HOME=/Applications/Firefox.app/Contents/MacOS
+  export PATH="/usr/local/bin:$PATH:$FIREFOX_HOME"
+}
+
+function setup_git() {
+  # git & hub
+  eval "$(hub alias -s)"
+  alias git='LANG=en_US git'
+}
+
+function setup_shortcuts() {
+  # shortcuts for accessing folder
+  alias sdl='cd ~/Downloads'
+  alias sdc='cd ~/Documents'
+
+  # workshop and github
+  alias ghh='cd $HOME/workshop/github'
+  alias sgh='cd $HOME/workshop/github/shohi'
+  alias sws='cd $HOME/workshop'
+
+  alias remote="[[ -d $HOME/workshop/remote ]] && cd $HOME/workshop/remote"
+
+  # useful env
+  export HOSTIP=$(ipconfig getifaddr en0)
+}
+
+setup_homebrew
+setup_locale
+setup_path
+setup_git
+setup_shortcuts
 
 # SSH
 # Dynamic Port Forwarding
 # alias aws_proxy='ssh -qTfnN -D [local_ip]:[local_port] [via_user]@[via_ip]'
+#
+# Port Forwarding
+# ssh -fN -L [local_port]:[remote_ip]:[remote_port] [via_user]:[via_ip]
+# ssh -fN -L 7002:172.31.6.103:6443 ${SSH_VIA}
 function set_aws_proxy() {
   if [[ -n "${SSH_VIA}" ]]; then
     alias aws_proxy='ssh -qTfnN -D 127.0.0.1:62222 ${SSH_VIA}'
@@ -57,14 +93,6 @@ function set_aws_proxy() {
 }
 
 set_aws_proxy
-
-# shortcuts for accessing folder
-alias sdl='cd ~/Downloads'
-alias sdc='cd ~/Documents'
-
-# Port Forwarding
-# ssh -fN -L [local_port]:[remote_ip]:[remote_port] [via_user]:[via_ip]
-# ssh -fN -L 7002:172.31.6.103:6443 ${SSH_VIA}
 
 # autojump
 [[ -f /usr/local/etc/profile.d/autojump.sh ]] && . /usr/local/etc/profile.d/autojump.sh
@@ -219,7 +247,7 @@ function setup_java() {
   export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
   export M2_HOME=/usr/local/Cellar/maven/3.6.0/libexec
 
-  export PATH=$PATH:$GRADLE_HOME/bin
+  export PATH="$PATH:$GRADLE_HOME/bin"
 }
 
 setup_java
@@ -257,7 +285,7 @@ setup_ruby
 ####                                                     #####
 ##############################################################
 function setup_rust() {
-  export PATH=$HOME/.cargo/bin:$PATH:$HOME/workshop/github/brendangregg/FlameGraph
+  export PATH="$HOME/.cargo/bin:$PATH:$HOME/workshop/github/brendangregg/FlameGraph"
 }
 
 setup_rust
@@ -273,7 +301,7 @@ function setup_flutter() {
   export PUB_HOSTED_URL=https://pub.flutter-io.cn
   export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
-  export PATH=$PATH:$FLUTTER_HOME/bin
+  export PATH="$PATH:$FLUTTER_HOME/bin"
 }
 
 setup_flutter
@@ -365,13 +393,13 @@ function load_customized_scripts() {
   popd -q
 }
 
-# update kubectl alias
+# update customized scripts
 function update_customized_scripts() {
   mkdir -p ~/.github/shohi && pushd -q "$_"
 
   local repo="blond"
 
-  # install gvm
+  # install customized scripts
   if [[ ! -d  "${repo}" ]]; then
     load_customized_scripts
   else
