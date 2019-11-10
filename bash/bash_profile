@@ -33,7 +33,7 @@ run_fortune
 function setup_homebrew() {
   # https://juejin.im/post/5c738bacf265da2deb6aaf97
   # https://www.zhihu.com/question/31360766
-  export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+  export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
 
   # Homebrew's sbin
   export PATH="/usr/local/sbin:$PATH"
@@ -47,7 +47,7 @@ function setup_locale() {
 
 function setup_path() {
   export EDITOR=nvim
-  export FIREFOX_HOME=/Applications/Firefox.app/Contents/MacOS
+  export FIREFOX_HOME="/Applications/Firefox.app/Contents/MacOS"
   export PATH="/usr/local/bin:$PATH:$FIREFOX_HOME"
 }
 
@@ -275,6 +275,16 @@ function setup_ruby() {
 
   # add RVM to PATH for scripting. Make sure this is the last PATH variable change.
   export PATH="$PATH:$HOME/.rvm/bin"
+
+  # set RubyGems Source
+  # check gem sources - `gem sources -l`, and replace the source.
+  # gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
+  if [[ -x "$(command -v gem)" ]]; then
+    local gem_source="https://gems.ruby-china.com/"
+    if ! $(gem sources -l | grep -q ${gem_source}) ; then
+      gem sources --add "${gem_source}" --remove https://rubygems.org/
+    fi
+  fi
 }
 
 setup_ruby
