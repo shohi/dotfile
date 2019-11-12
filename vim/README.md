@@ -23,6 +23,10 @@ mv ~/tmpdotfile/vim/vimrc ~/.vimrc
 # refer, <https://neovim.io/doc/user/nvim.html#nvim-from-vim>
 mkdir -p ~/.config/nvim && copy ~/tmpdotfile/vim/nvim_init.vim ~/.config/nvim/init.vim
 
+# 1.5 customized snippets
+# or create a soft link -- `ln -s ~/tmpdotfile/vim/UltiSnips ~/.vimrc/MyUltiSnips`
+mv ~/tmpdotfile/vim/UltiSnips ~/.vimrc/MyUltiSnips
+
 # 2. tmux
 
 # 2.1 install tmux

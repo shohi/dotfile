@@ -1,0 +1,15 @@
+# customized snippets for Markdown
+
+snippet head "Jekyll post header" b
+---
+layout: post
+title: ${1:title}
+category: ${2:tech}
+guid: `uuidgen`
+tags: [${3:tech}]
+
+---
+{% include JB/setup %}
+
+endsnippet
+
