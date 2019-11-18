@@ -397,9 +397,12 @@ function load_customized_scripts() {
     git clone https://github.com/shohi/blond.git
   fi
 
-  # TODO: use main entry
-  source "${repo}/repo_update_gen.sh"
+  # use main entry
+  pushd -q "${repo}"
+  source "main.sh"
+  popd -q
 
+  # restore previous working directory where the function is called.
   popd -q
 }
 
@@ -416,7 +419,7 @@ function update_customized_scripts() {
     pushd -q "${PWD}/${repo}"
 
     git pull --all
-    source "repo_update_gen.sh"
+    source "main.sh"
 
     popd -q
   fi
