@@ -84,3 +84,4 @@ use `nord` color scheme for all - `vim/tmux/iTerm2`
 6. `nord` -- nord color scheme for iTerm2, <https://github.com/arcticicestudio/nord-iterm2>
 7. `fonts` -- Patched fonts for Powerline users, <https://github.com/powerline/fonts>
 8. The Ultimate Vim Configuration, <https://github.com/amix/vimrc/blob/master/vimrcs/basic.vim>
+9. Google Vimscript Style Guide, <https://google.github.io/styleguide/vimscriptguide.xml>

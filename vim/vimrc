@@ -1,3 +1,4 @@
+" -*- vim: set ft=vim: -*-
 " use vim-plug as plugin manager. Automatically executes filetype plugin indent on and syntax enable.
 set nocompatible              " be iMproved, required
 
@@ -170,7 +171,12 @@ Plug 'nathanaelkane/vim-indent-guides'
 
 " A git commit browser in Vim
 Plug 'junegunn/gv.vim'
-"
+
+" Easily adds brief author info and license headers
+Plug 'alpertuna/vim-header'
+
+" code formatter for shell
+Plug 'chiel92/vim-autoformat'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -263,7 +269,7 @@ nnoremap <leader>ev :vsplit ~/.vimrc<CR>
 nnoremap <leader>sv :source ~/.vimrc<CR>
 
 " -------------- indent ----------------------
-autocmd FileType sh setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType sh,vim setlocal shiftwidth=2 softtabstop=2 expandtab
 
 " -------------- color scheme ----------------
 " nord setting
@@ -861,3 +867,30 @@ let g:go_def_mapping_enabled = 1
 "  " Use 'nord7' as foreground color for Vim comment titles.
 "  autocmd ColorScheme nord highlight Comment ctermfg=3 guifg=#7b88a1
 " augroup END
+
+" ------------------ vim-header --------------------
+"  vim-header behaves wiredly for header update, better
+"  to use it for adding license only.
+"
+"  disable auto insert
+let g:header_auto_add_header = 0
+let g:header_field_timestamp = 0
+" not clear how it works
+let g:header_max_size = 7
+
+
+" ------------------ vim-autoformat --------------------
+" https://github.com/chiel92/vim-autoformat
+
+" shell script formatter using google style
+" needs `shfmt` installed, https://github.com/mvdan/sh
+let g:formatdef_shfmt = '"shfmt -ci -i ".(&expandtab ? shiftwidth() : "0")'
+let g:formatters_sh = ['shfmt']
+
+augroup autoformat_group
+  autocmd!
+  " auto format on save for sh
+  " https://github.com/z0mbix/vim-shfmt/blob/master/plugin/shfmt.vim
+  autocmd BufWritePre *.sh :Autoformat
+  autocmd FileType sh autocmd BufWritePre <buffer> :Autoformat
+augroup end
