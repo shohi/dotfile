@@ -893,4 +893,6 @@ augroup autoformat_group
   " https://github.com/z0mbix/vim-shfmt/blob/master/plugin/shfmt.vim
   autocmd BufWritePre *.sh :Autoformat
   autocmd FileType sh autocmd BufWritePre <buffer> :Autoformat
+
+  " TODO: add formatter for vimscript
 augroup end
