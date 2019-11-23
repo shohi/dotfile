@@ -257,6 +257,42 @@ setup_java
 ####                                                     #####
 ##############################################################
 function setup_python() {
+  # install python version manager
+  if [[ ! -x "$(command -v pyenv)" ]]; then
+    echo "please install python version manager firstly - pyenv."
+    return
+  else
+    # set MIRROR for python itself
+    # export PYTHON_BUILD_MIRROR_URL="https://npm.taobao.org/mirrors/python"
+    # NOTE: As the post points out, current pyenv can't work with the configure properly.
+    # The workaround is to download the tar manually and set `PYTHON_BUILD_CACHE_PATH` to
+    # the download directory, e.g
+    # mkdir -p ~/.pyenv/cache
+    # cd ~/.pyenv/cache && wget "https://npm.taobao.org/mirrors/python/pyton-3.8.0.tar.xz"
+    # PYTHON_BUILD_CACHE_PATH="$PWD" pyenv install 3.8.0
+    mkdir -p "$HOME/.pyenv/cache"
+    export PYTHON_BUILD_CACHE_PATH="$HOME/.pyenv/cache"
+    eval "$(pyenv init -)"
+  fi
+
+  # use tsinghua mirror
+  # https://mirror.tuna.tsinghua.edu.cn/help/pypi/
+  # TODO: check geolocation
+  if [[ -x "$(command -v pip)" ]]; then
+    local pver=$(pip --version | awk -F '[ .]' '{print $2}')
+    if (($pver < 10));then
+      pip install pip -U
+    fi
+    local mirror_url="https://pypi.tuna.tsinghua.edu.cn/simple"
+    local cur_url="$(pip config get global.index-url)"
+    if [ "${cur_url}" != "${mirror_url}" ]; then
+      pip config set global.index-url "${mirror_url}"
+    fi
+  else
+    echo "please install python first using pyevn."
+    return
+  fi
+
   if [[ -x "$(command -v python3)" ]]; then
     alias ipy="python3 -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
   fi
