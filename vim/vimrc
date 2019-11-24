@@ -859,6 +859,10 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " which work better that LanguageClient [LC]
 let g:go_def_mapping_enabled = 1
 
+let g:go_def_mode = 'gopls'
+let g:go_referrers_mode = 'gopls'
+let g:go_info_mode = 'gopls'
+
 
 " ------------------ nord-theme --------------------
 " # set comment color
