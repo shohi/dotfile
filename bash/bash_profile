@@ -280,12 +280,15 @@ function setup_python() {
   # TODO: check geolocation
   if [[ -x "$(command -v pip)" ]]; then
     local pver=$(pip --version | awk -F '[ .]' '{print $2}')
-    if (($pver < 10));then
+    if (($pver < 10)); then
       pip install pip -U
     fi
     local mirror_url="https://pypi.tuna.tsinghua.edu.cn/simple"
+
+    # NOTE: pip config file `$HOME/.config/pip` and the `global.index-url`
+    # item may be not exist. check exit code `$?`.
     local cur_url="$(pip config get global.index-url)"
-    if [ "${cur_url}" != "${mirror_url}" ]; then
+    if [ $? -ne 0 ] || [ "${cur_url}" != "${mirror_url}" ]; then
       pip config set global.index-url "${mirror_url}"
     fi
   else
@@ -294,6 +297,10 @@ function setup_python() {
   fi
 
   if [[ -x "$(command -v python3)" ]]; then
+    if ! { pip list | grep "ipython" >/dev/null }; then
+      pip install -U ipython
+    fi
+
     alias ipy="python3 -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
   fi
 }
