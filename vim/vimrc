@@ -177,6 +177,10 @@ Plug 'alpertuna/vim-header'
 
 " code formatter for shell
 Plug 'chiel92/vim-autoformat'
+
+" shell interface
+Plug 'shougo/deol.nvim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -852,7 +856,19 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " https://github.com/neoclide/coc-python
 " :CocInstall coc-python
 
-
+" coc for bash - needs bash-language-server installed firstly
+" https://github.com/mads-hartmann/bash-language-server
+" {
+"   languageserver": {
+"     "bash": {
+"       "command": "bash-language-server",
+"       "args": ["start"],
+"       "filetypes": ["sh"],
+"       "ignoredRootPaths": ["~"]
+"     }
+"   }
+" }
+"
 " ------------------ vim-go --------------------
 "
 " use vim-go's :GoDef short cut (gd)
