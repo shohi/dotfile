@@ -36,6 +36,7 @@ brew install tmux
 # refer, <https://github.com/tmux-plugins/tpm>
 
 # 2.3 update tmux config
+# or create a soft link -- `ln -s ~/tmpdotfile/vim/tmux.conf ~/.tmux.conf`
 mv ~/tmpdotfile/vim/tmux.conf ~/.tmux.conf
 
 # 2.4 install tmux plugins
