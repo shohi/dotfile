@@ -919,3 +919,13 @@ augroup autoformat_group
 
   " TODO: add formatter for vimscript
 augroup end
+
+
+" ------------------ airline-ale --------------------
+" https://github.com/dense-analysis/ale
+" let g:airline#extensions#ale#enabled = 1
+" let airline#extensions#ale#show_line_numbers = 1
+
+
+" ------------------ airline-coc --------------------
+" https://github.com/neoclide/coc.nvim/blob/master/doc/coc.txt
