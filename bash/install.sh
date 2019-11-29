@@ -7,22 +7,18 @@ else
 fi
 
 # TODO: add login shell check
-function init_repo() {
-  mkdir -p ~/.local/config/shohi && pushd -q "$_"
+function download_script() {
+  mkdir -p ~/.local/config/bash && pushd -q "$_"
 
-  if [[ -d "dotfile" ]]; then
-    pushd -q $PWD/dotfile
-    git pull
-    popd -q
-  else
-    git clone https://github.com/shohi/dotfile.git
+  if [[ ! -f "bash_profile" ]]; then
+    curl -sSL -O "https://github.com/shohi/dotfile/raw/master/bash/bash_profile"
   fi
 
   popd -q
 }
 
 function install_script() {
-  echo "source ~/.local/config/shohi/dotfile/bash/bash_profile" >> ~/.bash_profile
+  echo "source ~/.local/config/bash/bash_profile" >> ~/.bash_profile
   source ~/.bash_profile
 }
 
@@ -30,8 +26,11 @@ function install_script() {
 #                             main entry                              #
 #######################################################################
 function main() {
-  init_repo
-  install_script
+  download_script
+
+  if [ $? -eq 0 ]; then
+    install_script
+  fi
 }
 
 main
