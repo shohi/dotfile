@@ -10,15 +10,23 @@
 ##############################################################
 # refer, https://github.com/ruanyf/fortunes
 function run_fortune() {
-  if [[ -x "$(command -v fortune)" ]]; then
-    echo
-    # echo "=============== Quote Of The Day ==============="
-    echo
-    fortune
-    echo
-    # echo "================================================"
-    echo
+  if [[ ! -x "$(command -v fortune)" ]]; then
+    return
   fi
+
+  # echo "=============== Quote Of The Day ==============="
+  echo
+
+  # if [[ -x "$(command -v lolcat)" ]]; then
+  #   fortune | lolcat
+  # else
+  #   fortune
+  # fi
+
+  fortune
+
+  # echo "================================================"
+  echo "\n"
 }
 
 run_fortune
@@ -256,7 +264,8 @@ setup_java
 ####                Python                               #####
 ####                                                     #####
 ##############################################################
-function setup_python() {
+
+function init_pyenv() {
   # install python version manager
   if [[ ! -x "$(command -v pyenv)" ]]; then
     echo "please install python version manager firstly - pyenv."
@@ -272,24 +281,40 @@ function setup_python() {
     # PYTHON_BUILD_CACHE_PATH="$PWD" pyenv install 3.8.0
     mkdir -p "$HOME/.pyenv/cache"
     export PYTHON_BUILD_CACHE_PATH="$HOME/.pyenv/cache"
-    eval "$(pyenv init -)"
+
+    # pyenv init is slow
+    # issue, https://github.com/pyenv/pyenv/issues/784
+    eval "$(pyenv init - zsh --no-rehash)"
   fi
+}
+
+function check_pip_version() {
+  local pver=$(pip3 --version | awk -F '[ .]' '{print $2}')
+  if (($pver < 10)); then
+    pip3 install pip -U
+  fi
+}
+
+function setup_python() {
+  # NOTE: as `$(pyenv init - )` is slow, leave it to load
+  # manually.
+
+  # TODO: find out a way to lazy-load pyenv
+  init_pyenv
 
   # use tsinghua mirror
   # https://mirror.tuna.tsinghua.edu.cn/help/pypi/
   # TODO: check geolocation
-  if [[ -x "$(command -v pip)" ]]; then
-    local pver=$(pip --version | awk -F '[ .]' '{print $2}')
-    if (($pver < 10)); then
-      pip install pip -U
-    fi
+  if [[ -x "$(command -v pip3)" ]]; then
     local mirror_url="https://pypi.tuna.tsinghua.edu.cn/simple"
 
     # NOTE: pip config file `$HOME/.config/pip` and the `global.index-url`
     # item may be not exist. check exit code `$?`.
-    local cur_url="$(pip config get global.index-url)"
+    local cur_url="$(pip3 config get global.index-url)"
     if [ $? -ne 0 ] || [ "${cur_url}" != "${mirror_url}" ]; then
-      pip config set global.index-url "${mirror_url}"
+      check_pip_version
+
+      pip3 config set global.index-url "${mirror_url}"
     fi
   else
     echo "please install python first using pyevn."
@@ -297,8 +322,8 @@ function setup_python() {
   fi
 
   if [[ -x "$(command -v python3)" ]]; then
-    if ! { pip list | grep "ipython" >/dev/null }; then
-      pip install -U ipython
+    if ! { pip3 list | grep "ipython" >/dev/null }; then
+      pip3 install -U ipython
     fi
 
     alias ipy="python3 -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
