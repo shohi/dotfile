@@ -305,6 +305,10 @@ function setup_python() {
   # use tsinghua mirror
   # https://mirror.tuna.tsinghua.edu.cn/help/pypi/
   # TODO: check geolocation
+  if [[ ! -z "${DISABLE_PYTHON_MIRROR}" ]]; then
+    return
+  fi
+
   if [[ -x "$(command -v pip3)" ]]; then
     local mirror_url="https://pypi.tuna.tsinghua.edu.cn/simple"
 
