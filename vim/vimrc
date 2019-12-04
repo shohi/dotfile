@@ -193,54 +193,36 @@ call plug#end()
 " ------------------------------------------- "
 
 " -------------- basic  ----------------------
-" set utf-8 as default encoding
-set encoding=utf-8
+set encoding=utf-8        " set utf-8 as default encoding
+set number                " show number line
 
-" show number line
-set number
+set expandtab             " On pressing tab, insert 4 spaces
+set tabstop=4             " show existing tab with 4 spaces width
+set shiftwidth=4          " when indenting with '>', use 4 spaces width
 
-" show existing tab with 4 spaces width
-set tabstop=4
+set dictionary=/usr/share/dict/words " enable dictionary completion
 
-" when indenting with '>', use 4 spaces width
-set shiftwidth=4
-
-" On pressing tab, insert 4 spaces
-set expandtab
-
-" enable dictionary completion
-set dictionary=/usr/share/dict/words
-
-" enable folding and keep unfolded when opening a file
-set foldmethod=indent
+set foldmethod=indent     " enable folding and keep unfolded when opening a file
 set foldlevel=99
 
-" enable copy/paste between clipboard and vim
-set clipboard^=unnamed
+set clipboard^=unnamed    " enable copy/paste between clipboard and vim
+set autoread              " set to auto read when a file is changed from the outside
+
+set ignorecase            " when searching try to be smart about cases
+set smartcase
+
+filetype plugin on        " enable filetype plugin
 
 " clear highlighting on escape in normal mode
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
 
-" add shortcut for listing buffers
-nnoremap <C-b> :Buffers<CR>
-
-" enable filetype plugin
-filetype plugin on
+" fast saving
+nnoremap <leader>w :w!<CR>
 
 " enable matchit plugin. this plugin does not work well with
 " `match-up`.
 " runtime macros/matchit.vim
-
-" set to auto read when a file is changed from the outside
-set autoread
-
-" fast saving
-nnoremap <leader>w :w!<CR>
-
-" when searching try to be smart about cases
-set ignorecase
-set smartcase
 
 " visual mode pressing * or # searches for the current selection
 vnoremap <silent> * :<C-u>call <SID>visual_selection('', '')<CR>/<C-R>=@/<CR><CR>
@@ -372,6 +354,9 @@ autocmd FileType rust nmap <leader>tt :RustTest -- --nocapture<CR>
 
 
 " -------------- fzf -------------------------
+" add shortcut for listing buffers
+nnoremap <C-b> :Buffers<CR>
+
 nnoremap <C-p> :FZF<CR>
 
 " user defined command - `Rg`
@@ -854,10 +839,14 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "      }
 "    }
 "  }
-"
+
 " coc for python
 " https://github.com/neoclide/coc-python
+"
 " :CocInstall coc-python
+"
+" also need install neovim
+" $> pip3 install neovim
 
 " coc for bash - needs bash-language-server installed firstly
 " https://github.com/mads-hartmann/bash-language-server
@@ -871,7 +860,13 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "     }
 "   }
 " }
+
+" coc for rust
+" https://github.com/fannheyward/coc-rust-analyzer
 "
+" :CocInstall coc-rust-analyzer
+
+
 " ------------------ vim-go --------------------
 "
 " use vim-go's :GoDef short cut (gd)
