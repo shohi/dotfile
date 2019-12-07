@@ -1,7 +1,7 @@
-# -*- vim: set ft=bash: -*-
+#!/usr/bin/env bash
 
 # NOTE: load `~/.bashrc` first which contains personal sensitive setting
-[[ -f ~/.bashrc ]] && source ~/.bashrc
+[[ -f "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
 
 ##############################################################
 ####                                                     #####
@@ -26,7 +26,7 @@ function run_fortune() {
   fortune
 
   # echo "================================================"
-  echo "\n"
+  printf "\n"
 }
 
 run_fortune
@@ -74,10 +74,12 @@ function setup_shortcuts() {
   alias sgh='cd $HOME/workshop/github/shohi'
   alias sws='cd $HOME/workshop'
 
-  alias remote="[[ -d $HOME/workshop/remote ]] && cd $HOME/workshop/remote"
+  alias remote='[[ -d $HOME/workshop/remote ]] && cd $HOME/workshop/remote'
 
   # useful env
-  export HOSTIP=$(ipconfig getifaddr en0)
+  local hostip
+  hostip=$(ipconfig getifaddr en0)
+  export HOSTIP=${hostip}
 }
 
 setup_homebrew
@@ -117,7 +119,7 @@ export GO_BINARY_BASE_URL="https://dl.google.com/go"
 
 # install gvm
 function setup_gvm() {
-  mkdir -p ~/.github/moovweb && pushd -q "$_"
+  mkdir -p "$HOME"/.github/moovweb && pushd -q "$_" || return
 
   local repo="gvm"
 
@@ -129,14 +131,14 @@ function setup_gvm() {
   fi
 
   # activate it
-  source ~/.gvm/scripts/gvm
+  source "$HOME"/.gvm/scripts/gvm
 
-  popd -q
+  popd -q || return
 }
 
 # update gvm
 function update_gvm() {
-  mkdir -p ~/.github/moovweb && pushd -q "$_"
+  mkdir -p "$HOME"/.github/moovweb && pushd -q "$_" || return
 
   local repo="gvm"
 
@@ -144,16 +146,16 @@ function update_gvm() {
   if [[ ! -d "$repo" ]]; then
     setup_gvm
   else
-    pushd -q $PWD/$repo
+    pushd -q "$PWD/$repo" || return
 
     # update repo and activate it
     git pull --all
-    source ~/.gvm/scripts/gvm
+    source "$HOME"/.gvm/scripts/gvm
 
-    popd -q
+    popd -q || return
   fi
 
-  popd -q
+  popd -q || return
 }
 
 setup_gvm
@@ -163,7 +165,7 @@ function setup_golang() {
   export GOROOT=${GOROOT:-/usr/local/opt/go/libexec}
   export DEFAULT_GOPATH=${GOPATH:-$HOME/workshop/go}
   export GOBIN=$DEFAULT_GOPATH/bin
-  mkdir -p $DEFAULT_GOPATH/{src,bin,pkg}
+  mkdir -p "$DEFAULT_GOPATH"/{src,bin,pkg}
 
   if [[ -z "${WORK_GOPATH}" ]]; then
     export GOPATH=$DEFAULT_GOPATH
@@ -199,7 +201,7 @@ setup_golang
 ####                                                     #####
 ##############################################################
 function set_kubectl_alias() {
-  mkdir -p ~/.github/ahmetb && pushd -q "$_"
+  mkdir -p "$HOME"/.github/ahmetb && pushd -q "$_" || return
 
   # download kubectl-alias
   if [[ ! -d "kubectl-alias" ]]; then
@@ -211,33 +213,69 @@ function set_kubectl_alias() {
   alias kgnoa='kubectl get node | grep -v "NotReady"'
   alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
 
-  popd -q
+  popd -q || return
 }
 
 # update kubectl alias
 function update_kubectl_alias() {
-  mkdir -p ~/.github/ahmetb && pushd -q "$_"
+  mkdir -p "$HOME"/.github/ahmetb && pushd -q "$_" || return
 
   local repo="kubectl-alias"
 
-  # install gvm
-  if [[ ! -d "$repo" ]]; then
-    set_kubectl_alias
-  else
-    pushd -q $PWD/$repo
+  # install kubectl-alias
+  if [[ -d "$repo" ]]; then
+    pushd -q "$PWD/$repo" || return
     git pull --all
-    popd -q
+    popd -q || return
   fi
 
-  popd -q
+  set_kubectl_alias
+
+  popd -q || return
+}
+
+function set_kubectx() {
+  mkdir -p "$HOME"/.github/ahmetb && pushd -q "$_" || return
+
+  # download kubectx
+  if [[ ! -d "kubectx" ]]; then
+    git clone https://github.com/ahmetb/kubectx.git
+  fi
+
+  # add soft link to /usr/local/bin
+  chmod +x "$PWD"/kubectx/kubectx
+  chmod +x "$PWD"/kubectx/kubens
+
+  ln -s -f "$PWD"/kubectx/kubectx /usr/local/bin/kubectx
+  ln -s -f "$PWD"/kubectx/kubens /usr/local/bin/kubens
+
+  # TODO: link auto completion scripts
+  popd -q || return
+}
+
+function update_kubectx() {
+  mkdir -p "$HOME"/.github/ahmetb && pushd -q "$_" || return
+
+  local repo="kubectx"
+
+  # install kubectx
+  if [[ -d "$repo" ]]; then
+    pushd -q "$PWD/$repo" || return
+    git pull --all
+    popd -q || return
+  fi
+
+  set_kubectx
+  popd -q || return
 }
 
 set_kubectl_alias
+set_kubectx
 
 # print kubectl full command before running
 function kubectl() {
-  echo "+ kubectl $@"
-  command kubectl $@
+  echo "+ kubectl $*"
+  command kubectl "$@"
 }
 
 ##############################################################
@@ -248,12 +286,15 @@ function kubectl() {
 
 # setup env for java
 function setup_java() {
+  local jh
+  jh="$(/usr/libexec/java_home)"
 
-  export JAVA_HOME=$(/usr/libexec/java_home)
+  export JAVA_HOME=${jh}
   export GRADLE_HOME=/usr/local/opt/gradle/libexec
   export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
   export M2_HOME=/usr/local/Cellar/maven/3.6.0/libexec
 
+  export JAVA_HOME
   export PATH="$PATH:$GRADLE_HOME/bin"
 }
 
@@ -289,8 +330,9 @@ function init_pyenv() {
 }
 
 function check_pip_version() {
-  local pver=$(pip3 --version | awk -F '[ .]' '{print $2}')
-  if (($pver < 10)); then
+  local pver
+  pver=$(pip3 --version | awk -F '[ .]' '{print $2}')
+  if [ "$pver" -lt 10 ]; then
     pip3 install pip -U
   fi
 }
@@ -305,7 +347,7 @@ function setup_python() {
   # use tsinghua mirror
   # https://mirror.tuna.tsinghua.edu.cn/help/pypi/
   # TODO: check geolocation
-  if [[ ! -z "${DISABLE_PYTHON_MIRROR}" ]]; then
+  if [[ -n "${DISABLE_PYTHON_MIRROR}" ]]; then
     return
   fi
 
@@ -314,7 +356,8 @@ function setup_python() {
 
     # NOTE: pip config file `$HOME/.config/pip` and the `global.index-url`
     # item may be not exist. check exit code `$?`.
-    local cur_url="$(pip3 config get global.index-url)"
+    local cur_url
+    cur_url="$(pip3 config get global.index-url)"
     if [ $? -ne 0 ] || [ "${cur_url}" != "${mirror_url}" ]; then
       check_pip_version
 
@@ -326,7 +369,7 @@ function setup_python() {
   fi
 
   if [[ -x "$(command -v python3)" ]]; then
-    if ! { pip3 list | grep "ipython" >/dev/null }; then
+    if ! pip3 list | grep "ipython" >/dev/null; then
       pip3 install -U ipython
     fi
 
@@ -353,7 +396,7 @@ function setup_ruby() {
   # gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
   if [[ -x "$(command -v gem)" ]]; then
     local gem_source="https://gems.ruby-china.com/"
-    if ! $(gem sources -l | grep -q ${gem_source}); then
+    if ! gem sources -l | grep -q ${gem_source}; then
       gem sources --add "${gem_source}" --remove https://rubygems.org/
     fi
   fi
@@ -366,7 +409,30 @@ setup_ruby
 ####                Rust                                 #####
 ####                                                     #####
 ##############################################################
+
 function setup_rust() {
+  mkdir -p ~/.cargo
+
+  # crates.io mirror, https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates
+  if [[ -z "${DISABLE_CRATES_IO_MIRROR}" ]]; then
+    if [[ ! -f "$HOME/.cargo/use_ustc_mirror" ]]; then
+      touch "$HOME/.cargo/use_ustc_mirror"
+
+      local conf
+      conf=$(
+        cat <<HEREDOC
+[source.crates-io]
+registry = "https://github.com/rust-lang/crates.io-index"
+replace-with = 'ustc'
+[source.ustc]
+registry = 'git://mirrors.ustc.edu.cn/crates.io-index'
+HEREDOC
+      )
+
+      echo "${conf}" >~/.cargo/config
+    fi
+  fi
+
   export PATH="$HOME/.cargo/bin:$PATH:$HOME/workshop/github/brendangregg/FlameGraph"
 }
 
@@ -425,7 +491,7 @@ function setup_ctags() {
   # replace macOS builtin one with `brew` one
   # first install - `brew install ctags`
   # TODO: install ctags if not exist
-  alias ctags="$(brew --prefix)/bin/ctags"
+  alias ctags='$(brew --prefix)/bin/ctags'
 
   # ctags setup for golang
   # require `gotags` installed first - https://github.com/jstemmer/gotags
@@ -442,22 +508,24 @@ setup_ctags
 ##############################################################
 # refer, https://stackoverflow.com/questions/370047/what-is-the-most-elegant-way-to-remove-a-path-from-the-path-variable-in-bash
 function path_append() {
-  path_remove $1
+  path_remove "$1"
   export PATH="$PATH:$1"
 }
 
 function path_prepend() {
-  path_remove $1
+  path_remove "$1"
   export PATH="$1:$PATH"
 }
 
 function path_remove() {
-  export PATH=$(echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//')
+  local np
+  np=$(echo -n "$PATH" | awk -v RS=: -v ORS=: '$0 != "'"$1"'"' | sed 's/:$//')
+  export PATH=$np
 }
 
 # load customized scripts from github repo.
 function load_customized_scripts() {
-  mkdir -p ~/.github/shohi && pushd -q "$_"
+  mkdir -p ~/.github/shohi && pushd -q "$_" || return
 
   local repo="blond"
 
@@ -467,17 +535,17 @@ function load_customized_scripts() {
   fi
 
   # use main entry
-  pushd -q "${repo}"
+  pushd -q "${repo}" || return
   source "main.sh"
-  popd -q
+  popd -q || return
 
   # restore previous working directory where the function is called.
-  popd -q
+  popd -q || return
 }
 
 # update customized scripts
 function update_customized_scripts() {
-  mkdir -p ~/.github/shohi && pushd -q "$_"
+  mkdir -p ~/.github/shohi && pushd -q "$_" || return
 
   local repo="blond"
 
@@ -485,15 +553,17 @@ function update_customized_scripts() {
   if [[ ! -d "${repo}" ]]; then
     load_customized_scripts
   else
-    pushd -q "${PWD}/${repo}"
+    pushd -q "${PWD}/${repo}" || return
 
     git pull --all
     source "main.sh"
 
-    popd -q
+    popd -q || return
   fi
 
-  popd -q
+  popd -q || return
 }
 
 load_customized_scripts
+
+# -*- vim: set ft=bash: -*-
