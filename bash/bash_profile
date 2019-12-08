@@ -95,6 +95,19 @@ setup_shortcuts
 # Port Forwarding
 # ssh -fN -L [local_port]:[remote_ip]:[remote_port] [via_user]:[via_ip]
 # ssh -fN -L 7002:172.31.6.103:6443 ${SSH_VIA}
+
+function set_openssl() {
+  # need openssl installed by homebrew, e.g.
+  # "brew install opensll"
+
+  export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+  export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+  export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+  export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+}
+
+set_openssl
+
 function set_aws_proxy() {
   if [[ -n "${SSH_VIA}" ]]; then
     alias aws_proxy='ssh -qTfnN -D 127.0.0.1:62222 ${SSH_VIA}'
