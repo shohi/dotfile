@@ -760,8 +760,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -847,7 +847,9 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "
 " also need install neovim
 " $> pip3 install neovim
+autocmd FileType python nnoremap <silent> <leader>si :<C-u>CocCommand python.sortImports<cr>
 
+"
 " coc for bash - needs bash-language-server installed firstly
 " https://github.com/mads-hartmann/bash-language-server
 " {
@@ -905,14 +907,21 @@ let g:header_max_size = 7
 let g:formatdef_shfmt = '"shfmt -ci -i ".(&expandtab ? shiftwidth() : "0")'
 let g:formatters_sh = ['shfmt']
 
+xmap <silent> <leader>ff :Autoformat<CR>
+nmap <silent> <leader>ff :Autoformat<CR>
+
 augroup autoformat_group
   autocmd!
-  " auto format on save for sh
+  " auto format on save for [sh,py]
   " https://github.com/z0mbix/vim-shfmt/blob/master/plugin/shfmt.vim
   autocmd BufWritePre *.sh :Autoformat
   autocmd FileType sh autocmd BufWritePre <buffer> :Autoformat
 
   " TODO: add formatter for vimscript
+
+  " auto format on save for python
+  " autocmd BufWritePre *.py :Autoformat
+  " autocmd FileType python autocmd BufWritePre <buffer> :Autoformat
 augroup end
 
 
