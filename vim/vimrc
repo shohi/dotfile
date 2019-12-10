@@ -184,6 +184,9 @@ Plug 'shougo/deol.nvim'
 " quick run
 Plug 'thinca/vim-quickrun'
 
+" R support
+Plug 'jalvesaq/nvim-r'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -868,6 +871,10 @@ autocmd FileType python nnoremap <silent> <leader>si :<C-u>CocCommand python.sor
 "
 " :CocInstall coc-rust-analyzer
 
+" coc for R
+" https://github.com/neoclide/coc-r-lsp
+"
+" :CocInstall coc-r-lsp
 
 " ------------------ vim-go --------------------
 "
