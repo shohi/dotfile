@@ -40,7 +40,18 @@ run_fortune
 function setup_homebrew() {
   # https://juejin.im/post/5c738bacf265da2deb6aaf97
   # https://www.zhihu.com/question/31360766
-  export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+
+  # use mirror for homebrew
+  # https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git
+  if [[ -z "${DISABLE_BREW_MIRROR}" ]]; then
+    export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+
+    (cd "$(brew --repo)" &&
+      git remote set-url origin https://mirrors.ustc.edu.cn/brew.git)
+
+    (cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" &&
+      git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git)
+  fi
 
   # Homebrew's sbin
   export PATH="/usr/local/sbin:$PATH"
