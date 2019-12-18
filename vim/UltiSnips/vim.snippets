@@ -1,0 +1,9 @@
+# customized snippets for vim script
+
+snippet lcl "long comment line" b
+`!p
+snip.rv = '" '  + '-' * 20 + " "
+`${0:${VISUAL}}`!p
+snip.rv = ' ' + '-' * 20
+`
+endsnippet

@@ -99,8 +99,11 @@ Plug 'jlemetay/permut'
 " vim-easy-align
 Plug 'junegunn/vim-easy-align'
 
-" nim
-Plug 'zah/nim.vim'
+" nim-lang
+" Plug 'zah/nim.vim'
+" only support neoviim
+Plug 'alaviss/nim.nvim'
+Plug 'prabirshrestha/asyncomplete.vim'
 
 " translator
 Plug 'voldikss/vim-translate-me'
@@ -175,9 +178,6 @@ Plug 'junegunn/gv.vim'
 " Easily adds brief author info and license headers
 Plug 'alpertuna/vim-header'
 
-" code formatter for shell
-Plug 'chiel92/vim-autoformat'
-
 " shell interface
 Plug 'shougo/deol.nvim'
 
@@ -186,6 +186,13 @@ Plug 'thinca/vim-quickrun'
 
 " R support
 Plug 'jalvesaq/nvim-r'
+
+" code formatter
+" NOTE: vim-autoformat does not support formatters which can't read input
+" from stdin or write output to stdout.
+Plug 'chiel92/vim-autoformat'
+
+Plug 'sbdchd/neoformat'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -407,21 +414,28 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 
-" ------------------ nim --------------------
+" ------------------ nim-lang --------------------
 " https://github.com/zah/nim.vim/
-function! s:nim_go_to_def()
-  if exists("*GotoDefinition_" . &filetype)
-    call GotoDefinition_{&filetype}()
-  else
-    exe "norm! \<C-]>"
-  endif
-endfunction
-
-" Jump to tag
-" TODO: use autogroup
-autocmd FileType nim nmap gd :<C-u>call <SID>nim_go_to_def()<CR>
-" nn <M-g> :call JumpToDef()<cr>
-" ino <M-g> <esc>:call JumpToDef()<cr>i
+"
+" Go to definition
+" function! s:nim_go_to_def()
+"   if exists("*GotoDefinition_" . &filetype)
+"     call GotoDefinition_{&filetype}()
+"   else
+"     exe "norm! \<C-]>"
+"   endif
+" endfunction
+" autocmd FileType nim nmap gd :<C-u>call <SID>nim_go_to_def()<CR>
+"
+" TODO: use coc.nvim as default completion engine.
+augroup nim_group
+  autocmd!
+  au User asyncomplete_setup call asyncomplete#register_source({
+    \ 'name': 'nim',
+    \ 'whitelist': ['nim'],
+    \ 'completor': {opt, ctx -> nim#suggest#sug#GetAllCandidates({start, candidates -> asyncomplete#complete(opt['name'], ctx, start, candidates)})}
+    \ })
+augroup end
 
 " ------------------ rainbow --------------------
 " disable it by default as it does not work well with nord-theme.
@@ -882,6 +896,8 @@ autocmd FileType python nnoremap <silent> <leader>si :<C-u>CocCommand python.sor
 " which work better that LanguageClient [LC]
 let g:go_def_mapping_enabled = 1
 
+" NOTE: vim-go using gopls does not work well with coc.nvim.
+" let g:go_gopls_enabled = 1
 let g:go_def_mode = 'gopls'
 let g:go_referrers_mode = 'gopls'
 let g:go_info_mode = 'gopls'
@@ -940,3 +956,14 @@ augroup end
 
 " ------------------ airline-coc --------------------
 " https://github.com/neoclide/coc.nvim/blob/master/doc/coc.txt
+
+" -------------------- neoformat --------------------
+" nim-lang
+let g:neoformat_nim_custom= {
+      \ 'exe': 'nimpretty',
+      \ 'replace': 1,
+      \ }
+
+let g:neoformat_enabled_nim= ['custom']
+let g:neoformat_run_all_formatters = 0
+let g:neoformat_verbose = 1 " only affects the verbosity of Neoformat
