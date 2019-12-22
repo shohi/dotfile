@@ -342,7 +342,7 @@ function init_pyenv() {
     # The workaround is to download the tar manually and set `PYTHON_BUILD_CACHE_PATH` to
     # the download directory, e.g
     # mkdir -p ~/.pyenv/cache
-    # cd ~/.pyenv/cache && wget "https://npm.taobao.org/mirrors/python/pyton-3.8.0.tar.xz"
+    # cd ~/.pyenv/cache && wget "https://npm.taobao.org/mirrors/python/3.8.0/Python-3.8.0.tar.xz"
     # PYTHON_BUILD_CACHE_PATH="$PWD" pyenv install 3.8.0
     mkdir -p "$HOME/.pyenv/cache"
     export PYTHON_BUILD_CACHE_PATH="$HOME/.pyenv/cache"
