@@ -437,14 +437,19 @@ setup_ruby
 ####                Rust                                 #####
 ####                                                     #####
 ##############################################################
-
+# Default CARGO_HOME - `$HOME/.cargo`
+# - https://doc.rust-lang.org/cargo/guide/cargo-home.html
+#
+# Default RUST_HOME - `$HOME/.rustup`
+# - https://github.com/rust-lang/rustup#environment-variables
 function setup_rust() {
-  mkdir -p ~/.cargo
+  mkdir -p "$HOME"/.cargo
+  export CARGO_HOME="$HOME"/.cargo
 
   # crates.io mirror, https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates
   if [[ -z "${DISABLE_CRATES_IO_MIRROR}" ]]; then
-    if [[ ! -f "$HOME/.cargo/use_ustc_mirror" ]]; then
-      touch "$HOME/.cargo/use_ustc_mirror"
+    if [[ ! -f "${CARGO_HOME}/use_ustc_mirror" ]]; then
+      touch "${CARGO_HOME}/use_ustc_mirror"
 
       local conf
       conf=$(
@@ -457,11 +462,11 @@ registry = 'git://mirrors.ustc.edu.cn/crates.io-index'
 HEREDOC
       )
 
-      echo "${conf}" >~/.cargo/config
+      echo "${conf}" >"${CARGO_HOME}"/config
     fi
   fi
 
-  export PATH="$HOME/.cargo/bin:$PATH:$HOME/workshop/github/brendangregg/FlameGraph"
+  export PATH="${CARGO_HOME}/bin:$PATH:$HOME/workshop/github/brendangregg/FlameGraph"
 }
 
 setup_rust
