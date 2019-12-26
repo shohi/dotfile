@@ -327,6 +327,10 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 
+" ----------- nerdtree-git-plugin -------------
+" default bindings
+" - next hunk in nerdtree -- `]c`
+" - previous hunk in nerdtree -- `[c`
 
 " -------------- golang ----------------------
 let g:go_fmt_command = "goimports"
