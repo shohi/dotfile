@@ -217,6 +217,7 @@ function setup_golang() {
   if [[ -z "${DISABLE_GOPROXY}" ]]; then
     export GOPROXY=https://goproxy.io
     # export GOPROXY=https://athens.azurefd.net
+    # export GOPROXY=https://mirrors.aliyun.com/goproxy/
   fi
 }
 
