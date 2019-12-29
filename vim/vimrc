@@ -194,6 +194,12 @@ Plug 'chiel92/vim-autoformat'
 
 Plug 'sbdchd/neoformat'
 
+" javascript
+Plug 'pangloss/vim-javascript'
+
+" emmet
+Plug 'mattn/emmet-vim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -933,6 +939,9 @@ let g:header_max_size = 7
 " needs `shfmt` installed, https://github.com/mvdan/sh
 let g:formatdef_shfmt = '"shfmt -ci -i ".(&expandtab ? shiftwidth() : "0")'
 let g:formatters_sh = ['shfmt']
+
+" let g:formatdef_JSCS= 'jscs --preset=airbnb'
+" let g:formatters_js = ['JSCS']
 
 xmap <silent> <leader>ff :Autoformat<CR>
 nmap <silent> <leader>ff :Autoformat<CR>
