@@ -465,6 +465,8 @@ let g:move_key_modifier = 'A'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+let g:ale_linters = {'javascript': ['eslint']}
+
 " ------------------ snippets --------------------
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -980,3 +982,9 @@ let g:neoformat_nim_custom= {
 let g:neoformat_enabled_nim= ['custom']
 let g:neoformat_run_all_formatters = 0
 let g:neoformat_verbose = 1 " only affects the verbosity of Neoformat
+
+" -------------------- javascript --------------------
+augroup js_rc
+  autocmd!
+  autocmd BufNewFile,BufRead *.eslintrc,*.babelrc set syntax=json
+augroup end
