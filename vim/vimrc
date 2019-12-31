@@ -106,7 +106,7 @@ Plug 'alaviss/nim.nvim'
 Plug 'prabirshrestha/asyncomplete.vim'
 
 " translator
-Plug 'voldikss/vim-translate-me'
+Plug 'voldikss/vim-translator'
 
 " undotree
 Plug 'mbbill/undotree'
@@ -642,12 +642,14 @@ tnoremap <A-j> <C-\><C-N><C-w>j
 tnoremap <A-k> <C-\><C-N><C-w>k
 tnoremap <A-l> <C-\><C-N><C-w>l
 
-" ------------------ vim-translate-me --------------------
-" https://github.com/voldikss/vim-translate-me
-" default configuration
-" <Leader>w - translate word under cursor
-" <Leader>w again - focus on translator window
-" q - close translator window
+" ------------------ vim-translator --------------------
+" https://github.com/voldikss/vim-translator
+" NOTE: no default mapping is set by default in vim-translator.
+" let g:translator_window_enable_icon = 'false'
+
+" Echo translation in the cmdline
+nmap <silent> <Leader>t <Plug>Translate
+vmap <silent> <Leader>t <Plug>TranslateV
 
 
 " ------------------ vim-copy-filename --------------------
