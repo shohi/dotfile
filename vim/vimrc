@@ -206,6 +206,10 @@ Plug 'skywind3000/asyncrun.vim'
 " Vim Rooter
 Plug 'airblade/vim-rooter'
 
+" Stylus
+Plug 'iloginow/vim-stylus'
+
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
