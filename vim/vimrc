@@ -200,6 +200,12 @@ Plug 'pangloss/vim-javascript'
 " emmet
 Plug 'mattn/emmet-vim'
 
+" Async Run
+Plug 'skywind3000/asyncrun.vim'
+
+" Vim Rooter
+Plug 'airblade/vim-rooter'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -990,3 +996,9 @@ augroup js_rc
   autocmd!
   autocmd BufNewFile,BufRead *.eslintrc,*.babelrc set syntax=json
 augroup end
+
+" -------------------- vim-rooter --------------------
+" https://github.com/airblade/vim-rooter
+"
+" To stop vim-rooter changing directory automatically
+" let g:rooter_manual_only = 1
