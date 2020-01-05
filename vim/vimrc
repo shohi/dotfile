@@ -954,8 +954,11 @@ let g:header_max_size = 7
 let g:formatdef_shfmt = '"shfmt -ci -i ".(&expandtab ? shiftwidth() : "0")'
 let g:formatters_sh = ['shfmt']
 
+" javascript
 " let g:formatdef_JSCS= 'jscs --preset=airbnb'
-" let g:formatters_js = ['JSCS']
+" let g:formatters_javascript = ['jsbeautify_javascript']
+
+" let g:autoformat_verbosemode=1
 
 xmap <silent> <leader>ff :Autoformat<CR>
 nmap <silent> <leader>ff :Autoformat<CR>
@@ -1006,3 +1009,14 @@ augroup end
 "
 " To stop vim-rooter changing directory automatically
 " let g:rooter_manual_only = 1
+
+" -------------------- ALE --------------------
+" https://github.com/dense-analysis/ale
+" auto fix
+let g:ale_fixers = {
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'javascript': ['eslint'],
+      \ }
+
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
