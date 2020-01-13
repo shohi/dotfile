@@ -292,6 +292,13 @@ autocmd FileType sh,vim setlocal shiftwidth=2 softtabstop=2 expandtab
 syntax enable
 set termguicolors
 colorscheme nord
+" -------------- per project setting ----------------
+" https://medium.com/@dnrvs/per-project-settings-in-nvim-fc8c8877d970
+" enable loading local executing local rc files.
+" nvim -> xxx.nvimrc
+" vim -> xxx.vimrc
+set exrc
+set secure
 
 " -------------- NERDTree --------------------
 " refer, https://superuser.com/questions/195022/vim-how-to-synchronize-nerdtree-with-current-opened-tab-file-path
@@ -1008,7 +1015,8 @@ augroup end
 " https://github.com/airblade/vim-rooter
 "
 " To stop vim-rooter changing directory automatically
-" let g:rooter_manual_only = 1
+" Use `:Rooter` to invoke vim-rooter manually.
+let g:rooter_manual_only = 1
 
 " -------------------- ALE --------------------
 " https://github.com/dense-analysis/ale
