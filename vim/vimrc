@@ -209,6 +209,8 @@ Plug 'airblade/vim-rooter'
 " Stylus
 Plug 'iloginow/vim-stylus'
 
+" Easily substitute
+Plug 'tpope/vim-abolish'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
