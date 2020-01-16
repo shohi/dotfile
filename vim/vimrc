@@ -212,6 +212,9 @@ Plug 'iloginow/vim-stylus'
 " Easily substitute
 Plug 'tpope/vim-abolish'
 
+" Toml
+Plug 'cespare/vim-toml'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
