@@ -452,7 +452,15 @@ function setup_rust() {
   mkdir -p "$HOME"/.cargo
   export CARGO_HOME="$HOME"/.cargo
 
-  # crates.io mirror, https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates
+  # rustup toolchain mirror
+  # https://mirrors.ustc.edu.cn/help/rust-static.html
+  if [[ -z "${DISABLE_RUSTUP_MIRROR}" ]]; then
+    export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+    export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+  fi
+
+  # crates.io mirror
+  # https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates
   if [[ -z "${DISABLE_CRATES_IO_MIRROR}" ]]; then
     if [[ ! -f "${CARGO_HOME}/use_ustc_mirror" ]]; then
       touch "${CARGO_HOME}/use_ustc_mirror"
