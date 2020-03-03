@@ -245,8 +245,8 @@ set smartcase
 filetype plugin on        " enable filetype plugin
 
 " clear highlighting on escape in normal mode
-nnoremap <esc> :noh<return><esc>
-nnoremap <esc>^[ <esc>^[
+nnoremap <silent> <esc> :noh<return><esc>
+nnoremap <silent> <esc>^[ <esc>^[
 
 " fast saving
 nnoremap <leader>w :w!<CR>
@@ -363,14 +363,28 @@ let g:NERDToggleCheckAllLines = 1
 " - next hunk in nerdtree -- `]c`
 " - previous hunk in nerdtree -- `[c`
 
-" -------------- golang ----------------------
+" -------------- vim-go/golang ----------------------
+"
+" use vim-go's :GoDef short cut (gd)
+" which work better that LanguageClient [LC]
+let g:go_def_mapping_enabled = 1
+
+" NOTE: vim-go using gopls does not work well with coc.nvim.
+" let g:go_gopls_enabled = 1
+let g:go_def_mode = 'gopls'
+let g:go_referrers_mode = 'gopls'
+let g:go_info_mode = 'gopls'
+
 let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 let g:go_test_show_name = 1
 
-autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-autocmd FileType go nmap <leader>t <Plug>(go-test)
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+" fast editing go alternative files
+autocmd FileType go nmap <silent> <leader>ga :GoAlternate<CR>
+autocmd FileType go nmap <silent> <leader>ft :GoTestFunc<CR>
+autocmd FileType go nmap <silent> <Leader>cc <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <silent> <leader>pt <Plug>(go-test)
+autocmd FileType go nmap <silent> <leader>gb :<C-u>call <SID>build_go_files()<CR>
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -382,9 +396,6 @@ function! s:build_go_files()
   endif
 endfunction
 
-" fast editing go alternative files
-autocmd FileType go nmap <leader>ga :GoAlternate<CR>
-autocmd FileType go nmap <leader>ft :GoTestFunc<CR>
 
 " -------------- rust ------------------------
 let g:rustfmt_autosave = 1
@@ -928,18 +939,6 @@ autocmd FileType python nnoremap <silent> <leader>si :<C-u>CocCommand python.sor
 " https://github.com/neoclide/coc-r-lsp
 "
 " :CocInstall coc-r-lsp
-
-" ------------------ vim-go --------------------
-"
-" use vim-go's :GoDef short cut (gd)
-" which work better that LanguageClient [LC]
-let g:go_def_mapping_enabled = 1
-
-" NOTE: vim-go using gopls does not work well with coc.nvim.
-" let g:go_gopls_enabled = 1
-let g:go_def_mode = 'gopls'
-let g:go_referrers_mode = 'gopls'
-let g:go_info_mode = 'gopls'
 
 
 " ------------------ nord-theme --------------------

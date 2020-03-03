@@ -10,6 +10,10 @@
 ##############################################################
 # refer, https://github.com/ruanyf/fortunes
 function run_fortune() {
+  if [[ -n "$SKIP_FORTUNE" ]]; then
+    return
+  fi
+
   if [[ ! -x "$(command -v fortune)" ]]; then
     return
   fi
