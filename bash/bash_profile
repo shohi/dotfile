@@ -234,7 +234,7 @@ setup_golang
 ####                K8s                                  #####
 ####                                                     #####
 ##############################################################
-function set_kubectl_alias() {
+function setup_kubectl_alias() {
   mkdir -p "$HOME"/.github/ahmetb && pushd -q "$_" || return
 
   # download kubectl-alias
@@ -263,12 +263,12 @@ function update_kubectl_alias() {
     popd -q || return
   fi
 
-  set_kubectl_alias
+  setup_kubectl_alias
 
   popd -q || return
 }
 
-function set_kubectx() {
+function setup_kubectx() {
   mkdir -p "$HOME"/.github/ahmetb && pushd -q "$_" || return
 
   # download kubectx
@@ -299,14 +299,52 @@ function update_kubectx() {
     popd -q || return
   fi
 
-  set_kubectx
+  setup_kubectx
   popd -q || return
 }
 
-set_kubectl_alias
-set_kubectx
+# TODO: refactor
+# helm version manager
+# FIXME: helmenv is global scoped, better to move to session scoped.
+function setup_helmenv() {
+  mkdir -p "$HOME"/.github/little-angry-clouds && pushd -q "$_" || return
+
+  # download helmenv
+  if [[ ! -d "helmenv" ]]; then
+    git clone https://github.com/little-angry-clouds/helmenv.git
+  fi
+
+  source helmenv/helmenv.sh
+
+  popd -q || return
+}
+
+# update helmenv
+function update_helmenv() {
+  mkdir -p "$HOME"/.github/little-angry-clouds && pushd -q "$_" || return
+
+  local repo="helmenv"
+
+  # install helmenv
+  if [[ -d "$repo" ]]; then
+    pushd -q "$PWD/$repo" || return
+    git pull --all
+    popd -q || return
+  fi
+
+  setup_helmenv
+
+  popd -q || return
+}
+
+setup_kubectl_alias
+setup_kubectx
+setup_helmenv
 
 # print kubectl full command before running
+# TODO: use [kbenv](https://github.com/little-angry-clouds/kbenv) to
+# manage kubectl versions.
+# refer https://kubernetes.io/docs/setup/release/version-skew-policy/
 function kubectl() {
   echo "+ kubectl $*"
   command kubectl "$@"

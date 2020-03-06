@@ -18,7 +18,7 @@ function download_script() {
 }
 
 function install_script() {
-  echo "source ~/.local/config/bash/bash_profile" >> ~/.bash_profile
+  echo "source ~/.local/config/bash/bash_profile" >>~/.bash_profile
   source ~/.bash_profile
 }
 
