@@ -655,4 +655,76 @@ function update_customized_scripts() {
 
 load_customized_scripts
 
+#######################################################################
+#                          Clojure/babashka                           #
+#######################################################################
+# check whether certain file type exists in current directory.
+function _file_type_exists() {
+  local ft=$1
+  count=$(ls -1 *."${ft}" 2>/dev/null | wc -l)
+  if (($count != 0)); then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function _check_and_add_to_path() {
+  local ft_exists=false
+  ft_exists=$(_file_type_exists $1)
+
+  if [[ "true" == "${ft_exists}" ]]; then
+    chmod +x *.clj
+    export PATH=$PATH:$PWD
+  fi
+}
+
+# TODO: refactor
+# load babashka scripts from github repo.
+function load_babashka_scripts() {
+  if [[ ! -x "$(command -v bb)" ]]; then
+    echo "plz install babashka firstly - brew install borkdude/brew/babashka"
+    return 1
+  fi
+
+  mkdir -p ~/.github/shohi && pushd -q "$_" || return
+
+  local repo="cerise"
+  if [[ ! -d "cerise" ]]; then
+    git clone https://github.com/shohi/cerise.git
+  fi
+
+  # use main entry
+  pushd -q "${repo}" || return
+  _check_and_add_to_path "clj"
+  popd -q || return
+
+  # restore previous working directory where the function is called.
+  popd -q || return
+}
+
+# update babashka scripts
+function update_babashka_scripts() {
+  mkdir -p ~/.github/shohi && pushd -q "$_" || return
+
+  local repo="cerise"
+
+  # install customized scripts
+  if [[ ! -d "${repo}" ]]; then
+    load_customized_scripts
+    return 0
+  fi
+
+  # update scripts
+  pushd -q "${PWD}/${repo}" || return
+  git pull --all
+  _check_and_add_to_path "clj"
+  popd -q || return
+
+  # restore previous working directory where the function is called.
+  popd -q || return
+}
+
+load_babashka_scripts
+
 # -*- vim: set ft=bash: -*-
