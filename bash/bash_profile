@@ -184,7 +184,12 @@ setup_gv
 
 # setup gopath and aliases
 function setup_golang() {
-  export GOROOT=${GOROOT:-/usr/local/opt/go/libexec}
+  if [ -z "${GOROOT}" ]; then
+    #export GOROOT=${GOROOT:-/.g/go}
+    echo "error: GOROOT not set. Please install gv first"
+    return 1
+  fi
+
   export DEFAULT_GOPATH=${GOPATH:-$HOME/workshop/go}
   export GOBIN=$DEFAULT_GOPATH/bin
   mkdir -p "$DEFAULT_GOPATH"/{src,bin,pkg}
