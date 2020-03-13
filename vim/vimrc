@@ -215,6 +215,9 @@ Plug 'tpope/vim-abolish'
 " Toml
 Plug 'cespare/vim-toml'
 
+" Zenburn theme
+Plug 'jnurmine/zenburn'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -299,7 +302,9 @@ autocmd FileType sh,vim setlocal shiftwidth=2 softtabstop=2 expandtab
 " use nord color scheme as default
 syntax enable
 set termguicolors
-colorscheme nord
+" colorscheme nord
+colorscheme zenburn
+
 " -------------- per project setting ----------------
 " https://medium.com/@dnrvs/per-project-settings-in-nvim-fc8c8877d970
 " enable loading local executing local rc files.
