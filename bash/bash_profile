@@ -145,51 +145,42 @@ set_aws_proxy
 ####                Golang                               #####
 ####                                                     #####
 ##############################################################
-# use following accessible `GO_BINARY_BASE_URL`.
-export GO_BINARY_BASE_URL="https://dl.google.com/go"
 
-# install gvm
-function setup_gvm() {
-  mkdir -p "$HOME"/.github/moovweb && pushd -q "$_" || return
+# install golang version manager - gv
+function setup_gv() {
+  mkdir -p "$HOME"/.github/shohi && pushd -q "$_" || return
 
-  local repo="gvm"
+  local repo="gv"
 
-  # install gvm
+  # install gv
   if [[ ! -d "$repo" ]]; then
-    # git clone https://github.com/moovweb/$repo.git
     git clone https://github.com/shohi/$repo.git
-    SRC_REPO="https://github.com/shohi/$repo.git" source gvm/binscripts/gvm-installer
   fi
 
   # activate it
-  source "$HOME"/.gvm/scripts/gvm
+  source gv/gv.sh
 
   popd -q || return
 }
 
-# update gvm
-function update_gvm() {
-  mkdir -p "$HOME"/.github/moovweb && pushd -q "$_" || return
+# update gv
+function update_gv() {
+  mkdir -p "$HOME"/.github/shohi && pushd -q "$_" || return
 
-  local repo="gvm"
+  local repo="gv"
 
-  # update gvm
-  if [[ ! -d "$repo" ]]; then
-    setup_gvm
-  else
+  # pull gv
+  if [[ -d "$repo" ]]; then
     pushd -q "$PWD/$repo" || return
-
-    # update repo and activate it
     git pull --all
-    source "$HOME"/.gvm/scripts/gvm
-
     popd -q || return
   fi
 
+  setup_gv
   popd -q || return
 }
 
-setup_gvm
+setup_gv
 
 # setup gopath and aliases
 function setup_golang() {
