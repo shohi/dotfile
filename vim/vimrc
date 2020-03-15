@@ -1,10 +1,14 @@
 " -*- vim: set ft=vim: -*-
-" use vim-plug as plugin manager. Automatically executes filetype plugin indent on and syntax enable.
-set nocompatible              " be iMproved, required
+" use vim-plug as plugin manager.
+"
+" Automatically executes filetype plugin indent on and syntax enable.
+"" be iMproved, required
+set nocompatible
 
 " change the mapleader from \ to ,
 " and keep reverse character search command
 let mapleader=","
+let maplocalleader=","
 noremap \ ,
 
 " Plugins will be downloaded under the specified directory.
@@ -32,8 +36,8 @@ Plug 'dense-analysis/ale'
 " fzf
 " first install `fzf` using brew
 " ref, https://github.com/junegunn/fzf.vim
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
+" Plug '/usr/local/opt/fzf'
+" Plug 'junegunn/fzf.vim'
 
 " rust.vim
 Plug 'rust-lang/rust.vim'
@@ -89,9 +93,12 @@ Plug 'elixir-editors/vim-elixir'
 Plug 'mhinz/vim-mix-format'
 
 " Clojure
-Plug 'tpope/vim-fireplace'
-Plug 'venantius/vim-cljfmt'
-Plug 'guns/vim-clojure-static'
+" Plug 'tpope/vim-fireplace'
+" Plug 'venantius/vim-cljfmt'
+" Plug 'guns/vim-clojure-static'
+" TODO: only work for neovim
+" https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
+Plug 'Olical/conjure', { 'tag': 'v2.1.2', 'do': 'bin/compile' }
 
 " permut - swap columns
 Plug 'jlemetay/permut'
@@ -218,9 +225,14 @@ Plug 'cespare/vim-toml'
 " Zenburn theme
 Plug 'jnurmine/zenburn'
 
+" vim-clap - generic finder and dispatcher
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+
+" TODO: refactor vimrc
 
 " ------------------------------------------- "
 "              Customized Setting             "
@@ -264,24 +276,24 @@ vnoremap <silent> # :<C-u>call <SID>visual_selection('', '')<CR>?<C-R>=@/<CR><CR
 
 " helper functions
 function! s:cmd_line(str)
-    call feedkeys(":" . a:str)
+  call feedkeys(":" . a:str)
 endfunction
 
 function! s:visual_selection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
+  let l:saved_reg = @"
+  execute "normal! vgvy"
 
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+  let l:pattern = escape(@", "\\/.*'$^~[]")
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-    if a:direction == 'gv'
-        call s:cmd_line("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call s:cmd_line("%s" . '/'. l:pattern . '/')
-    endif
+  if a:direction == 'gv'
+    call s:cmd_line("Ack '" . l:pattern . "' " )
+  elseif a:direction == 'replace'
+    call s:cmd_line("%s" . '/'. l:pattern . '/')
+  endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
+  let @/ = l:pattern
+  let @" = l:saved_reg
 endfunction
 
 " fast editing vimrc
@@ -331,8 +343,8 @@ let g:NERDTreeCaseSensitiveSort=1
 " only work on vim 8+
 " command! Only call only_and_nerdtree()
 function! s:only_and_nerdtree()
-    let l:currentWindowID = win_getid()
-    windo if win_getid() != l:currentWindowID && &filetype != 'nerdtree' | close | endif
+  let l:currentWindowID = win_getid()
+  windo if win_getid() != l:currentWindowID && &filetype != 'nerdtree' | close | endif
 endfunction
 
 
@@ -413,31 +425,42 @@ autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 autocmd FileType rust nmap <leader>ta :RustTest! -- --nocapture<CR>
 autocmd FileType rust nmap <leader>tt :RustTest -- --nocapture<CR>
 
+" -------------------- vim-clap --------------------
+" https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
+" https://github.com/liuchengxu/vim-clap
+let g:clap_provider_grep_delay = 50
+" let g:clap_provider_grep_opts = '-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
+
+nnoremap <C-p> :Clap files<CR>
+nnoremap <leader>* :Clap grep ++query=<cword><CR>
+nnoremap <leader>fg :Clap grep<CR>
+nnoremap <leader>fb :Clap buffers<CR>
+nnoremap <leader>fh :Clap history<CR>
 
 " -------------- fzf -------------------------
+" NOTE: use vim-clap instead
 " add shortcut for listing buffers
-nnoremap <C-b> :Buffers<CR>
-
-nnoremap <C-p> :FZF<CR>
+" nnoremap <C-b> :Buffers<CR>
+" nnoremap <C-p> :FZF<CR>
 
 " user defined command - `Rg`
-command! -bang -nargs=* Rg
-\ call fzf#vim#grep(
-\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-\   <bang>0 ? fzf#vim#with_preview('up:60%')
-\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-\   <bang>0)
+" command! -bang -nargs=* Rg
+" \ call fzf#vim#grep(
+" \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+" \   <bang>0 ? fzf#vim#with_preview('up:60%')
+" \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+" \   <bang>0)
 
-nnoremap <C-s> :Rg<space>
+" nnoremap <C-s> :Rg<space>
 
 " insert mode completion
-inoremap <c-x><c-k> <plug>(fzf-complete-word)
-inoremap <c-x><c-f> <plug>(fzf-complete-path)
-inoremap <c-x><c-j> <plug>(fzf-complete-file-ag)
-inoremap <c-x><c-l> <plug>(fzf-complete-line)
+" inoremap <c-x><c-k> <plug>(fzf-complete-word)
+" inoremap <c-x><c-f> <plug>(fzf-complete-path)
+" inoremap <c-x><c-j> <plug>(fzf-complete-file-ag)
+" inoremap <c-x><c-l> <plug>(fzf-complete-line)
 
 " show history
-noremap <leader>h :History<CR>
+" noremap <leader>h :History<CR>
 
 " -------------- deoplete --------------------
 " # enable deoplete on startup
@@ -482,10 +505,10 @@ nmap ga <Plug>(EasyAlign)
 augroup nim_group
   autocmd!
   au User asyncomplete_setup call asyncomplete#register_source({
-    \ 'name': 'nim',
-    \ 'whitelist': ['nim'],
-    \ 'completor': {opt, ctx -> nim#suggest#sug#GetAllCandidates({start, candidates -> asyncomplete#complete(opt['name'], ctx, start, candidates)})}
-    \ })
+        \ 'name': 'nim',
+        \ 'whitelist': ['nim'],
+        \ 'completor': {opt, ctx -> nim#suggest#sug#GetAllCandidates({start, candidates -> asyncomplete#complete(opt['name'], ctx, start, candidates)})}
+        \ })
 augroup end
 
 " ------------------ rainbow --------------------
@@ -568,32 +591,32 @@ map <Leader>tb :TagbarToggle<CR>
 " refer-1, https://github.com/majutsushi/tagbar/wiki#google-go
 " refer-2, https://github.com/jstemmer/gotags
 let g:tagbar_type_go = {
-	\ 'ctagstype' : 'go',
-	\ 'kinds'     : [
-		\ 'p:package',
-		\ 'i:imports:1',
-		\ 'c:constants',
-		\ 'v:variables',
-		\ 't:types',
-		\ 'n:interfaces',
-		\ 'w:fields',
-		\ 'e:embedded',
-		\ 'm:methods',
-		\ 'r:constructor',
-		\ 'f:functions'
-	\ ],
-	\ 'sro' : '.',
-	\ 'kind2scope' : {
-		\ 't' : 'ctype',
-		\ 'n' : 'ntype'
-	\ },
-	\ 'scope2kind' : {
-		\ 'ctype' : 't',
-		\ 'ntype' : 'n'
-	\ },
-	\ 'ctagsbin'  : 'gotags',
-	\ 'ctagsargs' : '-sort -silent'
-\ }
+      \ 'ctagstype' : 'go',
+      \ 'kinds'     : [
+      \ 'p:package',
+      \ 'i:imports:1',
+      \ 'c:constants',
+      \ 'v:variables',
+      \ 't:types',
+      \ 'n:interfaces',
+      \ 'w:fields',
+      \ 'e:embedded',
+      \ 'm:methods',
+      \ 'r:constructor',
+      \ 'f:functions'
+      \ ],
+      \ 'sro' : '.',
+      \ 'kind2scope' : {
+      \ 't' : 'ctype',
+      \ 'n' : 'ntype'
+      \ },
+      \ 'scope2kind' : {
+      \ 'ctype' : 't',
+      \ 'ntype' : 'n'
+      \ },
+      \ 'ctagsbin'  : 'gotags',
+      \ 'ctagsargs' : '-sort -silent'
+      \ }
 
 " rust tagbar setting
 " refer-1, https://github.com/majutsushi/tagbar/wiki#rust
@@ -604,8 +627,8 @@ let g:rust_use_custom_ctags_defs = 1  " if using rust.vim
 "  TODO: how to use ENV variable in vimrc
 "  'ctagsbin' : '/path/to/your/universal/ctags'
 let g:tagbar_type_rust = {
-  \ 'ctagstype' : 'rust',
-  \ 'kinds' : [
+      \ 'ctagstype' : 'rust',
+      \ 'kinds' : [
       \ 'n:modules',
       \ 's:structures:1',
       \ 'i:interfaces',
@@ -618,9 +641,9 @@ let g:tagbar_type_rust = {
       \ 'm:fields:1:0',
       \ 'e:enum variants:1:0',
       \ 'P:methods:1',
-  \ ],
-  \ 'sro': '::',
-  \ 'kind2scope' : {
+      \ ],
+      \ 'sro': '::',
+      \ 'kind2scope' : {
       \ 'n': 'module',
       \ 's': 'struct',
       \ 'i': 'interface',
@@ -633,8 +656,8 @@ let g:tagbar_type_rust = {
       \ 'm': 'field',
       \ 'e': 'enumerator',
       \ 'P': 'method',
-  \ },
-\ }
+      \ },
+      \ }
 
 
 " ------------------ supertab --------------------
@@ -729,13 +752,13 @@ autocmd! User GoyoLeave Limelight!
 " https://stackoverflow.com/questions/20579142/toggle-function-in-vim
 let s:enable_limelight=0
 function! s:toggle_limelight()
-    if s:enable_limelight
-        Limelight!
-        let s:enable_limelight=0
-    else
-        Limelight
-        let s:enable_limelight=1
-    endif
+  if s:enable_limelight
+    Limelight!
+    let s:enable_limelight=0
+  else
+    Limelight
+    let s:enable_limelight=1
+  endif
 endfunction
 
 " toggle functions for goyo and limelight
@@ -755,13 +778,13 @@ let g:mkdp_auto_close = 0
 
 let s:enable_mkdp=0
 function! s:toggle_mkdp()
-    if s:enable_mkdp
-        MarkdownPreviewStop
-        let s:enable_mkdp=0
-    else
-        MarkdownPreview
-        let s:enable_mkdp=1
-    endif
+  if s:enable_mkdp
+    MarkdownPreviewStop
+    let s:enable_mkdp=0
+  else
+    MarkdownPreview
+    let s:enable_mkdp=1
+  endif
 endfunction
 
 nmap <silent> <Leader>m :<C-u>call <SID>toggle_mkdp()<CR>
@@ -994,7 +1017,7 @@ augroup autoformat_group
   " auto format on save for python
   " autocmd BufWritePre *.py :Autoformat
   " autocmd FileType python autocmd BufWritePre <buffer> :Autoformat
-augroup end
+augroup END
 
 
 " ------------------ airline-ale --------------------
@@ -1040,3 +1063,7 @@ let g:ale_fixers = {
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
+
+" -------------------- Clojure/Conjure --------------------
+" https://github.com/Olical/conjure
+" :CocInstall coc-conjure
