@@ -1,8 +1,10 @@
 " -*- vim: set ft=vim: -*-
 " use vim-plug as plugin manager.
 "
-" Automatically executes filetype plugin indent on and syntax enable.
-"" be iMproved, required
+" TODO: refactor vimrc, https://blog.djy.io/reorganizing-my-vimrc/
+"
+" automatically executes filetype plugin indent on and syntax enable.
+" be iMproved, required
 set nocompatible
 
 " change the mapleader from \ to ,
@@ -14,8 +16,7 @@ noremap \ ,
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
-" Declare the list of plugins
-
+" declare the list of plugins
 " surround
 Plug 'tpope/vim-surround'
 
@@ -33,12 +34,6 @@ Plug 'airblade/vim-gitgutter'
 " async lint engine
 Plug 'dense-analysis/ale'
 
-" fzf
-" first install `fzf` using brew
-" ref, https://github.com/junegunn/fzf.vim
-" Plug '/usr/local/opt/fzf'
-" Plug 'junegunn/fzf.vim'
-
 " rust.vim
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
@@ -46,24 +41,9 @@ Plug 'racer-rust/vim-racer'
 " vim-go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" lightline.vim
-" Plug 'itchyny/lightline.vim'
-
 " airline.vim - lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
-" use coc.nvim & golsp instead
-" Go autocomplete
-" if has('nvim')
-"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/deoplete.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-
-" Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 
 " Nord color scheme
 Plug 'arcticicestudio/nord-vim'
@@ -92,10 +72,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'elixir-editors/vim-elixir'
 Plug 'mhinz/vim-mix-format'
 
-" Clojure
-" Plug 'tpope/vim-fireplace'
-" Plug 'venantius/vim-cljfmt'
-" Plug 'guns/vim-clojure-static'
 " TODO: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
 Plug 'Olical/conjure', { 'tag': 'v2.1.2', 'do': 'bin/compile' }
@@ -171,11 +147,6 @@ Plug 'junegunn/limelight.vim'
 " go autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" protobuf syntax highlighting
-" Plug 'uarun/vim-protobuf'
-
-" Plug 'mustache/vim-mustache-handlebars'
-
 " visual indent
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -231,14 +202,9 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
-
-" TODO: refactor vimrc
-
-" ------------------------------------------- "
-"              Customized Setting             "
-" ------------------------------------------- "
-
-" -------------- basic  ----------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  setting                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set encoding=utf-8        " set utf-8 as default encoding
 set number                " show number line
 
@@ -306,18 +272,10 @@ nnoremap <leader>sv :source ~/.vimrc<CR>
 " highlight cursorline
 nnoremap <leader><leader> :set cursorline! cursorcolumn!<CR>
 
-" -------------- indent ----------------------
+" shell/vim indent
 autocmd FileType sh,vim setlocal shiftwidth=2 softtabstop=2 expandtab
 
-" -------------- color scheme ----------------
-" nord setting
-" use nord color scheme as default
-syntax enable
-set termguicolors
-" colorscheme nord
-colorscheme zenburn
-
-" -------------- per project setting ----------------
+" per project setting
 " https://medium.com/@dnrvs/per-project-settings-in-nvim-fc8c8877d970
 " enable loading local executing local rc files.
 " nvim -> xxx.nvimrc
@@ -325,7 +283,54 @@ colorscheme zenburn
 set exrc
 set secure
 
-" -------------- NERDTree --------------------
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                color scheme                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" nord setting
+" use nord color scheme as default
+syntax enable
+set termguicolors
+" colorscheme nord
+colorscheme zenburn
+
+" set nord comment color
+" augroup nord-theme-overrides
+"  autocmd!
+"  " Use 'nord7' as foreground color for Vim comment titles.
+"  autocmd ColorScheme nord highlight Comment ctermfg=3 guifg=#7b88a1
+" augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                nvim-python                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/deoplete-plugins/deoplete-jedi/wiki/Setting-up-Python-for-Neovim
+" $> pyenv install 2.7.17
+" $> pyenv install 3.8.2
+"
+" $> # install pyenv-virtualenv plugin, https://github.com/pyenv/pyenv-virtualenv
+" $> git clone https://github.com/pyenv/pyenv-virtualenv.git \
+"     $(pyenv root)/plugins/pyenv-virtualenv
+" $> eval "$(pyenv virtualenv-init -)"
+"
+" $> pyenv virtualenv 2.7.17 neovim2
+" $> pip install neovim
+" $> pyenv activate neovim2
+" $> pyenv which python  # Note the path
+"
+" $> pyenv virtualenv 3.8.2 neovim3
+" $> pip install neovim
+" $> pyenv activate neovim3
+" $> pyenv which python  # Note the path
+"
+let g:python_host_prog = '~/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '~/.pyenv/versions/neovim3/bin/python'
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  NERDTree                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " refer, https://superuser.com/questions/195022/vim-how-to-synchronize-nerdtree-with-current-opened-tab-file-path
 " refer, https://stackoverflow.com/questions/6467634/create-a-command-shortcut-for-nerdtree-in-vim-editor
 noremap <leader>nr :NERDTreeFind<CR>
@@ -348,7 +353,9 @@ function! s:only_and_nerdtree()
 endfunction
 
 
-" ----------- NERDTree Commenter-------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             NERDTree Commenter                             "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " refer, https://github.com/scrooloose/nerdcommenter
 
 " Add spaces after comment delimiters by default
@@ -375,13 +382,19 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 
-" ----------- nerdtree-git-plugin -------------
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            NERDTree Git Plugin                             "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " default bindings
 " - next hunk in nerdtree -- `]c`
 " - previous hunk in nerdtree -- `[c`
 
-" -------------- vim-go/golang ----------------------
-"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               vim-go/golang                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use vim-go's :GoDef short cut (gd)
 " which work better that LanguageClient [LC]
 let g:go_def_mapping_enabled = 1
@@ -414,7 +427,9 @@ function! s:build_go_files()
 endfunction
 
 
-" -------------- rust ------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    Rust                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rustfmt_autosave = 1
 let g:racer_experimental_completer = 1
 
@@ -425,7 +440,10 @@ autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 autocmd FileType rust nmap <leader>ta :RustTest! -- --nocapture<CR>
 autocmd FileType rust nmap <leader>tt :RustTest -- --nocapture<CR>
 
-" -------------------- vim-clap --------------------
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  vim-clap                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
 " https://github.com/liuchengxu/vim-clap
 let g:clap_provider_grep_delay = 50
@@ -437,50 +455,10 @@ nnoremap <leader>fg :Clap grep<CR>
 nnoremap <leader>fb :Clap buffers<CR>
 nnoremap <leader>fh :Clap history<CR>
 
-" -------------- fzf -------------------------
-" NOTE: use vim-clap instead
-" add shortcut for listing buffers
-" nnoremap <C-b> :Buffers<CR>
-" nnoremap <C-p> :FZF<CR>
 
-" user defined command - `Rg`
-" command! -bang -nargs=* Rg
-" \ call fzf#vim#grep(
-" \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-" \   <bang>0 ? fzf#vim#with_preview('up:60%')
-" \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-" \   <bang>0)
-
-" nnoremap <C-s> :Rg<space>
-
-" insert mode completion
-" inoremap <c-x><c-k> <plug>(fzf-complete-word)
-" inoremap <c-x><c-f> <plug>(fzf-complete-path)
-" inoremap <c-x><c-j> <plug>(fzf-complete-file-ag)
-" inoremap <c-x><c-l> <plug>(fzf-complete-line)
-
-" show history
-" noremap <leader>h :History<CR>
-
-" -------------- deoplete --------------------
-" # enable deoplete on startup
-" let g:deoplete#enable_at_startup = 1
-
-" # disable scratch preview window
-" set completeopt-=preview
-"
-" inoremap <silent><expr> <TAB>
-"     \ pumvisible() ? "\<C-n>" :
-"     \ <SID>check_back_space() ? "\<TAB>" :
-"     \ deoplete#mappings#manual_complete()
-"
-" function! s:check_back_space() abort
-"     let col = col('.') - 1
-"     return !col || getline('.')[col - 1]  =~ '\s'
-" endfunction
-
-
-" -------------- easy align --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 EasyAlign                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
@@ -488,19 +466,10 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 
-" ------------------ nim-lang --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    Nim                                     "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/zah/nim.vim/
-"
-" Go to definition
-" function! s:nim_go_to_def()
-"   if exists("*GotoDefinition_" . &filetype)
-"     call GotoDefinition_{&filetype}()
-"   else
-"     exe "norm! \<C-]>"
-"   endif
-" endfunction
-" autocmd FileType nim nmap gd :<C-u>call <SID>nim_go_to_def()<CR>
-"
 " TODO: use coc.nvim as default completion engine.
 augroup nim_group
   autocmd!
@@ -511,27 +480,48 @@ augroup nim_group
         \ })
 augroup end
 
-" ------------------ rainbow --------------------
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  rainbow                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " disable it by default as it does not work well with nord-theme.
 " use :RainbowToggle to enable it later.
 let g:rainbow_active = 0
 
 
-" ------------------ vim-move --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  vim-move                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/matze/vim-move
 " set a custom modifier for key bindings to `Alt`
 " set `C` to use `Ctrl`.
 let g:move_key_modifier = 'A'
 
 
-" ------------------ ale --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    ale                                     "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/dense-analysis/ale
+
 " keybinds for ale
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 let g:ale_linters = {'javascript': ['eslint']}
 
-" ------------------ snippets --------------------
+" auto fix
+let g:ale_fixers = {
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'javascript': ['eslint'],
+      \ }
+
+" set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Snippets                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
@@ -541,7 +531,9 @@ let g:UltiSnipsSnippetDirectories=["MyUltiSnips", "UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
 
 
-" ------------------ whichkey --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 which-key                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " By default timeoutlen is 1000 ms
 set timeoutlen=500
 
@@ -550,15 +542,22 @@ set timeoutlen=500
 nnoremap <silent> <leader> :WhichKey ','<CR>
 
 
-" ------------------ markdown --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  markdown                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " disable auto update toc on save as it doesn't work well
 let g:vmt_auto_update_on_save = 0
 
 " don't insert fence
 let g:vmt_dont_insert_fence = 1
 
+" vim-markdown
+" Markdown Vim Mode (https://github.com/plasticboy/vim-markdown)
 
-" ------------------ git-gutter --------------------
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 git-gutter                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  default keybinds (https://github.com/airblade/vim-gitgutter)
 " [c - previous hunk
 " ]c - next hunk
@@ -567,7 +566,9 @@ let g:vmt_dont_insert_fence = 1
 " <leader>hu - undo hunk
 
 
-" ------------------ easymotion --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 EasyMotion                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Disable default mappings
 let g:EasyMotion_do_mapping = 0
 
@@ -583,7 +584,9 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
 
-" ------------------ tagbar --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   tagbar                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set keybind for tagbar toggle
 map <Leader>tb :TagbarToggle<CR>
 
@@ -660,12 +663,16 @@ let g:tagbar_type_rust = {
       \ }
 
 
-" ------------------ supertab --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  supertab                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Perform all your vim insert mode completions with Tab
 " run `:help supertab` for accessing supertab documentation.
 
 
-" ------------------ vim-maximizer --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               vim-maximizer                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " disable default keymapping
 let g:maximizer_set_default_mapping = 0
 
@@ -673,11 +680,9 @@ let g:maximizer_set_default_mapping = 0
 map <Leader>ww :MaximizerToggle<CR>
 
 
-" ------------------ vim-markdown --------------------
-" Markdown Vim Mode (https://github.com/plasticboy/vim-markdown)
-
-
-" ------------------ vim-table-mode --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 vim-table                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM Table Mode for instant table creation.
 
 " set keybind for table model toggle
@@ -687,7 +692,9 @@ map <Leader>ww :MaximizerToggle<CR>
 let g:table_mode_corner='|'
 
 
-" ------------------ terminal-mode --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               terminal-mode                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " setting for terminals, see :help terminal-emulator for details
 
 " map <Esc> to exit terminal-mode
@@ -706,6 +713,11 @@ tnoremap <A-j> <C-\><C-N><C-w>j
 tnoremap <A-k> <C-\><C-N><C-w>k
 tnoremap <A-l> <C-\><C-N><C-w>l
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               vim-translator                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " ------------------ vim-translator --------------------
 " https://github.com/voldikss/vim-translator
 " NOTE: no default mapping is set by default in vim-translator.
@@ -716,7 +728,9 @@ nmap <silent> <Leader>t <Plug>Translate
 vmap <silent> <Leader>t <Plug>TranslateV
 
 
-" ------------------ vim-copy-filename --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-copy-filename                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/AdamWhittingham/vim-copy-filename
 nmap <leader>fp :CopyRelativePath<CR>
 nmap <leader>fl :CopyRelativePathAndLine<CR>
@@ -725,7 +739,9 @@ nmap <leader>fn :CopyFileName<CR>
 nmap <leader>fd :CopyDirectoryPath<CR>
 
 
-" ------------------ targets --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  targets                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim plugin that provides additional text objects
 " https://github.com/wellle/targets.vim#quote-text-objects
 
@@ -737,7 +753,9 @@ nmap <leader>fd :CopyDirectoryPath<CR>
 "   * Tag text objects
 
 
-" ------------------ goyo --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    goyo                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " goyo - distraction-free writing in Vim
 " https://github.com/junegunn/goyo.vim
 "
@@ -764,11 +782,12 @@ endfunction
 " toggle functions for goyo and limelight
 nmap <silent> <Leader>gl :<C-u>call <SID>toggle_limelight()<CR>
 xmap <silent> <Leader>gl :<C-u>call <SID>toggle_limelight()<CR>
-
 nmap <silent> <Leader>gg :Goyo<CR>
 
 
-" ------------------ markdown-preview --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              markdown-preview                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/iamcco/markdown-preview.nvim
 " TODO: documentation for markdown-prview
 
@@ -790,7 +809,10 @@ endfunction
 nmap <silent> <Leader>m :<C-u>call <SID>toggle_mkdp()<CR>
 
 
-" ------------------ coc.nvim --------------------
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  coc.nvim                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/neoclide/coc.nvim
 
 " Better display for messages
@@ -969,15 +991,9 @@ autocmd FileType python nnoremap <silent> <leader>si :<C-u>CocCommand python.sor
 " :CocInstall coc-r-lsp
 
 
-" ------------------ nord-theme --------------------
-" # set comment color
-" augroup nord-theme-overrides
-"  autocmd!
-"  " Use 'nord7' as foreground color for Vim comment titles.
-"  autocmd ColorScheme nord highlight Comment ctermfg=3 guifg=#7b88a1
-" augroup END
-
-" ------------------ vim-header --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 vim-header                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  vim-header behaves wiredly for header update, better
 "  to use it for adding license only.
 "
@@ -988,7 +1004,9 @@ let g:header_field_timestamp = 0
 let g:header_max_size = 7
 
 
-" ------------------ vim-autoformat --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               vim-autoformat                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/chiel92/vim-autoformat
 
 " shell script formatter using google style
@@ -1020,16 +1038,23 @@ augroup autoformat_group
 augroup END
 
 
-" ------------------ airline-ale --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                airline-ale                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/dense-analysis/ale
 " let g:airline#extensions#ale#enabled = 1
 " let airline#extensions#ale#show_line_numbers = 1
 
 
-" ------------------ airline-coc --------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                airline-coc                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/neoclide/coc.nvim/blob/master/doc/coc.txt
 
-" -------------------- neoformat --------------------
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 neoformat                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " nim-lang
 let g:neoformat_nim_custom= {
       \ 'exe': 'nimpretty',
@@ -1040,30 +1065,28 @@ let g:neoformat_enabled_nim= ['custom']
 let g:neoformat_run_all_formatters = 0
 " let g:neoformat_verbose = 1 " only affects the verbosity of Neoformat
 
-" -------------------- javascript --------------------
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 javascript                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup js_rc
   autocmd!
   autocmd BufNewFile,BufRead *.eslintrc,*.babelrc set syntax=json
 augroup end
 
-" -------------------- vim-rooter --------------------
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 vim-rooter                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/airblade/vim-rooter
 "
 " To stop vim-rooter changing directory automatically
 " Use `:Rooter` to invoke vim-rooter manually.
 let g:rooter_manual_only = 1
 
-" -------------------- ALE --------------------
-" https://github.com/dense-analysis/ale
-" auto fix
-let g:ale_fixers = {
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'javascript': ['eslint'],
-      \ }
 
-" Set this variable to 1 to fix files when you save them.
-let g:ale_fix_on_save = 1
-
-" -------------------- Clojure/Conjure --------------------
-" https://github.com/Olical/conjure
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  clojure                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" conjure, https://github.com/Olical/conjure
 " :CocInstall coc-conjure
