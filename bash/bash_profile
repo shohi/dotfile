@@ -397,6 +397,11 @@ function init_pyenv() {
   fi
 }
 
+# NOTE: as `$(pyenv init - )` is slow, leave it to load
+# manually.
+# TODO: find out a way to lazy-load pyenv
+init_pyenv
+
 function check_pip_version() {
   local pver
   pver=$(pip3 --version | awk -F '[ .]' '{print $2}')
@@ -406,11 +411,6 @@ function check_pip_version() {
 }
 
 function setup_python() {
-  # NOTE: as `$(pyenv init - )` is slow, leave it to load
-  # manually.
-
-  # TODO: find out a way to lazy-load pyenv
-  init_pyenv
 
   # use tsinghua mirror
   # https://mirror.tuna.tsinghua.edu.cn/help/pypi/
@@ -448,8 +448,14 @@ function setup_python_alias() {
   fi
 }
 
-setup_python
-setup_python_alias
+function set_ipy_alias() {
+    alias ipy="python3 -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+}
+
+# NOTE: never using global python2/python3 by default,
+# look into `virtualenv` instead.
+# setup_python
+# setup_python_alias
 
 ##############################################################
 ####                                                     #####

@@ -315,13 +315,13 @@ colorscheme zenburn
 " $> eval "$(pyenv virtualenv-init -)"
 "
 " $> pyenv virtualenv 2.7.17 neovim2
-" $> pip install neovim
 " $> pyenv activate neovim2
+" $> pip install neovim
 " $> pyenv which python  # Note the path
 "
 " $> pyenv virtualenv 3.8.2 neovim3
-" $> pip install neovim
 " $> pyenv activate neovim3
+" $> pip install neovim
 " $> pyenv which python  # Note the path
 "
 let g:python_host_prog = '~/.pyenv/versions/neovim2/bin/python'
