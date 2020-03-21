@@ -83,10 +83,8 @@ Plug 'jlemetay/permut'
 Plug 'junegunn/vim-easy-align'
 
 " nim-lang
-" Plug 'zah/nim.vim'
 " only support neoviim
 Plug 'alaviss/nim.nvim'
-Plug 'prabirshrestha/asyncomplete.vim'
 
 " translator
 Plug 'voldikss/vim-translator'
@@ -469,16 +467,26 @@ nmap ga <Plug>(EasyAlign)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                    Nim                                     "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/zah/nim.vim/
-" TODO: use coc.nvim as default completion engine.
-augroup nim_group
-  autocmd!
-  au User asyncomplete_setup call asyncomplete#register_source({
-        \ 'name': 'nim',
-        \ 'whitelist': ['nim'],
-        \ 'completor': {opt, ctx -> nim#suggest#sug#GetAllCandidates({start, candidates -> asyncomplete#complete(opt['name'], ctx, start, candidates)})}
-        \ })
-augroup end
+" https://github.com/alaviss/nim.nvim
+" https://medium.com/@moinmoti/nim-on-neovim-ec3cf44dd82c
+"
+" use `nimlsp` to do autocompletition with coc.nvim
+" + 1. install `nimlsp` - https://github.com/PMunch/nimlsp
+"   - `nimble install nimlsp`
+"   - export `~/.nimble/bin` to $PATH.
+" + 2. add following setting to :CocConfig
+"   - https://github.com/neoclide/coc.nvim/wiki/Language-servers#register-custom-language-servers
+"
+"  {
+"    "languageserver": {
+"       "nim": {
+"         "command": "nimlsp",
+"         "rootPatterns": ["*.nimble", ".vim/", ".git/", ".hg/"],
+"         "filetypes": ["nim", "nimble", "nims"]
+"       }
+"    }
+"  }
+"
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -507,7 +515,12 @@ let g:move_key_modifier = 'A'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-let g:ale_linters = {'javascript': ['eslint']}
+" linters
+" nim linter already integrated in ale
+" - 'nim': ['nimlsp', 'nimcheck']
+let g:ale_linters = {
+      \ 'javascript': ['eslint'],
+      \ }
 
 " auto fix
 let g:ale_fixers = {
