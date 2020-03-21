@@ -45,9 +45,6 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" Nord color scheme
-Plug 'arcticicestudio/nord-vim'
-
 " yaml
 Plug 'stephpy/vim-yaml'
 
@@ -72,7 +69,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'elixir-editors/vim-elixir'
 Plug 'mhinz/vim-mix-format'
 
-" TODO: only work for neovim
+" FIXME: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
 Plug 'Olical/conjure', { 'tag': 'v2.1.2', 'do': 'bin/compile' }
 
@@ -83,7 +80,7 @@ Plug 'jlemetay/permut'
 Plug 'junegunn/vim-easy-align'
 
 " nim-lang
-" only support neoviim
+" FIXME: only support neoviim
 Plug 'alaviss/nim.nvim'
 
 " translator
@@ -191,11 +188,24 @@ Plug 'tpope/vim-abolish'
 " Toml
 Plug 'cespare/vim-toml'
 
-" Zenburn theme
-Plug 'jnurmine/zenburn'
-
 " vim-clap - generic finder and dispatcher
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
+" endwise
+" Plug 'tpope/vim-endwise'
+
+" vim-slash - enhance in-buffer search
+" Plug 'junegunn/vim-slash'
+
+" colorschemes
+"   * vim-colorschemes - one colorscheme pack to rule them all (inactive)
+"     - Plug 'flazz/vim-colorschemes'
+"   * nord color theme
+"     - Plug 'arcticicestudio/nord-vim'
+"     - already included in `awesome-vim-colorschemes`
+" Zenburn theme
+Plug 'jnurmine/zenburn'
+Plug 'rafi/awesome-vim-colorschemes'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
