@@ -1113,3 +1113,11 @@ let g:rooter_manual_only = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " conjure, https://github.com/Olical/conjure
 " :CocInstall coc-conjure
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    java                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
+" https://github.com/neoclide/coc-java
+" :CocInstall coc-java
