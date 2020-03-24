@@ -191,6 +191,9 @@ Plug 'cespare/vim-toml'
 " vim-clap - generic finder and dispatcher
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
+" quickfix
+" Plug 'romainl/vim-qf'
+
 " endwise
 " Plug 'tpope/vim-endwise'
 
@@ -282,6 +285,10 @@ nnoremap <leader><leader> :set cursorline! cursorcolumn!<CR>
 
 " shell/vim indent
 autocmd FileType sh,vim setlocal shiftwidth=2 softtabstop=2 expandtab
+
+" mapping to open and close quickfix window
+nmap <silent> <leader>oo :copen<CR>
+nmap <silent> <leader>oc :cclose<CR>
 
 " per project setting
 " https://medium.com/@dnrvs/per-project-settings-in-nvim-fc8c8877d970
@@ -418,11 +425,17 @@ let g:go_auto_type_info = 1
 let g:go_test_show_name = 1
 
 " fast editing go alternative files
-autocmd FileType go nmap <silent> <leader>ga :GoAlternate<CR>
-autocmd FileType go nmap <silent> <leader>ft :GoTestFunc<CR>
-autocmd FileType go nmap <silent> <Leader>cc <Plug>(go-coverage-toggle)
-autocmd FileType go nmap <silent> <leader>pt <Plug>(go-test)
-autocmd FileType go nmap <silent> <leader>gb :<C-u>call <SID>build_go_files()<CR>
+augroup gogroup
+  autocmd!
+  autocmd FileType go nmap <silent> gr :GoReferrers<CR>
+
+  autocmd FileType go nmap <silent> <leader>ga :GoAlternate<CR>
+  autocmd FileType go nmap <silent> <leader>ft :GoTestFunc<CR>
+  autocmd FileType go nmap <silent> <Leader>cc <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <silent> <leader>pt <Plug>(go-test)
+  autocmd FileType go nmap <silent> <leader>gb :<C-u>call <SID>build_go_files()<CR>
+augroup end
+
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -880,7 +893,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -903,7 +916,7 @@ nmap <leader>rn <Plug>(coc-rename)
 " xmap <leader>f  <Plug>(coc-format-selected)
 " nmap <leader>f  <Plug>(coc-format-selected)
 
-augroup mygroup
+augroup cocgroup
   autocmd!
   " Setup formatexpr specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
