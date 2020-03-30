@@ -424,10 +424,23 @@ let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 let g:go_test_show_name = 1
 
+" use quickfix instead of location list
+" the unimpaired plugin makes location switch more pleasant :-)
+" - *[q*     |:cprevious|
+" - *]q*     |:cnext|
+" - *[Q*     |:cfirst|
+" - *]Q*     |:clast|
+let g:go_list_type="quickfix"
+
 " fast editing go alternative files
+" TODO:
+" - GoKeyify
+" - GoFillStruct
+" - GoIfErr
 augroup gogroup
   autocmd!
   autocmd FileType go nmap <silent> gr :GoReferrers<CR>
+  autocmd FileType go nmap <silent> gi :GoImplements<CR>
 
   autocmd FileType go nmap <silent> <leader>ga :GoAlternate<CR>
   autocmd FileType go nmap <silent> <leader>ft :GoTestFunc<CR>
