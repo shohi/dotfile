@@ -505,6 +505,7 @@ function setup_rust() {
 
   # crates.io mirror
   # https://lug.ustc.edu.cn/wiki/mirrors/help/rust-crates
+  # NOTE: use default registry as it's always up-to-date.
   if [[ -z "${DISABLE_CRATES_IO_MIRROR}" ]]; then
     if [[ ! -f "${CARGO_HOME}/use_ustc_mirror" ]]; then
       touch "${CARGO_HOME}/use_ustc_mirror"
@@ -512,11 +513,11 @@ function setup_rust() {
       local conf
       conf=$(
         cat <<HEREDOC
-[source.crates-io]
-registry = "https://github.com/rust-lang/crates.io-index"
-replace-with = 'ustc'
+# [source.crates-io]
+# registry = "https://github.com/rust-lang/crates.io-index"
+# replace-with = 'ustc'
 [source.ustc]
-registry = 'git://mirrors.ustc.edu.cn/crates.io-index'
+registry = "https://mirrors.ustc.edu.cn/crates.io-index"
 HEREDOC
       )
 
@@ -524,7 +525,10 @@ HEREDOC
     fi
   fi
 
-  export PATH="${CARGO_HOME}/bin:$PATH:$HOME/workshop/github/brendangregg/FlameGraph"
+  # NOTE: flamegraph crates will install both `flamegraph` and the
+  # `cargo-flamegraph` subcommand.
+  # https://github.com/flamegraph-rs/flamegraph
+  export PATH="${CARGO_HOME}/bin:$PATH"
 }
 
 setup_rust
