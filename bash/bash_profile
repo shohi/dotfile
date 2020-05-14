@@ -84,6 +84,9 @@ function setup_shortcuts() {
   alias sdl='cd ~/Downloads'
   alias sdc='cd ~/Documents'
 
+  # NOTE: need `exa` installed -- cargo install exa
+  alias ll='exa -l --git'
+
   # workshop and github
   alias ghh='cd $HOME/workshop/github'
   alias sgh='cd $HOME/workshop/github/shohi'
