@@ -734,7 +734,16 @@ function update_babashka_scripts() {
   popd -q || return
 }
 
+function set_babashka_alias() {
+  if [[ ! -x "$(command -v bb)" ]]; then
+    return
+  fi
+
+  alias bb_nrepl='bb --nrepl-server 1667 &'
+}
+
 load_babashka_scripts
+set_babashka_alias
 
 #######################################################################
 #                               iTerm2                                #
