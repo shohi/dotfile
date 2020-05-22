@@ -50,7 +50,7 @@ Plug 'stephpy/vim-yaml'
 
 " markdown preview plugin
 " Plug 'junegunn/vim-xmark', { 'do': 'make' } " not work on macOS 10.14.6
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }}
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " markdown toc (table of contents)
 Plug 'mzlogin/vim-markdown-toc'
@@ -71,7 +71,7 @@ Plug 'mhinz/vim-mix-format'
 
 " FIXME: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
-Plug 'Olical/conjure', { 'tag': 'v2.1.2', 'do': 'bin/compile' }
+Plug 'Olical/conjure', { 'tag': 'v3.2.0' }
 
 " permut - swap columns
 Plug 'jlemetay/permut'
