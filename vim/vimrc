@@ -21,8 +21,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-surround'
 
 " NERDtree
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdtree'
+Plug 'preservim/nerdcommenter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " git status
@@ -71,7 +71,7 @@ Plug 'mhinz/vim-mix-format'
 
 " FIXME: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
-Plug 'Olical/conjure', { 'tag': 'v3.2.0' }
+Plug 'Olical/conjure', { 'tag': 'v3.5.0' }
 
 " permut - swap columns
 Plug 'jlemetay/permut'
@@ -371,7 +371,8 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             NERDTree Commenter                             "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" refer, https://github.com/scrooloose/nerdcommenter
+" refer, <s>https://github.com/scrooloose/nerdcommenter</s>
+" changed to https://github.com/preservim/nerdcommenter
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -1072,6 +1073,10 @@ let g:formatters_sh = ['shfmt']
 xmap <silent> <leader>ff :Autoformat<CR>
 nmap <silent> <leader>ff :Autoformat<CR>
 
+" protobuf - require clang-format installed firstly
+" https://www.electronjs.org/docs/development/clang-format
+" npm install -g clang-format
+
 augroup autoformat_group
   autocmd!
   " auto format on save for [sh,py]
@@ -1085,6 +1090,7 @@ augroup autoformat_group
   " autocmd BufWritePre *.py :Autoformat
   " autocmd FileType python autocmd BufWritePre <buffer> :Autoformat
 augroup END
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
