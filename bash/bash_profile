@@ -344,10 +344,12 @@ setup_helmenv
 # TODO: use [kbenv](https://github.com/little-angry-clouds/kbenv) to
 # manage kubectl versions.
 # refer https://kubernetes.io/docs/setup/release/version-skew-policy/
-function kubectl() {
-  echo "+ kubectl $*"
-  command kubectl "$@"
-}
+#
+# TODO: redirect to StdErr
+# function kubectl() {
+#   echo "+ kubectl $*"
+#   command kubectl "$@"
+# }
 
 ##############################################################
 ####                                                     #####

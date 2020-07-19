@@ -71,7 +71,7 @@ Plug 'mhinz/vim-mix-format'
 
 " FIXME: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
-Plug 'Olical/conjure', { 'tag': 'v3.5.0' }
+Plug 'Olical/conjure', { 'tag': 'v4.1.0' }
 
 " permut - swap columns
 Plug 'jlemetay/permut'
