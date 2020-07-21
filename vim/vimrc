@@ -210,6 +210,12 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'jnurmine/zenburn'
 Plug 'rafi/awesome-vim-colorschemes'
 
+" scratch buffer
+Plug 'mtth/scratch.vim'
+
+" vim-orgmode
+Plug 'jceb/vim-orgmode'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
