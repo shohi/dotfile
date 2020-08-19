@@ -17,6 +17,12 @@ iTerm2 best practice.
 >
 > Verified on v3.3.6.
 
+2. change left option to `meta` key (https://stackoverflow.com/questions/196357/making-iterm-to-translate-meta-key-in-the-same-way-as-in-other-oses)
+
+> Open `Preferences` (`Cmd+,`) and switch to `Profiles` tab.
+> 
+> `Keys` -> `Left Option Key` -> `Esc+`
+
 ## Tools
 ### 1. shell
 
