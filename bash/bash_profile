@@ -3,14 +3,13 @@
 # NOTE: load `~/.bashrc` first which contains personal sensitive setting
 [[ -f "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
 
-# Don't display pushd/popd stack
-# https://stackoverflow.com/questions/25288194/dont-display-pushd-popd-stack-across-several-bash-scripts-quiet-pushd-popd
-# NOTE: quiet flag `-q` does not work for bash on macOS, and `command pushd`
-# not work for zsh. (test env: macOS 10.15.16, zsh 5.7.1, bash 3.2.57)
-_CURRENT_SHELL=$(ps -p $$ -oargs=)
+function pushd_q() {
+  pushd -q "$@"
+}
 
-alias pushd='pushd -q'
-alias popd='popd -q'
+function popd_q() {
+  popd -q "$@"
+}
 
 ##############################################################
 ####                                                     #####
@@ -149,6 +148,53 @@ set_aws_proxy
 # autojump
 [[ -f /usr/local/etc/profile.d/autojump.sh ]] && . /usr/local/etc/profile.d/autojump.sh
 
+##############################################################
+####                                                     #####
+####                Utils                                #####
+####                                                     #####
+##############################################################
+
+# clone github repo into local directory specified by
+# _SHELL_GITHUB_REPO. The arguments are (user, repo),
+# the corresponding repo will be cloned into
+# `_SHELL_GITHUB_REPO/user/repo`.
+# TODO: check arity
+
+_SHELL_GITHUB_REPO="$HOME/.github"
+
+function _install_github_repo() {
+  local user="$1"
+  local repo="$2"
+
+  local userdir="${_SHELL_GITHUB_REPO}/${user}"
+  mkdir -p "${userdir}"
+
+  # install gv
+  if [[ ! -d "${userdir}/${repo}" ]]; then
+    git clone https://github.com/${user}/${repo}.git "${userdir}/${repo}"
+  fi
+}
+
+function _update_github_repo() {
+  local user="$1"
+  local repo="$2"
+
+  local repodir="${_SHELL_GITHUB_REPO}/${user}/${repo}"
+
+  # pull latest
+  if [[ -d "${repodir}" ]]; then
+    (cd "${repodir}" && git pull --all)
+  fi
+}
+
+function _local_repo_dir() {
+  local user="$1"
+  local repo="$2"
+  local repo_dir="${_SHELL_GITHUB_REPO}/${user}/${repo}"
+
+  echo "${repo_dir}"
+}
+
 # homebrew
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 
@@ -160,36 +206,20 @@ set_aws_proxy
 
 # install golang version manager - gv
 function setup_gv() {
-  mkdir -p "$HOME"/.github/shohi && pushd "$_" || return
-
-  local repo="gv"
-
   # install gv
-  if [[ ! -d "$repo" ]]; then
-    git clone https://github.com/shohi/$repo.git
-  fi
+  _install_github_repo "shohi" "gv"
 
   # activate it
-  source gv/gv.sh
-
-  popd || return
+  local repo_dir=$(_local_repo_dir "shohi" "gv")
+  source "${repo_dir}"/gv.sh
 }
 
 # update gv
 function update_gv() {
-  mkdir -p "$HOME"/.github/shohi && pushd "$_" || return
-
-  local repo="gv"
-
   # pull gv
-  if [[ -d "$repo" ]]; then
-    pushd "$PWD/$repo" || return
-    git pull --all
-    popd || return
-  fi
+  _update_github_repo "shohi" "gv"
 
   setup_gv
-  popd || return
 }
 
 setup_gv
@@ -202,7 +232,7 @@ function setup_golang() {
     return 1
   fi
 
-  export DEFAULT_GOPATH=${GOPATH:-$HOME/workshop/go}
+  export DEFAULT_GOPATH=$HOME/workshop/go
   export GOBIN=$DEFAULT_GOPATH/bin
   mkdir -p "$DEFAULT_GOPATH"/{src,bin,pkg}
 
@@ -243,106 +273,75 @@ setup_golang
 ####                                                     #####
 ##############################################################
 function setup_kubectl_alias() {
-  mkdir -p "$HOME"/.github/ahmetb && pushd "$_" || return
+  # install kubectl-alias
+  local user="ahmetb"
+  local repo="kubectl-alias"
 
-  # download kubectl-alias
-  if [[ ! -d "kubectl-alias" ]]; then
-    git clone https://github.com/ahmetb/kubectl-alias.git
-  fi
+  _install_github_repo "${user}" "${repo}"
 
-  source kubectl-alias/.kubectl_aliases
+  local repo_dir=$(_local_repo_dir "${user}" "${repo}")
+  source "${repo_dir}"/.kubectl_aliases
 
   alias kgnoa='kubectl get node | grep -v "NotReady"'
   alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
-
-  popd || return
 }
 
 # update kubectl alias
 function update_kubectl_alias() {
-  mkdir -p "$HOME"/.github/ahmetb && pushd "$_" || return
-
+  local user="ahmetb"
   local repo="kubectl-alias"
 
-  # install kubectl-alias
-  if [[ -d "$repo" ]]; then
-    pushd "$PWD/$repo" || return
-    git pull --all
-    popd || return
-  fi
-
+  _update_github_repo "${user}" "${repo}"
   setup_kubectl_alias
-
-  popd || return
 }
 
 function setup_kubectx() {
-  mkdir -p "$HOME"/.github/ahmetb && pushd "$_" || return
+  local user="ahmetb"
+  local repo="kubectx"
 
-  # download kubectx
-  if [[ ! -d "kubectx" ]]; then
-    git clone https://github.com/ahmetb/kubectx.git
-  fi
+  # install repo
+  _install_github_repo "${user}" "${repo}"
 
   # add soft link to /usr/local/bin
-  chmod +x "$PWD"/kubectx/kubectx
-  chmod +x "$PWD"/kubectx/kubens
+  local repo_dir=$(_local_repo_dir "${user}" "${repo}")
+  chmod +x "${repo_dir}"/kubectx
+  chmod +x "${repo_dir}"/kubens
 
-  ln -s -f "$PWD"/kubectx/kubectx /usr/local/bin/kubectx
-  ln -s -f "$PWD"/kubectx/kubens /usr/local/bin/kubens
-
-  # TODO: link auto completion scripts
-  popd || return
+  ln -s -f "${repo_dir}"/kubectx /usr/local/bin/kubectx
+  ln -s -f "${repo_dir}"/kubectx/kubens /usr/local/bin/kubens
 }
 
 function update_kubectx() {
-  mkdir -p "$HOME"/.github/ahmetb && pushd "$_" || return
-
+  local user="ahmetb"
   local repo="kubectx"
 
-  # install kubectx
-  if [[ -d "$repo" ]]; then
-    pushd "$PWD/$repo" || return
-    git pull --all
-    popd || return
-  fi
-
+  # update repo
+  _update_github_repo "${user}" "${repo}"
   setup_kubectx
-  popd || return
 }
 
-# TODO: refactor
 # helm version manager
 # FIXME: helmenv is global scoped, better to move to session scoped.
 function setup_helmenv() {
-  mkdir -p "$HOME"/.github/little-angry-clouds && pushd "$_" || return
+  local user="little-angry-clouds"
+  local repo="helmenv"
 
-  # download helmenv
-  if [[ ! -d "helmenv" ]]; then
-    git clone https://github.com/little-angry-clouds/helmenv.git
-  fi
+  # install
+  _install_github_repo "${user}" "${repo}"
 
-  source helmenv/helmenv.sh
-
-  popd || return
+  local repo_dir=$(_local_repo_dir "${user}" "${repo}")
+  source "${repo_dir}"/helmenv.sh
 }
 
 # update helmenv
 function update_helmenv() {
-  mkdir -p "$HOME"/.github/little-angry-clouds && pushd "$_" || return
-
+  local user="little-angry-clouds"
   local repo="helmenv"
 
-  # install helmenv
-  if [[ -d "$repo" ]]; then
-    pushd "$PWD/$repo" || return
-    git pull --all
-    popd || return
-  fi
+  # install
+  _update_github_repo "${user}" "${repo}"
 
   setup_helmenv
-
-  popd || return
 }
 
 setup_kubectl_alias
@@ -367,17 +366,20 @@ setup_helmenv
 ##############################################################
 
 # setup env for java
+# require jdk installed first
+# https://www.oracle.com/java/technologies/javase-downloads.html
 function setup_java() {
   local jh
   jh="$(/usr/libexec/java_home)"
 
   export JAVA_HOME=${jh}
-  export GRADLE_HOME=/usr/local/opt/gradle/libexec
   export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
-  export M2_HOME=/usr/local/Cellar/maven/3.6.0/libexec
+  # FIXME: install maven
+  # export M2_HOME=/usr/local/Cellar/maven/3.6.0/libexec
 
-  export JAVA_HOME
-  export PATH="$PATH:$GRADLE_HOME/bin"
+  # use maven instead of gradle
+  # export GRADLE_HOME=/usr/local/opt/gradle/libexec
+  # export PATH="$PATH:$GRADLE_HOME/bin"
 }
 
 setup_java
@@ -390,29 +392,28 @@ setup_java
 
 function init_pyenv() {
   # install python version manager
-  if [[ ! -x "$(command -v pyenv)" ]]; then
+  if [[ -z "$(command -v pyenv)" ]]; then
     echo "please install python version manager firstly - pyenv."
     return
-  else
-    # set MIRROR for python itself
-    # export PYTHON_BUILD_MIRROR_URL="https://npm.taobao.org/mirrors/python"
-    # NOTE: As the post points out, current pyenv can't work with the configure properly.
-    # The workaround is to download the tar manually and set `PYTHON_BUILD_CACHE_PATH` to
-    # the download directory, e.g
-    # mkdir -p ~/.pyenv/cache
-    # cd ~/.pyenv/cache && wget "https://npm.taobao.org/mirrors/python/3.8.0/Python-3.8.0.tar.xz"
-    # PYTHON_BUILD_CACHE_PATH="$PWD" pyenv install 3.8.0
-    mkdir -p "$HOME/.pyenv/cache"
-    export PYTHON_BUILD_CACHE_PATH="$HOME/.pyenv/cache"
-
-    # pyenv init is slow
-    # issue, https://github.com/pyenv/pyenv/issues/784
-    eval "$(pyenv init - zsh --no-rehash)"
   fi
+
+  # set MIRROR for python itself
+  # export PYTHON_BUILD_MIRROR_URL="https://npm.taobao.org/mirrors/python"
+  # NOTE: As the post points out, current pyenv can't work with the configure properly.
+  # The workaround is to download the tar manually and set `PYTHON_BUILD_CACHE_PATH` to
+  # the download directory, e.g
+  # mkdir -p ~/.pyenv/cache
+  # cd ~/.pyenv/cache && wget "https://npm.taobao.org/mirrors/python/3.8.0/Python-3.8.0.tar.xz"
+  # PYTHON_BUILD_CACHE_PATH="$PWD" pyenv install 3.8.0
+  mkdir -p "$HOME/.pyenv/cache"
+  export PYTHON_BUILD_CACHE_PATH="$HOME/.pyenv/cache"
+
+  # pyenv init is slow
+  # issue, https://github.com/pyenv/pyenv/issues/784
+  eval "$(pyenv init - zsh --no-rehash)"
 }
 
-# NOTE: as `$(pyenv init - )` is slow, leave it to load
-# manually.
+# NOTE: as `$(pyenv init - )` is slow, leave it to load manually.
 # TODO: find out a way to lazy-load pyenv
 init_pyenv
 
@@ -425,7 +426,6 @@ function check_pip_version() {
 }
 
 function setup_python() {
-
   # use tsinghua mirror
   # https://mirror.tuna.tsinghua.edu.cn/help/pypi/
   # TODO: check geolocation
@@ -433,37 +433,39 @@ function setup_python() {
     return
   fi
 
-  if [[ -x "$(command -v pip3)" ]]; then
-    local mirror_url="https://pypi.tuna.tsinghua.edu.cn/simple"
-
-    # NOTE: pip config file `$HOME/.config/pip` and the `global.index-url`
-    # item may be not exist. check exit code `$?`.
-    local cur_url
-    cur_url="$(pip3 config get global.index-url)"
-    if [ $? -ne 0 ] || [ "${cur_url}" != "${mirror_url}" ]; then
-      check_pip_version
-
-      pip3 config set global.index-url "${mirror_url}"
-    fi
-  else
+  if [[ ! -x "$(command -v pip3)" ]]; then
     echo "please install python first using pyevn."
     return
   fi
 
-}
+  # setup mirror
+  local mirror_url="https://pypi.tuna.tsinghua.edu.cn/simple"
 
-function setup_python_alias() {
-  if [[ -x "$(command -v python3)" ]]; then
-    if ! pip3 list | grep "ipython" >/dev/null; then
-      pip3 install -U ipython
-    fi
-
-    alias ipy="python3 -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+  # NOTE: pip config file `$HOME/.config/pip` and the `global.index-url`
+  # item may be not exist. check exit code `$?`.
+  local cur_url
+  cur_url="$(pip3 config get global.index-url)"
+  if [ $? -ne 0 ] || [ "${cur_url}" != "${mirror_url}" ]; then
+    check_pip_version
+    pip3 config set global.index-url "${mirror_url}"
   fi
 }
 
 function set_ipy_alias() {
   alias ipy="python3 -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+}
+
+function setup_python_alias() {
+  if [[ ! -x "$(command -v python3)" ]]; then
+    return
+  fi
+
+  # install ipython
+  if ! pip3 list | grep "ipython" >/dev/null; then
+    pip3 install -U ipython
+  fi
+
+  set_ipy_alias
 }
 
 # NOTE: never using global python2/python3 by default,
@@ -486,11 +488,13 @@ function setup_ruby() {
   # set RubyGems Source
   # check gem sources - `gem sources -l`, and replace the source.
   # gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
-  if [[ -x "$(command -v gem)" ]]; then
-    local gem_source="https://gems.ruby-china.com/"
-    if ! gem sources -l | grep -q ${gem_source}; then
-      gem sources --add "${gem_source}" --remove https://rubygems.org/
-    fi
+  if [[ ! -x "$(command -v gem)" ]]; then
+    return
+  fi
+
+  local gem_source="https://gems.ruby-china.com/"
+  if ! gem sources -l | grep -q ${gem_source}; then
+    gem sources --add "${gem_source}" --remove https://rubygems.org/
   fi
 }
 
@@ -523,7 +527,6 @@ function setup_rust() {
   if [[ -z "${DISABLE_CRATES_IO_MIRROR}" ]]; then
     if [[ ! -f "${CARGO_HOME}/use_ustc_mirror" ]]; then
       touch "${CARGO_HOME}/use_ustc_mirror"
-
       local conf
       conf=$(
         cat <<HEREDOC
@@ -560,7 +563,7 @@ function setup_flutter() {
   export PATH="$PATH:$FLUTTER_HOME/bin"
 }
 
-setup_flutter
+# setup_flutter
 
 ##############################################################
 ####                                                     #####
@@ -582,10 +585,11 @@ setup_nim
 function setup_emacs() {
   if [[ ! -x "/Applications/Emacs.app/Contents/MacOS/Emacs" ]]; then
     echo "plz install Emacs firstly, e.g. $(brew cask install emacs)."
-  else
-    alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
-    alias emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+    return
   fi
+
+  alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+  alias emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
 }
 
 setup_emacs
@@ -634,43 +638,26 @@ function path_remove() {
 
 # load customized scripts from github repo.
 function load_customized_scripts() {
-  mkdir -p ~/.github/shohi && pushd "$_" || return
-
+  local user="shohi"
   local repo="blond"
 
-  # download "blond"
-  if [[ ! -d "blond" ]]; then
-    git clone https://github.com/shohi/blond.git
-  fi
+  _install_github_repo "${user}" "${repo}"
 
   # use main entry
-  pushd "${repo}" || return
+  local repo_dir=$(_local_repo_dir "${user}" "${repo}")
+  pushd_q "${repo_dir}" || return
   source "main.sh"
-  popd || return
-
-  # restore previous working directory where the function is called.
-  popd || return
+  popd_q || return
 }
 
 # update customized scripts
 function update_customized_scripts() {
-  mkdir -p ~/.github/shohi && pushd "$_" || return
-
+  local user="shohi"
   local repo="blond"
 
-  # install customized scripts
-  if [[ ! -d "${repo}" ]]; then
-    load_customized_scripts
-  else
-    pushd "${PWD}/${repo}" || return
+  _update_github_repo "${user}" "${repo}"
 
-    git pull --all
-    source "main.sh"
-
-    popd || return
-  fi
-
-  popd || return
+  load_customized_scripts
 }
 
 load_customized_scripts
@@ -699,7 +686,6 @@ function _check_and_add_to_path() {
   fi
 }
 
-# TODO: refactor
 # load babashka scripts from github repo.
 function load_babashka_scripts() {
   if [[ ! -x "$(command -v bb)" ]]; then
@@ -707,42 +693,24 @@ function load_babashka_scripts() {
     return 1
   fi
 
-  mkdir -p ~/.github/shohi && pushd "$_" || return
-
+  local user="shohi"
   local repo="cerise"
-  if [[ ! -d "cerise" ]]; then
-    git clone https://github.com/shohi/cerise.git
-  fi
 
-  # use main entry
-  pushd "${repo}" || return
-  _check_and_add_to_path "clj"
-  popd || return
+  _install_github_repo "${user}" "${repo}"
 
-  # restore previous working directory where the function is called.
-  popd || return
+  # add to path
+  local repo_dir=$(_local_repo_dir "${user}" "${repo}")
+  export PATH=$PATH:"${repo_dir}"
 }
 
 # update babashka scripts
 function update_babashka_scripts() {
-  mkdir -p ~/.github/shohi && pushd "$_" || return
-
+  local user="shohi"
   local repo="cerise"
 
-  # install customized scripts
-  if [[ ! -d "${repo}" ]]; then
-    load_customized_scripts
-    return 0
-  fi
+  _update_github_repo "${user}" "${repo}"
 
-  # update scripts
-  pushd "${PWD}/${repo}" || return
-  git pull --all
-  _check_and_add_to_path "clj"
-  popd || return
-
-  # restore previous working directory where the function is called.
-  popd || return
+  load_babashka_scripts
 }
 
 function set_babashka_alias() {
