@@ -3,6 +3,18 @@
 # NOTE: load `~/.bashrc` first which contains personal sensitive setting
 [[ -f "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
 
+# Don't display pushd/popd stack
+# https://stackoverflow.com/questions/25288194/dont-display-pushd-popd-stack-across-several-bash-scripts-quiet-pushd-popd
+# NOTE: quiet flag `-q` does not work.
+# test env: macOS 10.15.16, zsh 5.7.1, bash 3.2.57
+pushd () {
+    command pushd "$@" > /dev/null
+}
+
+popd () {
+    command popd "$@" > /dev/null
+}
+
 ##############################################################
 ####                                                     #####
 ####                QUOTE                                #####
@@ -151,7 +163,7 @@ set_aws_proxy
 
 # install golang version manager - gv
 function setup_gv() {
-  mkdir -p "$HOME"/.github/shohi && pushd -q "$_" || return
+  mkdir -p "$HOME"/.github/shohi && pushd "$_" || return
 
   local repo="gv"
 
@@ -163,24 +175,24 @@ function setup_gv() {
   # activate it
   source gv/gv.sh
 
-  popd -q || return
+  popd || return
 }
 
 # update gv
 function update_gv() {
-  mkdir -p "$HOME"/.github/shohi && pushd -q "$_" || return
+  mkdir -p "$HOME"/.github/shohi && pushd "$_" || return
 
   local repo="gv"
 
   # pull gv
   if [[ -d "$repo" ]]; then
-    pushd -q "$PWD/$repo" || return
+    pushd "$PWD/$repo" || return
     git pull --all
-    popd -q || return
+    popd || return
   fi
 
   setup_gv
-  popd -q || return
+  popd || return
 }
 
 setup_gv
@@ -234,7 +246,7 @@ setup_golang
 ####                                                     #####
 ##############################################################
 function setup_kubectl_alias() {
-  mkdir -p "$HOME"/.github/ahmetb && pushd -q "$_" || return
+  mkdir -p "$HOME"/.github/ahmetb && pushd "$_" || return
 
   # download kubectl-alias
   if [[ ! -d "kubectl-alias" ]]; then
@@ -246,29 +258,29 @@ function setup_kubectl_alias() {
   alias kgnoa='kubectl get node | grep -v "NotReady"'
   alias kgnoasl='kubectl get node --show-labels | grep -v "NotReady"'
 
-  popd -q || return
+  popd || return
 }
 
 # update kubectl alias
 function update_kubectl_alias() {
-  mkdir -p "$HOME"/.github/ahmetb && pushd -q "$_" || return
+  mkdir -p "$HOME"/.github/ahmetb && pushd "$_" || return
 
   local repo="kubectl-alias"
 
   # install kubectl-alias
   if [[ -d "$repo" ]]; then
-    pushd -q "$PWD/$repo" || return
+    pushd "$PWD/$repo" || return
     git pull --all
-    popd -q || return
+    popd || return
   fi
 
   setup_kubectl_alias
 
-  popd -q || return
+  popd || return
 }
 
 function setup_kubectx() {
-  mkdir -p "$HOME"/.github/ahmetb && pushd -q "$_" || return
+  mkdir -p "$HOME"/.github/ahmetb && pushd "$_" || return
 
   # download kubectx
   if [[ ! -d "kubectx" ]]; then
@@ -283,30 +295,30 @@ function setup_kubectx() {
   ln -s -f "$PWD"/kubectx/kubens /usr/local/bin/kubens
 
   # TODO: link auto completion scripts
-  popd -q || return
+  popd || return
 }
 
 function update_kubectx() {
-  mkdir -p "$HOME"/.github/ahmetb && pushd -q "$_" || return
+  mkdir -p "$HOME"/.github/ahmetb && pushd "$_" || return
 
   local repo="kubectx"
 
   # install kubectx
   if [[ -d "$repo" ]]; then
-    pushd -q "$PWD/$repo" || return
+    pushd "$PWD/$repo" || return
     git pull --all
-    popd -q || return
+    popd || return
   fi
 
   setup_kubectx
-  popd -q || return
+  popd || return
 }
 
 # TODO: refactor
 # helm version manager
 # FIXME: helmenv is global scoped, better to move to session scoped.
 function setup_helmenv() {
-  mkdir -p "$HOME"/.github/little-angry-clouds && pushd -q "$_" || return
+  mkdir -p "$HOME"/.github/little-angry-clouds && pushd "$_" || return
 
   # download helmenv
   if [[ ! -d "helmenv" ]]; then
@@ -315,25 +327,25 @@ function setup_helmenv() {
 
   source helmenv/helmenv.sh
 
-  popd -q || return
+  popd || return
 }
 
 # update helmenv
 function update_helmenv() {
-  mkdir -p "$HOME"/.github/little-angry-clouds && pushd -q "$_" || return
+  mkdir -p "$HOME"/.github/little-angry-clouds && pushd "$_" || return
 
   local repo="helmenv"
 
   # install helmenv
   if [[ -d "$repo" ]]; then
-    pushd -q "$PWD/$repo" || return
+    pushd "$PWD/$repo" || return
     git pull --all
-    popd -q || return
+    popd || return
   fi
 
   setup_helmenv
 
-  popd -q || return
+  popd || return
 }
 
 setup_kubectl_alias
@@ -625,7 +637,7 @@ function path_remove() {
 
 # load customized scripts from github repo.
 function load_customized_scripts() {
-  mkdir -p ~/.github/shohi && pushd -q "$_" || return
+  mkdir -p ~/.github/shohi && pushd "$_" || return
 
   local repo="blond"
 
@@ -635,17 +647,17 @@ function load_customized_scripts() {
   fi
 
   # use main entry
-  pushd -q "${repo}" || return
+  pushd "${repo}" || return
   source "main.sh"
-  popd -q || return
+  popd || return
 
   # restore previous working directory where the function is called.
-  popd -q || return
+  popd || return
 }
 
 # update customized scripts
 function update_customized_scripts() {
-  mkdir -p ~/.github/shohi && pushd -q "$_" || return
+  mkdir -p ~/.github/shohi && pushd "$_" || return
 
   local repo="blond"
 
@@ -653,15 +665,15 @@ function update_customized_scripts() {
   if [[ ! -d "${repo}" ]]; then
     load_customized_scripts
   else
-    pushd -q "${PWD}/${repo}" || return
+    pushd "${PWD}/${repo}" || return
 
     git pull --all
     source "main.sh"
 
-    popd -q || return
+    popd || return
   fi
 
-  popd -q || return
+  popd || return
 }
 
 load_customized_scripts
@@ -698,7 +710,7 @@ function load_babashka_scripts() {
     return 1
   fi
 
-  mkdir -p ~/.github/shohi && pushd -q "$_" || return
+  mkdir -p ~/.github/shohi && pushd "$_" || return
 
   local repo="cerise"
   if [[ ! -d "cerise" ]]; then
@@ -706,17 +718,17 @@ function load_babashka_scripts() {
   fi
 
   # use main entry
-  pushd -q "${repo}" || return
+  pushd "${repo}" || return
   _check_and_add_to_path "clj"
-  popd -q || return
+  popd || return
 
   # restore previous working directory where the function is called.
-  popd -q || return
+  popd || return
 }
 
 # update babashka scripts
 function update_babashka_scripts() {
-  mkdir -p ~/.github/shohi && pushd -q "$_" || return
+  mkdir -p ~/.github/shohi && pushd "$_" || return
 
   local repo="cerise"
 
@@ -727,13 +739,13 @@ function update_babashka_scripts() {
   fi
 
   # update scripts
-  pushd -q "${PWD}/${repo}" || return
+  pushd "${PWD}/${repo}" || return
   git pull --all
   _check_and_add_to_path "clj"
-  popd -q || return
+  popd || return
 
   # restore previous working directory where the function is called.
-  popd -q || return
+  popd || return
 }
 
 function set_babashka_alias() {
