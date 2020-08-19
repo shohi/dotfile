@@ -16,3 +16,23 @@ iTerm2 best practice.
 > `Working Directory for New Split Panes` -> `Reuse previous session's directory`.
 >
 > Verified on v3.3.6.
+
+## Tools
+### 1. shell
+
+**Oh-my-zsh** install (https://ohmyz.sh/#install)
+
+```bash
+$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+### 2. fonts
+install **powerline/fonts** (https://github.com/powerline/fonts)
+
+```bash
+mkdir tmp && cd tmp
+git clone https://github.com/powerline/fonts.git
+
+# click font file (.ttf or .otf) to install fonts
+
+```
