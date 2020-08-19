@@ -56,6 +56,16 @@ rm -rf ~/tmpdotfile
 
 ```
 
+### vim-plug
+use `vim-plug` as Vim Plugin Manager, make sure it is installed. (https://github.com/junegunn/vim-plug)
+
+```bash
+# for neovim user
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+```
+
 ## iTerm2
 
 * color scheme -- nord-iterm2, <https://github.com/arcticicestudio/nord-iterm2>
@@ -72,7 +82,6 @@ use `nord` color scheme for all - `vim/tmux/iTerm2`
 1. such error occurs when opening `.go` file -- `..#SNR..go#lsp#DidOpen`
 
     reinstall related go binaries required by `vim-go`, `:GoInstallBinaries`
-
 
 
 ## Reference
