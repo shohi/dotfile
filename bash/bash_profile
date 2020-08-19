@@ -9,21 +9,8 @@
 # not work for zsh. (test env: macOS 10.15.16, zsh 5.7.1, bash 3.2.57)
 _CURRENT_SHELL=$(ps -p $$ -oargs=)
 
-pushd () {
-  if [ "${_CURRENT_SHELL}" == "-zsh" ]; then
-    pushd -q "$@"
-  else
-    command pushd "$@" > /dev/null
-  fi
-}
-
-popd () {
-  if [ "${_CURRENT_SHELL}" == "-zsh" ]; then
-    popd -q "$@"
-  else
-    command popd "$@" > /dev/null
-  fi
-}
+alias pushd='pushd -q'
+alias popd='popd -q'
 
 ##############################################################
 ####                                                     #####
