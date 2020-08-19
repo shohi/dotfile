@@ -8,13 +8,13 @@ fi
 
 # TODO: add login shell check
 function download_script() {
-  mkdir -p ~/.local/config/bash && pushd -q "$_"
+  mkdir -p ~/.local/config/bash && cd ~/.local/config/bash && pushd "$_"
 
   if [[ ! -f "bash_profile" ]]; then
     curl -sSL -O "https://github.com/shohi/dotfile/raw/master/bash/bash_profile"
   fi
 
-  popd -q
+  popd
 }
 
 function install_script() {
