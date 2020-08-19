@@ -7,8 +7,10 @@
 # https://stackoverflow.com/questions/25288194/dont-display-pushd-popd-stack-across-several-bash-scripts-quiet-pushd-popd
 # NOTE: quiet flag `-q` does not work for bash on macOS, and `command pushd`
 # not work for zsh. (test env: macOS 10.15.16, zsh 5.7.1, bash 3.2.57)
+_CURRENT_SHELL="$0"
+
 pushd () {
-  if ["$0" == "-zsh" ]; then
+  if [ "${_CURRENT_SHELL}" == "-zsh" ]; then
     pushd -q "$@"
   else
     command pushd "$@" > /dev/null
@@ -16,8 +18,8 @@ pushd () {
 }
 
 popd () {
-  if ["$0" == "-zsh" ]; then
-    pushd -q "$@"
+  if [ "${_CURRENT_SHELL}" == "-zsh" ]; then
+    popd -q "$@"
   else
     command popd "$@" > /dev/null
   fi
