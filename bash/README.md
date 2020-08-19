@@ -15,6 +15,14 @@ git clone https://github.com/shohi/dotfile.git
 cd dotfile/bash && source bash_profile
 ```
 
+## FAQ
+1. how to source `.bash_profile` automatically when using `oh-my-zsh`? ([link](https://superuser.com/questions/866683/iterm-zsh-not-reading-bashrc-or-bash-profile)
+
+```bash
+# append the line to the end of `~/.zshrc`
+source ~/.bash_profile
+```
+
 ## Reference
 
 1. 提高效率从编写init.sh开始, <https://zhuanlan.zhihu.com/p/50080614>
