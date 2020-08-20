@@ -253,16 +253,14 @@ function setup_golang() {
   alias ggh='cd $DEFAULT_GOPATH/src/github.com'
   alias gosc='cd $HOME/workshop/github/golang/go'
   alias gosrc='cd $GOROOT'
+}
 
-  # proxy
-  # export GOPROXY=https://goproxy.io
-  if [[ -z "${DISABLE_GOPROXY}" ]]; then
-    # refer, https://goproxy.io/
-    export GO111MODULE=on
-    export GOPROXY=https://goproxy.io
-    # export GOPROXY=https://athens.azurefd.net
-    # export GOPROXY=https://mirrors.aliyun.com/goproxy/
-  fi
+function use_goproxy() {
+  # refer, https://goproxy.io/
+  # export GO111MODULE=on
+  export GOPROXY=https://goproxy.io
+  # export GOPROXY=https://athens.azurefd.net
+  # export GOPROXY=https://mirrors.aliyun.com/goproxy/
 }
 
 setup_golang
