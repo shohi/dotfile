@@ -723,6 +723,23 @@ load_babashka_scripts
 set_babashka_alias
 
 #######################################################################
+#                               fzf                                   #
+#######################################################################
+# fzf - A command-line fuzzy finder
+# https://github.com/junegunn/fzf#installation
+function set_fzf() {
+  if [[ ! -x "$(command -v fzf)" ]]; then
+    echo "fzf not found. use 'brew install fzf' to install"
+    return
+  fi
+
+  # To install useful key bindings and fuzzy completion:
+  # $(brew --prefix)/opt/fzf/install
+}
+
+set_fzf
+
+#######################################################################
 #                               iTerm2                                #
 #######################################################################
 
