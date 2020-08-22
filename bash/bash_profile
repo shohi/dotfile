@@ -600,7 +600,10 @@ setup_emacs
 function setup_ctags() {
   # refer, https://gist.github.com/nazgob/1570678
   # replace macOS builtin one with `brew` one
-  # first install - `brew install ctags`
+
+  # https://github.com/liuchengxu/vista.vim#compile-ctags-with-json-format-support
+  # - brew tap universal-ctags/universal-ctags
+  # - brew install --with-jansson --HEAD universal-ctags/universal-ctags/universal-ctags
   # TODO: install ctags if not exist
   alias ctags='$(brew --prefix)/bin/ctags'
 

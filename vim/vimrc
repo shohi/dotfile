@@ -216,6 +216,9 @@ Plug 'mtth/scratch.vim'
 " vim-orgmode
 Plug 'jceb/vim-orgmode'
 
+" anzu - show search status
+Plug 'osyo-manga/vim-anzu'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -1159,3 +1162,19 @@ let g:rooter_manual_only = 1
 " https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions
 " https://github.com/neoclide/coc-java
 " :CocInstall coc-java
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    anzu                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/osyo-manga/vim-anzu
+" mapping
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+
+" clear status
+" nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+
+" statusline
+"set statusline=%{anzu#search_status()}
