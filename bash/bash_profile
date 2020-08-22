@@ -723,8 +723,8 @@ load_babashka_scripts
 set_babashka_alias
 
 #######################################################################
-#                               fzf                                   #
 #######################################################################
+#                               fzf                                   #
 # fzf - A command-line fuzzy finder
 # https://github.com/junegunn/fzf#installation
 function set_fzf() {
@@ -749,5 +749,31 @@ set_fzf
 function it2prof() {
   echo -e "\033]50;SetProfile=$1\a"
 }
+
+#######################################################################
+#                               Gnu                                   #
+#######################################################################
+
+# install gnupg
+
+function setup_gnupg() {
+  mkdir -p ~/.gnupg
+
+  if [[ ! -x "$(command -v gpg)" ]]; then
+    brew install gnupg
+    brew install pinentry-mac
+    echo "pinentry-program /usr/local/bin/pinentry-mac" >>~/.gnupg/gpg-agent.conf
+  fi
+
+  # To fix the " gpg: WARNING: unsafe permissions on homedir '/home/path/to/user/.gnupg' " error
+  # Make sure that the .gnupg directory and its contents is accessibile by your user.
+  chown -R $(whoami) ~/.gnupg/
+
+  # Also correct the permissions and access rights on the directory
+  chmod 600 ~/.gnupg/*
+  chmod 700 ~/.gnupg
+}
+
+setup_gnupg
 
 # -*- vim: set ft=bash: -*-
