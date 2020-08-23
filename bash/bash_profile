@@ -503,10 +503,14 @@ setup_ruby
 ####                Rust                                 #####
 ####                                                     #####
 ##############################################################
-# Default CARGO_HOME - `$HOME/.cargo`
-# - https://doc.rust-lang.org/cargo/guide/cargo-home.html
+# use homebrew to install rust/cargo as they can be shared across
+# users on same machine.
 #
-# Default RUST_HOME - `$HOME/.rustup`
+# use rustup to install rust/cargo if the machine is only for one
+# user.
+# - default CARGO_HOME - `$HOME/.cargo`
+#   https://doc.rust-lang.org/cargo/guide/cargo-home.html
+# - default RUST_HOME - `$HOME/.rustup`
 # - https://github.com/rust-lang/rustup#environment-variables
 function setup_rust() {
   mkdir -p "$HOME"/.cargo
@@ -546,7 +550,7 @@ HEREDOC
   export PATH="${CARGO_HOME}/bin:$PATH"
 }
 
-setup_rust
+# setup_rust
 
 ##############################################################
 ####                                                     #####
