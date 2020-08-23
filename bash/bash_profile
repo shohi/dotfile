@@ -78,7 +78,7 @@ function setup_locale() {
 function setup_path() {
   export EDITOR=nvim
   export FIREFOX_HOME="/Applications/Firefox.app/Contents/MacOS"
-  export PATH="/usr/local/bin:$PATH:$FIREFOX_HOME"
+  export PATH=$PATH:"$FIREFOX_HOME"
 }
 
 function setup_git() {
@@ -550,7 +550,7 @@ HEREDOC
   export PATH="${CARGO_HOME}/bin:$PATH"
 }
 
-# setup_rust
+setup_rust
 
 ##############################################################
 ####                                                     #####
