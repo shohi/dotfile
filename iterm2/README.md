@@ -42,3 +42,6 @@ git clone https://github.com/powerline/fonts.git
 # click font file (.ttf or .otf) to install fonts
 
 ```
+
+### 3. color scheme 
+nord-iterm2, <https://github.com/arcticicestudio/nord-iterm2>
