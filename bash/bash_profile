@@ -592,6 +592,7 @@ function setup_emacs() {
 
   alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
   alias emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+  alias cd_emacs='cd ~/.emacs.d'
 }
 
 setup_emacs
@@ -782,5 +783,11 @@ function setup_gnupg() {
 }
 
 setup_gnupg
+
+#######################################################################
+#                            SpellCheck                               #
+#######################################################################
+# install hunspell - https://github.com/hunspell/hunspell
+# - brew install hunspell
 
 # -*- vim: set ft=bash: -*-
