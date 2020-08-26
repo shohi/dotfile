@@ -319,27 +319,13 @@ function update_kubectx() {
 }
 
 # helm version manager
+# https://github.com/little-angry-clouds/kubernetes-binaries-managers/tree/master/cmd/helmenv
 # FIXME: helmenv is global scoped, better to move to session scoped.
 function setup_helmenv() {
-  local user="little-angry-clouds"
-  local repo="helmenv"
-
-  # install
-  _install_github_repo "${user}" "${repo}"
-
-  local repo_dir=$(_local_repo_dir "${user}" "${repo}")
-  source "${repo_dir}"/helmenv.sh
-}
-
-# update helmenv
-function update_helmenv() {
-  local user="little-angry-clouds"
-  local repo="helmenv"
-
-  # install
-  _update_github_repo "${user}" "${repo}"
-
-  setup_helmenv
+  if [[ ! -x "$(command -v helmenv)" ]]; then
+    brew tap little-angry-clouds/homebrew-my-brews
+    brew install helmenv
+  fi
 }
 
 setup_kubectl_alias
