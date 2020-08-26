@@ -318,16 +318,38 @@ function update_kubectx() {
   setup_kubectx
 }
 
-# helm version manager
+# helm version manager - helmenv
 # https://github.com/little-angry-clouds/kubernetes-binaries-managers/tree/master/cmd/helmenv
 # FIXME: helmenv is global scoped, better to move to session scoped.
 function setup_helmenv() {
   if [[ ! -x "$(command -v helmenv)" ]]; then
+    # install if not exist
     brew tap little-angry-clouds/homebrew-my-brews
     brew install helmenv
   fi
+
+  # define aliases
+  alias h='helm'
+  alias hl='helm list'
+  alias hla='helm list --all'
+
+  alias hh='helm history'
 }
 
+# kubectl version manager - kbenv
+# https://github.com/little-angry-clouds/kubernetes-binaries-managers/tree/master/cmd/kbenv
+# kbenv will install a kubectl wrapper, which will overwrite the one installed by Docker
+# - on macOS, the kubectl installed by Docker is located at
+#   `/Applications/Docker.app/Contents/Resources/bin`
+function setup_kubectl() {
+  if [[ ! -x "$(command -v kbenv)" ]]; then
+    # install if not exist
+    brew tap little-angry-clouds/homebrew-my-brews
+    brew install kbenv
+  fi
+}
+
+setup_kubectl
 setup_kubectl_alias
 setup_kubectx
 setup_helmenv
