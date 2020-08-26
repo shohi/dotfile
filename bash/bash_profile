@@ -391,7 +391,9 @@ setup_java
 function init_pyenv() {
   # install python version manager
   if [[ -z "$(command -v pyenv)" ]]; then
-    echo "please install python version manager firstly - pyenv."
+    echo "Install python version manager - pyenv/pyenv-virtualenv"
+    brew install pyenv
+    brew install pyenv-virtualenv
     return
   fi
 
@@ -408,7 +410,14 @@ function init_pyenv() {
 
   # pyenv init is slow
   # issue, https://github.com/pyenv/pyenv/issues/784
-  eval "$(pyenv init - zsh --no-rehash)"
+  # eval "$(pyenv init - zsh --no-rehash)"
+  #
+  # remove `zsh` as it does not work with virtualenv
+  eval "$(pyenv init - --no-rehash)"
+
+  # optional - add utils for pyenv virtualenv
+  # https://github.com/pyenv/pyenv-virtualenv
+  # eval "$(pyenv virtualenv-init -)"
 }
 
 # NOTE: as `$(pyenv init - )` is slow, leave it to load manually.
