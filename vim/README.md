@@ -6,54 +6,87 @@ vim configuration integrated with `tmux` and `iterm2` on MacOS using `neovim` di
 
 ```bash
 git clone https://github.com/shohi/dotfile.git ~/tmpdotfile
+cd ~/tmpdotfile
+```
 
-# 1. vim
+All following operations are taken under the directory - `~/tmpdotfile`.
 
-# 1.1 install neovim
+### neovim
+
+```bash
+# 1 install neovim
 brew install neovim
 
-# 1.2 install vim-plug
+# 2 install vim-plug
 # refer, <https://github.com/junegunn/vim-plug>
 
-# 1.3 update vim config
+# 3 update vim config
 # or create a soft link -- `ln -s ~/tmpdotfile/vim/vimrc ~/.vimrc`
 mv ~/tmpdotfile/vim/vimrc ~/.vimrc
 
-# 1.4 use vimrc for `neovim`
+# 4 use vimrc for `neovim`
 # refer, <https://neovim.io/doc/user/nvim.html#nvim-from-vim>
 mkdir -p ~/.config/nvim && copy ~/tmpdotfile/vim/nvim_init.vim ~/.config/nvim/init.vim
 
-# 1.5 customized snippets
+# 5 customized snippets
 # or create a soft link -- `ln -s ~/tmpdotfile/vim/UltiSnips ~/.vimrc/MyUltiSnips`
 mv ~/tmpdotfile/vim/UltiSnips ~/.vimrc/MyUltiSnips
 
-# 2. tmux
+```
 
-# 2.1 install tmux
+### python-neovim
+
+install python client to nvim, some nvim plugins rely on the client.
+
+```bash
+# 1 install pyenv and pyenv-virtualenv
+brew install pyenv
+brew install pyenv-virtualenv
+
+# 2.2 install latest python3 version
+pyenv list -l
+pyenv install 3.8.5
+
+# 2.2 create a virtualenv for neovim
+pyenv virtualenv 3.8.5 neovim3
+pyenv activate neovim3
+
+# 2.3 install py-neovim package
+pip install neovim
+
+# 2.4 deactivate
+pyenv deactivate
+```
+
+### tmux
+
+```bash
+# 1. install tmux
 brew install tmux
 
-# 2.2 install tpm
+# 2. install tpm
 # refer, <https://github.com/tmux-plugins/tpm>
 
-# 2.3 update tmux config
+# 3. update tmux config
 # or create a soft link -- `ln -s ~/tmpdotfile/vim/tmux.conf ~/.tmux.conf`
 mv ~/tmpdotfile/vim/tmux.conf ~/.tmux.conf
 
-# 2.4 install tmux plugins
+# 4 install tmux plugins
 # $> tmux
 # $> prefix + `I`
+```
 
-# 3. iterm2
-# refer section `iterm2` for details
+### iTerm2
+refer section `iterm2` for details
 
+### font
+refer `font` section for details
 
-# 4. font
-# refer `font` section for details
+### cleanup
 
-# 5. cleanup
+```bash
 # if `.vimrc` is created by soft link, it will be invalid after cleanup
 rm -rf ~/tmpdotfile
-
 ```
 
 ### vim-plug
