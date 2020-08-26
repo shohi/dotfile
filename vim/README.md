@@ -29,8 +29,12 @@ mv ~/tmpdotfile/vim/vimrc ~/.vimrc
 mkdir -p ~/.config/nvim && copy ~/tmpdotfile/vim/nvim_init.vim ~/.config/nvim/init.vim
 
 # 5 customized snippets
-# or create a soft link -- `ln -s ~/tmpdotfile/vim/UltiSnips ~/.vimrc/MyUltiSnips`
-mv ~/tmpdotfile/vim/UltiSnips ~/.vimrc/MyUltiSnips
+#
+# put `MyUltiSnips` folder to one of `runtimepath`, usually the runtimepath is `~/.vim`
+# https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+#
+# or create a soft link -- `ln -s ~/tmpdotfile/vim/UltiSnips ~/.vim/MyUltiSnips`
+mv ~/tmpdotfile/vim/UltiSnips ~/.vim/MyUltiSnips
 
 ```
 
