@@ -9,6 +9,7 @@ Host *
 # where `172.31.*` is the remote private ip pattern.
 # NOTE: It requires jump server running (start following command).
 # ssh -qTfnN -D 127.0.0.1:62222 ${SSH_VIA}'
+# Note `SSH_VIA` is in the format - <user>@<public-ip>
 Host 172.31.* # [REMOTE_ADDRESS_RANGE]
  ProxyCommand /usr/bin/nc -X 4 -x 127.0.0.1:62222 %h %p
  StrictHostKeyChecking no
