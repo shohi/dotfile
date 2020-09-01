@@ -47,6 +47,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 " yaml
 Plug 'stephpy/vim-yaml'
+Plug 'Yggdroot/indentLine', { 'for': 'yaml' }
+Plug 'pedrohdz/vim-yaml-folds'
 
 " markdown preview plugin
 " Plug 'junegunn/vim-xmark', { 'do': 'make' } " not work on macOS 10.14.6
@@ -105,10 +107,13 @@ Plug 'andymass/vim-matchup'
 Plug 'airblade/vim-matchquote'
 
 " rainbow
-Plug 'luochen1990/rainbow'
+Plug 'frazrepo/vim-rainbow'
 
 " vim-move
 Plug 'matze/vim-move'
+
+" beacon
+Plug 'danilamihailov/beacon.nvim'
 
 " ultisnips
 Plug 'sirver/ultisnips'
@@ -622,7 +627,6 @@ let g:vmt_dont_insert_fence = 1
 " <leader>hp - preview hunk
 " <leader>hs - stage hunk
 " <leader>hu - undo hunk
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 EasyMotion                                 "
@@ -1177,3 +1181,16 @@ nmap # <Plug>(anzu-sharp-with-echo)
 
 " statusline
 "set statusline=%{anzu#search_status()}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    yaml                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" indentLine
+"
+let g:indentLine_fileType = ['yaml', 'yml']
+let g:indentLine_color_gui = '#D08770'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  beacon                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/DanilaMihailov/beacon.nvim
