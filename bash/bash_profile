@@ -306,7 +306,7 @@ function setup_kubectx() {
   chmod +x "${repo_dir}"/kubens
 
   ln -s -f "${repo_dir}"/kubectx /usr/local/bin/kubectx
-  ln -s -f "${repo_dir}"/kubectx/kubens /usr/local/bin/kubens
+  ln -s -f "${repo_dir}"/kubens /usr/local/bin/kubens
 }
 
 function update_kubectx() {
@@ -386,6 +386,10 @@ function setup_java() {
   # use maven instead of gradle
   # export GRADLE_HOME=/usr/local/opt/gradle/libexec
   # export PATH="$PATH:$GRADLE_HOME/bin"
+
+  # install visualvm
+  # https://github.com/oracle/visualvm
+  # brew cask install visualvm
 }
 
 setup_java
