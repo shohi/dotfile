@@ -109,6 +109,9 @@ function setup_shortcuts() {
   local hostip
   hostip=$(ipconfig getifaddr en0)
   export HOSTIP=${hostip}
+
+  # list ssh processes
+  alias ls_ssh='ps aux | grep "ssh"'
 }
 
 setup_homebrew
@@ -253,6 +256,9 @@ function setup_golang() {
   alias ggh='cd $DEFAULT_GOPATH/src/github.com'
   alias gosc='cd $HOME/workshop/github/golang/go'
   alias gosrc='cd $GOROOT'
+
+  # install graphviz
+  # brew install graphviz
 }
 
 function use_goproxy() {
@@ -347,6 +353,30 @@ function setup_kubectl() {
     brew tap little-angry-clouds/homebrew-my-brews
     brew install kbenv
   fi
+}
+
+# get current k8s cluster's `namespace-controller-token`
+# suppose it resides in `kube-system` namespace and only
+# such token. This token is used to access resources for display
+# by kubernetes-dashboard
+# TODO: move to cerise
+function k8s_ns_controller_token() {
+  local cur_ns=$(kubectl config view --minify --output 'jsonpath={..namespace}')
+
+  # switch to kube-system
+  kubectl config set-context --current --namespace=kube-system
+
+  # get token
+  local token=$(kubectl get secret |
+    grep "namespace-controller-token" |
+    awk '{print $1}' |
+    xargs kubectl get secret -o jsonpath="{.data.token}" |
+    base64 --decode)
+
+  # switch back
+  kubectl config set-context --current --namespace=${cur_ns}
+
+  echo ${token}
 }
 
 setup_kubectl
@@ -752,8 +782,23 @@ load_babashka_scripts
 set_babashka_alias
 
 #######################################################################
+#                               iTerm2                                #
+#######################################################################
+
+# change iTerm2 profile from command line
+# Usage: it2prof ProfileName (case sensitive)
+# https://coderwall.com/p/s-2_nw/change-iterm2-color-profile-from-the-cli
+function it2prof() {
+  echo -e "\033]50;SetProfile=$1\a"
+}
+
+#######################################################################
+#                                Tools                                #
+#######################################################################
+
 #######################################################################
 #                               fzf                                   #
+#######################################################################
 # fzf - A command-line fuzzy finder
 # https://github.com/junegunn/fzf#installation
 function set_fzf() {
@@ -767,17 +812,6 @@ function set_fzf() {
 }
 
 set_fzf
-
-#######################################################################
-#                               iTerm2                                #
-#######################################################################
-
-# change iTerm2 profile from command line
-# Usage: it2prof ProfileName (case sensitive)
-# https://coderwall.com/p/s-2_nw/change-iterm2-color-profile-from-the-cli
-function it2prof() {
-  echo -e "\033]50;SetProfile=$1\a"
-}
 
 #######################################################################
 #                               Gnu                                   #
@@ -812,3 +846,15 @@ setup_gnupg
 # - brew install hunspell
 
 # -*- vim: set ft=bash: -*-
+
+#######################################################################
+#                               ripgrep                               #
+#######################################################################
+
+# install ripgrep
+# `brew install ripgrep`
+# or
+# `cargo install ripgrep`
+
+# https://github.com/BurntSushi/ripgrep/issues/193
+alias rgf='rg --files | rg'

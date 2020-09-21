@@ -15,6 +15,19 @@ git clone https://github.com/shohi/dotfile.git
 cd dotfile/bash && source bash_profile
 ```
 
+## Tips
+
+### Alias
+
+1. alias for creating k8s secret
+
+```bash
+export [NS]-SECRET=`cat [/path/to/<ns>-secret.yaml]`
+
+alias k8s_create_secet='echo ${[NS]-SECRET} | kubectl create -f -'
+```
+
+
 ## FAQ
 1. how to source `.bash_profile` automatically when using `oh-my-zsh`? ([link](https://superuser.com/questions/866683/iterm-zsh-not-reading-bashrc-or-bash-profile)
 
