@@ -276,6 +276,7 @@ setup_golang
 #######################################################################
 
 # aliases for docker, inspired by `kubectl-alias`
+# https://github.com/tcnksm/docker-alias/blob/master/zshrc
 function setup_docker_alias() {
   alias dps='docker ps'
   alias dpsall='docker ps -a'
