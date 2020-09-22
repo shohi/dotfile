@@ -271,6 +271,19 @@ function use_goproxy() {
 
 setup_golang
 
+#######################################################################
+#                               docker                                #
+#######################################################################
+
+# aliases for docker, inspired by `kubectl-alias`
+function setup_docker_alias() {
+  alias dps='docker ps'
+  alias dpsall='docker ps -a'
+  alias dlo='docker logs -f '
+}
+
+setup_docker_alias
+
 ##############################################################
 ####                                                     #####
 ####                K8s                                  #####
