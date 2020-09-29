@@ -47,6 +47,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 " yaml
 Plug 'stephpy/vim-yaml'
+Plug 'Yggdroot/indentLine', { 'for': 'yaml' }
+Plug 'pedrohdz/vim-yaml-folds'
 
 " markdown preview plugin
 " Plug 'junegunn/vim-xmark', { 'do': 'make' } " not work on macOS 10.14.6
@@ -105,10 +107,13 @@ Plug 'andymass/vim-matchup'
 Plug 'airblade/vim-matchquote'
 
 " rainbow
-Plug 'luochen1990/rainbow'
+Plug 'frazrepo/vim-rainbow'
 
 " vim-move
 Plug 'matze/vim-move'
+
+" beacon
+Plug 'danilamihailov/beacon.nvim'
 
 " ultisnips
 Plug 'sirver/ultisnips'
@@ -218,6 +223,11 @@ Plug 'jceb/vim-orgmode'
 
 " anzu - show search status
 Plug 'osyo-manga/vim-anzu'
+
+
+" fzf - A command-line fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -622,7 +632,6 @@ let g:vmt_dont_insert_fence = 1
 " <leader>hp - preview hunk
 " <leader>hs - stage hunk
 " <leader>hu - undo hunk
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 EasyMotion                                 "
@@ -1177,3 +1186,32 @@ nmap # <Plug>(anzu-sharp-with-echo)
 
 " statusline
 "set statusline=%{anzu#search_status()}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    yaml                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" indentLine
+"
+let g:indentLine_fileType = ['yaml', 'yml']
+let g:indentLine_color_gui = '#D08770'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  beacon                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/DanilaMihailov/beacon.nvim
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    fzf                                     "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/junegunn/fzf.vim
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
