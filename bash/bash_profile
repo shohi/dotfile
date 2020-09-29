@@ -169,7 +169,7 @@ function _install_github_repo() {
   local userdir="${_SHELL_GITHUB_REPO}/${user}"
   mkdir -p "${userdir}"
 
-  # install gv
+  # install repo
   if [[ ! -d "${userdir}/${repo}" ]]; then
     git clone https://github.com/${user}/${repo}.git "${userdir}/${repo}"
   fi
@@ -220,6 +220,12 @@ function update_gv() {
   _update_github_repo "shohi" "gv"
 
   setup_gv
+}
+
+# set G_MIRROR
+function use_gv_mirror() {
+  # https://github.com/voidint/g
+  export G_MIRROR=https://golang.google.cn/dl/
 }
 
 setup_gv
