@@ -63,6 +63,16 @@ function setup_homebrew() {
 
     (cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" &&
       git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git)
+  else
+    (
+      cd "$(brew --repo)" &&
+        git remote set-url origin https://github.com/Homebrew/brew.git
+    )
+
+    (
+      cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" &&
+        git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+    )
   fi
 
   # Homebrew's sbin
@@ -577,15 +587,15 @@ setup_ruby
 #   https://doc.rust-lang.org/cargo/guide/cargo-home.html
 # - default RUST_HOME - `$HOME/.rustup`
 # - https://github.com/rust-lang/rustup#environment-variables
+# TODO: fix
 function setup_rust() {
   mkdir -p "$HOME"/.cargo
   export CARGO_HOME="$HOME"/.cargo
 
   # rustup toolchain mirror
-  # https://mirrors.ustc.edu.cn/help/rust-static.html
+  # https://mirrors.tuna.tsinghua.edu.cn/help/rustup/
   if [[ -z "${DISABLE_RUSTUP_MIRROR}" ]]; then
-    export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
-    export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+    export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup install stable nightly # for stable
   fi
 
   # crates.io mirror
