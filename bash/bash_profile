@@ -805,7 +805,7 @@ function set_babashka_alias() {
     return
   fi
 
-  alias bb_nrepl='bb --nrepl-server 1667 &'
+  alias bb_nrepl='nohup bb --nrepl-server 1667 &'
 }
 
 load_babashka_scripts
