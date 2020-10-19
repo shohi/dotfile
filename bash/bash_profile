@@ -888,3 +888,20 @@ setup_gnupg
 
 # https://github.com/BurntSushi/ripgrep/issues/193
 alias rgf='rg --files | rg'
+
+#######################################################################
+#                            Daily Update                             #
+#######################################################################
+
+function daily_upadte() {
+  # update brew
+  brew update && brew upgrade
+
+  # rustup & cargo updates
+  rustup update && cargo install-update -a
+
+  # nim updates
+  choosenim update self &&
+    choosenim update devel &&
+    choosenim update stable
+}
