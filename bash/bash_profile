@@ -629,6 +629,7 @@ HEREDOC
   # `cargo-flamegraph` subcommand.
   # https://github.com/flamegraph-rs/flamegraph
   export PATH="${CARGO_HOME}/bin:$PATH"
+  alias ls_cargo="ls -al ${CARGO_HOME}/bin"
 }
 
 setup_rust
