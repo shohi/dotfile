@@ -77,6 +77,9 @@ function setup_homebrew() {
 
   # Homebrew's sbin
   export PATH="/usr/local/sbin:$PATH"
+
+  # Homebrew shortcuts
+  alias cd_cellar='cd /usr/local/Cellar'
 }
 
 function setup_locale() {
