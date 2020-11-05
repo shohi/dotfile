@@ -112,6 +112,7 @@ function setup_shortcuts() {
 
   # workshop and github
   alias ghh='cd $HOME/workshop/github'
+  alias shh='cd $HOME/workshop/sourcehut'
   alias sgh='cd $HOME/workshop/github/shohi'
   alias sws='cd $HOME/workshop'
 
