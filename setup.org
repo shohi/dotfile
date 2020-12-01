@@ -1,0 +1,12 @@
+** New Mac Setup
+
+1. Install =homebrew=
+
+2. Install =karabiner-elements (v13.0.0)= from github releases
+
+3. Install =switchhosts= using =brew= and add hosts for github related domains
+  #+begin_src bash
+  brew install --cask switchhosts
+  #+end_src
+  
+4. Install =ohmyzsh=
