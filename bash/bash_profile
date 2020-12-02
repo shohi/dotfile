@@ -95,6 +95,11 @@ function setup_path() {
 }
 
 function setup_git() {
+  if [[ ! -x "$(command -v hub)" ]]; then
+    # install if not exist
+    brew install hub
+  fi
+
   # git & hub
   eval "$(hub alias -s)"
 
@@ -603,6 +608,17 @@ setup_ruby
 function setup_rust() {
   mkdir -p "$HOME"/.cargo
   export CARGO_HOME="$HOME"/.cargo
+
+  if [[ ! -x "$(command -v rustup)" ]]; then
+    # install if not exist
+    # https://www.rust-lang.org/learn/get-started
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  fi
+
+  # disable mirror
+  if (( 2 > 1 )); then
+    return
+  fi
 
   # rustup toolchain mirror
   # https://mirrors.tuna.tsinghua.edu.cn/help/rustup/

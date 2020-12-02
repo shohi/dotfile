@@ -1,6 +1,6 @@
 ** New Mac Setup
 
-1. Install =homebrew=
+1. Install =homebrew= (require v2.6.0+)
 
 2. Install =karabiner-elements (v13.0.0)= from github releases
 
@@ -10,3 +10,27 @@
   #+end_src
   
 4. Install =ohmyzsh=
+
+5. Install =bash_profile=
+  #+begin_src bash
+  
+  # download dotfile
+  mkdir -p ~/.github/shohi/
+  cd ~/.github/shohi
+  git clone https://github.com/shohi/dotfile.git
+
+  # create a soft link
+  ln -s $PWD/dotfile/bash/bash_profile ~/.bash_profile
+
+  # add to zshrc if exists
+  # echo "source ~/.bash_rpofile" >> .zshrc
+
+  #+end_src
+
+6. Install =iTerm2= and setup fonts [[./iterm2/README.md][iTerm2 Setup]]
+
+7. Install following tasks
+  #+begin_src bash
+  brew install --cask google-chrome
+  brew install --cask alfred
+  #+end_src
