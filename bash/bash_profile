@@ -654,7 +654,7 @@ HEREDOC
   alias ls_cargo="ls -al ${CARGO_HOME}/bin"
 }
 
-setup_rust
+# setup_rust
 
 ##############################################################
 ####                                                     #####
@@ -871,7 +871,6 @@ set_fzf
 #######################################################################
 
 # install gnupg
-
 function setup_gnupg() {
   mkdir -p ~/.gnupg
 
