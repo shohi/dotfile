@@ -371,7 +371,7 @@ function update_kubectx() {
 function setup_helmenv() {
   if [[ ! -x "$(command -v helmenv)" ]]; then
     # install if not exist
-    brew tap little-angry-clouds/homebrew-my-brews
+    brew tap shohi/homebrew-my-brews
     brew install helmenv
   fi
 
@@ -391,7 +391,7 @@ function setup_helmenv() {
 function setup_kubectl() {
   if [[ ! -x "$(command -v kbenv)" ]]; then
     # install if not exist
-    brew tap little-angry-clouds/homebrew-my-brews
+    brew tap shohi/homebrew-my-brews
     brew install kbenv
   fi
 }
