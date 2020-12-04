@@ -21,20 +21,20 @@ brew install neovim
 # refer, <https://github.com/junegunn/vim-plug>
 
 # 3 update vim config
-# or create a soft link -- `ln -s ~/tmpdotfile/vim/vimrc ~/.vimrc`
-mv ~/tmpdotfile/vim/vimrc ~/.vimrc
+# or create a soft link -- `ln -s $PWD/vim/vimrc ~/.vimrc`
+mv $PWD/vim/vimrc ~/.vimrc
 
 # 4 use vimrc for `neovim`
 # refer, <https://neovim.io/doc/user/nvim.html#nvim-from-vim>
-mkdir -p ~/.config/nvim && copy ~/tmpdotfile/vim/nvim_init.vim ~/.config/nvim/init.vim
+mkdir -p ~/.config/nvim && cp $PWD/vim/nvim_init.vim ~/.config/nvim/init.vim
 
 # 5 customized snippets
 #
 # put `MyUltiSnips` folder to one of `runtimepath`, usually the runtimepath is `~/.vim`
 # https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 #
-# or create a soft link -- `ln -s ~/tmpdotfile/vim/UltiSnips ~/.vim/MyUltiSnips`
-mv ~/tmpdotfile/vim/UltiSnips ~/.vim/MyUltiSnips
+# or create a soft link -- `ln -s $PWD/vim/UltiSnips ~/.vim/MyUltiSnips`
+mv $PWD/vim/UltiSnips ~/.vim/MyUltiSnips
 
 ```
 
@@ -72,8 +72,8 @@ brew install tmux
 # refer, <https://github.com/tmux-plugins/tpm>
 
 # 3. update tmux config
-# or create a soft link -- `ln -s ~/tmpdotfile/vim/tmux.conf ~/.tmux.conf`
-mv ~/tmpdotfile/vim/tmux.conf ~/.tmux.conf
+# or create a soft link -- `ln -s $PWD/vim/tmux.conf ~/.tmux.conf`
+mv $PWD/vim/tmux.conf ~/.tmux.conf
 
 # 4 install tmux plugins
 # $> tmux
