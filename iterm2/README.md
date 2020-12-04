@@ -45,3 +45,4 @@ git clone https://github.com/powerline/fonts.git
 
 ### 3. color scheme 
 nord-iterm2, <https://github.com/arcticicestudio/nord-iterm2>
+iTerm2-Color-Schemes, https://github.com/mbadolato/iTerm2-Color-Schemes
