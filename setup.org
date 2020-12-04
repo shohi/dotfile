@@ -33,4 +33,6 @@
   #+begin_src bash
   brew install --cask google-chrome
   brew install --cask alfred
+  brew install --cask firefox
+  brew install --cask docker
   #+end_src
