@@ -690,7 +690,7 @@ setup_nim
 # refer, https://emacsformacosx.com/tips
 function setup_emacs() {
   if [[ ! -x "/Applications/Emacs.app/Contents/MacOS/Emacs" ]]; then
-    echo "plz install Emacs firstly, e.g. $(brew cask install emacs)."
+    echo "plz install Emacs firstly, e.g. brew cask install emacs"
     return
   fi
 
