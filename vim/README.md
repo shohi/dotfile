@@ -34,6 +34,7 @@ mkdir -p ~/.config/nvim && cp $PWD/vim/nvim_init.vim ~/.config/nvim/init.vim
 # https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 #
 # or create a soft link -- `ln -s $PWD/vim/UltiSnips ~/.vim/MyUltiSnips`
+mkdir -p ~/.vim
 mv $PWD/vim/UltiSnips ~/.vim/MyUltiSnips
 
 ```
