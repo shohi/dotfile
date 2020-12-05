@@ -9,7 +9,7 @@
   brew install --cask switchhosts
   #+end_src
   
-4. Install =ohmyzsh=
+4. Install [[./iterm2/README.md][ohmyzsh]
 
 5. Install =bash_profile=
   #+begin_src bash
@@ -31,8 +31,14 @@
 
 7. Install following tasks
   #+begin_src bash
+  # cask
   brew install --cask google-chrome
   brew install --cask alfred
   brew install --cask firefox
   brew install --cask docker
+  brew install --cask visualvm
+  
+  # cellar
+  brew install ranger
+  brew install clojure/tools/clojure
   #+end_src
