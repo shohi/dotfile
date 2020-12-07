@@ -49,7 +49,16 @@ brew install pyenv
 brew install pyenv-virtualenv
 
 # 2.2 install latest python3 version
-pyenv list -l
+pyenv install -l
+
+# zlib error fix
+# https://stackoverflow.com/questions/50036091/pyenv-zlib-error-on-macos
+#
+# brew install zlib
+# export LDFLAGS="-L/usr/local/opt/zlib/lib"
+# export CPPFLAGS="-I/usr/local/opt/zlib/include"
+# pyenv install 3.8.5
+
 pyenv install 3.8.5
 
 # 2.2 create a virtualenv for neovim
