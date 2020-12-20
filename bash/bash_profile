@@ -23,6 +23,7 @@ function run_fortune() {
   fi
 
   if [[ ! -x "$(command -v fortune)" ]]; then
+    # brew install fortune
     return
   fi
 
@@ -63,16 +64,16 @@ function setup_homebrew() {
 
     (cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" &&
       git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git)
-  else
-    (
-      cd "$(brew --repo)" &&
-        git remote set-url origin https://github.com/Homebrew/brew.git
-    )
+        else
+          (
+          cd "$(brew --repo)" &&
+            git remote set-url origin https://github.com/Homebrew/brew.git
+          )
 
-    (
-      cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" &&
-        git remote set-url origin https://github.com/Homebrew/homebrew-core.git
-    )
+          (
+          cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" &&
+            git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+          )
   fi
 
   # Homebrew's sbin
@@ -446,6 +447,14 @@ setup_helmenv
 # require jdk installed first
 # https://www.oracle.com/java/technologies/javase-downloads.html
 function setup_java() {
+  # install openjdk
+  if [[ ! -x "$(command -v /usr/libexec/java_home)" ]]; then
+    # https://github.com/AdoptOpenJDK/homebrew-openjdk
+    echo "install opendjdk"
+    brew tap AdoptOpenJDK/openjdk
+    brew cask install adoptopenjdk
+  fi
+
   local jh
   jh="$(/usr/libexec/java_home)"
 
@@ -501,6 +510,20 @@ function init_pyenv() {
   # optional - add utils for pyenv virtualenv
   # https://github.com/pyenv/pyenv-virtualenv
   # eval "$(pyenv virtualenv-init -)"
+}
+
+# zlib is required by pyenv to install python from source
+# https://github.com/jiansoung/issues-list/issues/13
+function setup_zlib() {
+  # install zlib first
+  # brew install zlib
+
+  # For compilers to find zlib you may need to set:
+  export LDFLAGS="${LDFLAGS} -L/usr/local/opt/zlib/lib"
+  export CPPFLAGS="${CPPFLAGS} -I/usr/local/opt/zlib/include"
+
+  # For pkg-config to find zlib you may need to set
+  export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /usr/local/opt/zlib/lib/pkgconfig"
 }
 
 # NOTE: as `$(pyenv init - )` is slow, leave it to load manually.
@@ -634,16 +657,16 @@ function setup_rust() {
       touch "${CARGO_HOME}/use_ustc_mirror"
       local conf
       conf=$(
-        cat <<HEREDOC
+      cat <<HEREDOC
 # [source.crates-io]
 # registry = "https://github.com/rust-lang/crates.io-index"
 # replace-with = 'ustc'
 [source.ustc]
 registry = "https://mirrors.ustc.edu.cn/crates.io-index"
 HEREDOC
-      )
+)
 
-      echo "${conf}" >"${CARGO_HOME}"/config
+echo "${conf}" >"${CARGO_HOME}"/config
     fi
   fi
 
@@ -856,12 +879,15 @@ function it2prof() {
 # https://github.com/junegunn/fzf#installation
 function set_fzf() {
   if [[ ! -x "$(command -v fzf)" ]]; then
-    echo "fzf not found. use 'brew install fzf' to install"
+    echo "fzf not found, install fzf..."
+    brew install fzf
+
+    # To install useful key bindings and fuzzy completion:
+    # $(brew --prefix)/opt/fzf/install
+    $(brew --prefix)/opt/fzf/install
     return
   fi
 
-  # To install useful key bindings and fuzzy completion:
-  # $(brew --prefix)/opt/fzf/install
 }
 
 set_fzf
@@ -926,4 +952,4 @@ function daily_upadte() {
   choosenim update self &&
     choosenim update devel &&
     choosenim update stable
-}
+  }

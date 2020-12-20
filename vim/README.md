@@ -19,6 +19,8 @@ brew install neovim
 
 # 2 install vim-plug
 # refer, <https://github.com/junegunn/vim-plug>
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # 3 update vim config
 # or create a soft link -- `ln -s $PWD/vim/vimrc ~/.vimrc`
@@ -58,7 +60,6 @@ pyenv install -l
 # export LDFLAGS="-L/usr/local/opt/zlib/lib"
 # export CPPFLAGS="-I/usr/local/opt/zlib/include"
 # pyenv install 3.8.5
-
 pyenv install 3.8.5
 
 # 2.2 create a virtualenv for neovim

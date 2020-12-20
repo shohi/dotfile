@@ -20,7 +20,7 @@ iTerm2 best practice.
 2. change left option to `meta` key (https://stackoverflow.com/questions/196357/making-iterm-to-translate-meta-key-in-the-same-way-as-in-other-oses)
 
 > Open `Preferences` (`Cmd+,`) and switch to `Profiles` tab.
-> 
+>
 > `Keys` -> `Left Option Key` -> `Esc+`
 
 ## Tools
@@ -40,9 +40,18 @@ mkdir tmp && cd tmp
 git clone https://github.com/powerline/fonts.git
 
 # click font file (.ttf or .otf) to install fonts
-
+# e.g. Droid Sans Mono For Powerline
 ```
 
-### 3. color scheme 
-nord-iterm2, <https://github.com/arcticicestudio/nord-iterm2>
-iTerm2-Color-Schemes, https://github.com/mbadolato/iTerm2-Color-Schemes
+set font size to `24` and select font - `Droid Sans Mono For Powerline`.
+
+### 3. color scheme
+Install colorscheme - `zenburn` and `nord`
+
+```bash
+open -a iTerm iterm2/colors/nord.itermcolors
+open -a iTerm iterm2/colors/zenburn.itermcolors
+```
+
+1. nord-iterm2, <https://github.com/arcticicestudio/nord-iterm2>
+2. zenburn-iterm2, https://github.com/jabbas/zenburn
