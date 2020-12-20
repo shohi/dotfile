@@ -55,4 +55,7 @@
   cargo install exa
   cargo install bat
   cargo install hexyl
+
+  # tldr client
+  cargo install tealdeer
   #+end_src
