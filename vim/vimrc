@@ -123,6 +123,7 @@ Plug 'honza/vim-snippets'
 Plug 'liuchengxu/vim-which-key'
 
 " easymotion
+" https://github.com/easymotion/vim-easymotion
 Plug 'easymotion/vim-easymotion'
 
 " tagbar
@@ -304,6 +305,8 @@ nnoremap <leader><leader> :set cursorline! cursorcolumn!<CR>
 
 " shell/vim indent
 autocmd FileType sh,vim setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType json setlocal shiftwidth=4 softtabstop=4 expandtab
+" autocmd FileType sh setlocal shiftwidth=4 softtabstop=4 expandtab
 
 " mapping to open and close quickfix window
 nmap <silent> <leader>oo :copen<CR>
@@ -634,8 +637,9 @@ let g:vmt_dont_insert_fence = 1
 " <leader>hu - undo hunk
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 EasyMotion                                 "
+"                                 easymotion                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/easymotion/vim-easymotion
 " Disable default mappings
 let g:EasyMotion_do_mapping = 0
 

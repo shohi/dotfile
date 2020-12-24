@@ -949,7 +949,12 @@ function daily_upadte() {
   rustup update && cargo install-update -a
 
   # nim updates
-  choosenim update self &&
-    choosenim update devel &&
-    choosenim update stable
-  }
+  choosenim update self && choosenim update devel && choosenim update stable
+}
+
+#######################################################################
+#                             MacOS Only                              #
+#######################################################################
+
+# copy pwd to clipboard
+alias cpwd='pwd | pbcopy'
