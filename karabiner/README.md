@@ -22,3 +22,6 @@ right_command -> left_control
 
 ## TODO
 - [ ] use [GokuRakuJoudo(極楽浄土)](https://github.com/yqrashawn/GokuRakuJoudo) to manipulate karabiner config.
+
+## Links
+1. Remap Caps Lock to Escape and Control, https://www.dannyguo.com/blog/remap-caps-lock-to-escape-and-control/
