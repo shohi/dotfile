@@ -298,6 +298,7 @@ function use_goproxy() {
 }
 
 setup_golang
+use_goproxy
 
 #######################################################################
 #                               docker                                #
@@ -310,6 +311,14 @@ function setup_docker_alias() {
   alias dpsall='docker ps -a'
   alias dlo='docker logs -f '
 }
+
+function docker_start_ubuntu() {
+  docker run -d \
+    --network host \
+    --name ubuntu \
+    ubuntu:18.04 \
+    tail -f /dev/null
+  }
 
 setup_docker_alias
 
