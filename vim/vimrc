@@ -24,6 +24,7 @@ Plug 'tpope/vim-surround'
 Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'dsimidzija/vim-nerdtree-ignore'
 
 " git status
 Plug 'tpope/vim-fugitive'

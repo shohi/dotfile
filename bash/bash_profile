@@ -456,6 +456,11 @@ setup_helmenv
 # require jdk installed first
 # https://www.oracle.com/java/technologies/javase-downloads.html
 function setup_java() {
+  # test whether java_home has already been set
+  if [ -n "${JAVA_HOME}" ]; then
+    return
+  fi
+
   # install openjdk
   if [[ ! -x "$(command -v /usr/libexec/java_home)" ]]; then
     # https://github.com/AdoptOpenJDK/homebrew-openjdk
@@ -465,10 +470,20 @@ function setup_java() {
   fi
 
   local jh
+  # FIXME: this is not always correct, e.g.
+  # /Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
+  # jh="/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home"
   jh="$(/usr/libexec/java_home)"
-
   export JAVA_HOME=${jh}
+}
+
+setup_java
+
+# TODO: use shohi/mvnv to manage maven versions
+function setup_maven() {
+  export PATH="$PATH:$HOME/.mvnv/bin:$HOME/.mvnv/maven/bin"
   export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
+
   # FIXME: install maven
   # export M2_HOME=/usr/local/Cellar/maven/3.6.0/libexec
 
@@ -481,7 +496,7 @@ function setup_java() {
   # brew cask install visualvm
 }
 
-setup_java
+setup_maven
 
 ##############################################################
 ####                                                     #####
