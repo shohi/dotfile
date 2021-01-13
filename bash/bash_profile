@@ -276,6 +276,7 @@ function setup_golang() {
   fi
 
   alias gotest='go test -v -count=1 -cover'
+  alias gobench='go test -v -count=1 -cover -benchmem -run=- '
 
   alias gop='cd $DEFAULT_GOPATH'
   alias gws='cd $DEFAULT_GOPATH/src'

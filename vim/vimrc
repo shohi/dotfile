@@ -74,7 +74,7 @@ Plug 'mhinz/vim-mix-format'
 
 " FIXME: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
-Plug 'Olical/conjure', { 'tag': 'v4.5.0' }
+Plug 'Olical/conjure', { 'tag': 'v4.11.0' }
 
 " permut - swap columns
 Plug 'jlemetay/permut'
@@ -226,10 +226,12 @@ Plug 'jceb/vim-orgmode'
 " anzu - show search status
 Plug 'osyo-manga/vim-anzu'
 
-
 " fzf - A command-line fuzzy finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" wordmotion - More useful word motions for Vim
+Plug 'chaoren/vim-wordmotion'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -466,6 +468,8 @@ augroup gogroup
   autocmd FileType go nmap <silent> gi :GoImplements<CR>
 
   autocmd FileType go nmap <silent> <leader>ga :GoAlternate<CR>
+  autocmd FileType go nmap <silent> <leader>gl :GoMetaLinter<CR>
+  autocmd FileType go nmap <silent> <leader>ec :GoErrCheck<CR>
   autocmd FileType go nmap <silent> <leader>ft :GoTestFunc<CR>
   autocmd FileType go nmap <silent> <Leader>cc <Plug>(go-coverage-toggle)
   autocmd FileType go nmap <silent> <leader>pt <Plug>(go-test)
