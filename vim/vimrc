@@ -457,7 +457,13 @@ let g:go_test_show_name = 1
 " - *]Q*     |:clast|
 let g:go_list_type="quickfix"
 
-" fast editing go alternative files
+" lint
+let g:go_metalinter_command = "golangci-lint"
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'deadcode',
+      \ 'gosimple', 'ineffassign', 'staticcheck',
+      \ 'structcheck', 'unused', 'varcheck']
+
+" " fast editing go alternative files
 " TODO:
 " - GoKeyify
 " - GoFillStruct
@@ -583,7 +589,11 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " - 'nim': ['nimlsp', 'nimcheck']
 let g:ale_linters = {
       \ 'javascript': ['eslint'],
+      \ 'go': ['golangci-lint'],
       \ }
+
+" default - '--enable-all'
+" let g:ale_go_golangci_lint_options='--fast'
 
 " auto fix
 let g:ale_fixers = {
@@ -593,6 +603,7 @@ let g:ale_fixers = {
 
 " set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
+let g:ale_lint_on_save = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
