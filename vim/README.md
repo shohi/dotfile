@@ -19,8 +19,16 @@ brew install neovim
 
 # 2 install vim-plug
 # refer, <https://github.com/junegunn/vim-plug>
+mkdir -p ~/.vim/autoload
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# or clone repo and create soft link
+mkdir -p ~/workshop/github/junegunn
+git clone https://github.com/junegunn/vim-plug ~/workshop/github/junegunn/vim-plug
+ln -s ~/workshop/github/junegunn/vim-plug/plug.vim ~/.vim/autoload/plug.vim
+
+
 
 # 3 update vim config
 # or create a soft link -- `ln -s $PWD/vim/vimrc ~/.vimrc`
@@ -28,7 +36,10 @@ mv $PWD/vim/vimrc ~/.vimrc
 
 # 4 use vimrc for `neovim`
 # refer, <https://neovim.io/doc/user/nvim.html#nvim-from-vim>
-mkdir -p ~/.config/nvim && cp $PWD/vim/nvim_init.vim ~/.config/nvim/init.vim
+mkdir -p ~/.config/nvim
+
+# or create a soft link -- `ln -s $PWD/vim/nvim_init.vim ~/.config/nvim/init.vim`
+cp $PWD/vim/nvim_init.vim ~/.config/nvim/init.vim
 
 # 5 customized snippets
 #
@@ -64,6 +75,9 @@ pyenv install 3.8.5
 
 # 2.2 create a virtualenv for neovim
 pyenv virtualenv 3.8.5 neovim3
+
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 pyenv activate neovim3
 
 # 2.3 install py-neovim package
@@ -117,6 +131,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 ### Coc.nvim
 
 require `node`
+
 ```bash
 brew install node
 ```
@@ -128,6 +143,7 @@ brew install node
 
 ## font
 Patched fonts for Powerline users, https://github.com/powerline/fonts
+
 
 ## scheme
 use `nord` color scheme for all - `vim/tmux/iTerm2`

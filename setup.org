@@ -23,8 +23,7 @@
   ln -s $PWD/dotfile/bash/bash_profile ~/.bash_profile
 
   # add to zshrc if exists
-  # echo "source ~/.bash_rpofile" >> .zshrc
-
+  # echo "source ~/.bash_profile" >> .zshrc
   #+end_src
 
 6. Install =iTerm2= and setup fonts [[./iterm2/README.md][iTerm2 Setup]]

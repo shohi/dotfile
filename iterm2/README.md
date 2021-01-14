@@ -29,15 +29,22 @@ iTerm2 best practice.
 **Oh-my-zsh** install (https://ohmyz.sh/#install)
 
 ```bash
-$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# or download repo
+mkdir -p ~/workshop/github/ohmyzsh
+git clone https://github.com/ohmyzsh/ohmyzsh ~/workshop/github/ohmyzsh/ohmyzsh
+
+sh -c ~/workshop/github/ohmyzsh/ohmyzsh/tools/install.sh
+
 ```
 
 ### 2. fonts
 install **powerline/fonts** (https://github.com/powerline/fonts)
 
 ```bash
-mkdir tmp && cd tmp
-git clone https://github.com/powerline/fonts.git
+mkdir -p ~/workshop/github/powerline
+git clone https://github.com/powerline/fonts.git ~/workshop/github/powerline/fonts
 
 # click font file (.ttf or .otf) to install fonts
 # e.g. Droid Sans Mono For Powerline

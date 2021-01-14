@@ -51,36 +51,26 @@ run_fortune
 ##############################################################
 
 function setup_homebrew() {
-  # https://juejin.im/post/5c738bacf265da2deb6aaf97
-  # https://www.zhihu.com/question/31360766
-
-  # use mirror for homebrew
-  # https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git
-  if [[ -z "${DISABLE_BREW_MIRROR}" ]]; then
-    export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
-
-    (cd "$(brew --repo)" &&
-      git remote set-url origin https://mirrors.ustc.edu.cn/brew.git)
-
-    (cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" &&
-      git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git)
-        else
-          (
-          cd "$(brew --repo)" &&
-            git remote set-url origin https://github.com/Homebrew/brew.git
-          )
-
-          (
-          cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" &&
-            git remote set-url origin https://github.com/Homebrew/homebrew-core.git
-          )
-  fi
-
-  # Homebrew's sbin
-  export PATH="/usr/local/sbin:$PATH"
-
   # Homebrew shortcuts
   alias cd_cellar='cd /usr/local/Cellar'
+
+  if [[ -z "${BREW_MIRROR}" ]]; then
+    return
+  fi
+
+  # use mirror for homebrew
+  # https://www.jianshu.com/p/3d89785abe0f
+  # https://lug.ustc.edu.cn/wiki/mirrors/help/brew.git
+  case "${BREW_MIRROR}" in
+    "ustc")
+      export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+      (cd "$(brew --repo)" && git remote set-url origin https://mirrors.ustc.edu.cn/brew.git)
+      (cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core" && git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git)
+      (cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask" && git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git)
+      ;;
+    "*")
+      ;;
+  esac
 }
 
 function setup_locale() {
@@ -431,10 +421,11 @@ function k8s_ns_controller_token() {
   echo ${token}
 }
 
-setup_kubectl
+# setup_kubectl
+# setup_helmenv
 setup_kubectl_alias
 setup_kubectx
-setup_helmenv
+
 
 # print kubectl full command before running
 # TODO: use [kbenv](https://github.com/little-angry-clouds/kbenv) to
@@ -459,6 +450,9 @@ setup_helmenv
 function setup_java() {
   # test whether java_home has already been set
   if [ -n "${JAVA_HOME}" ]; then
+    return
+  else
+    echo "please install java first, brew install --cask adoptopenjdk"
     return
   fi
 
@@ -738,7 +732,7 @@ setup_nim
 # refer, https://emacsformacosx.com/tips
 function setup_emacs() {
   if [[ ! -x "/Applications/Emacs.app/Contents/MacOS/Emacs" ]]; then
-    echo "plz install Emacs firstly, e.g. brew cask install emacs"
+    echo "plz install Emacs firstly, e.g. brew install --cask emacs"
     return
   fi
 
@@ -909,6 +903,7 @@ function set_fzf() {
 
     # To install useful key bindings and fuzzy completion:
     # $(brew --prefix)/opt/fzf/install
+    # FIX: this function is not idempotent
     $(brew --prefix)/opt/fzf/install
     return
   fi
