@@ -58,3 +58,10 @@
   # tldr client
   cargo install tealdeer
   #+end_src
+  
+10. Install Web browser add-ons
+	#+begin_src bash
+	vimium
+	saladict
+	
+	#+end_src
