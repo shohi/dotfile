@@ -63,5 +63,14 @@
 	#+begin_src bash
 	vimium
 	saladict
-	
 	#+end_src
+	
+11. Install Xi-editor
+	#+begin_src
+	# Big Sur, build Release failed
+	# https://github.com/xi-editor/xi-mac/issues/494#issuecomment-643482196
+	
+	# work around, using Debug mode
+	xcodebuild -scheme XiEditor -configuration Debug build
+	#+end_src
+	
