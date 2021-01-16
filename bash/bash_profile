@@ -961,7 +961,7 @@ alias rgf='rg --files | rg'
 #                            Daily Update                             #
 #######################################################################
 
-function daily_upadte() {
+function daily_update() {
   # update brew
   brew update && brew upgrade
 
