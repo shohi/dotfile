@@ -43,6 +43,7 @@
   brew install clojure/tools/clojure
   brew install fzf
   brew install node
+  brew install bfontaine/utils/rfc
   #+end_src
 
 8. Setup =neovim= [[./vim/README.md][Vim Setup]]
