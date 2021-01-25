@@ -319,7 +319,6 @@ nnoremap <leader><leader> :set cursorline! cursorcolumn!<CR>
 " shell/vim indent
 autocmd FileType sh,vim setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType json setlocal shiftwidth=4 softtabstop=4 expandtab
-" autocmd FileType sh setlocal shiftwidth=4 softtabstop=4 expandtab
 
 " mapping to open and close quickfix window
 nmap <silent> <leader>oo :copen<CR>
@@ -1176,6 +1175,13 @@ augroup js_rc
   autocmd BufNewFile,BufRead *.eslintrc,*.babelrc set syntax=json
 augroup end
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 vimscript                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup nvim_rc
+  autocmd!
+  autocmd BufNewFile,BufRead *.vimrc,*.nvimrc set syntax=vim
+augroup end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 vim-rooter                                 "
