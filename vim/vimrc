@@ -233,6 +233,15 @@ Plug 'junegunn/fzf.vim'
 " wordmotion - More useful word motions for Vim
 Plug 'chaoren/vim-wordmotion'
 
+" vim-lua - Improved Lua 5.3 syntax and indentation support for Vim.
+Plug 'tbastos/vim-lua'
+
+" fennel.vim -  Syntax highlighting for Fennel
+Plug 'bakpakin/fennel.vim'
+
+" plenary.nvim - All the lua functions I don't want to write twice.
+Plug 'nvim-lua/plenary.nvim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -306,6 +315,7 @@ nnoremap <leader>sv :source ~/.vimrc<CR>
 " highlight cursorline
 nnoremap <leader><leader> :set cursorline! cursorcolumn!<CR>
 
+" NOTE use .vimrc/nvimrc to set project-wise setting
 " shell/vim indent
 autocmd FileType sh,vim setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType json setlocal shiftwidth=4 softtabstop=4 expandtab

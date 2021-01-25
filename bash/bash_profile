@@ -887,6 +887,7 @@ function it2prof() {
   echo -e "\033]50;SetProfile=$1\a"
 }
 
+
 #######################################################################
 #                                Tools                                #
 #######################################################################
@@ -957,6 +958,28 @@ setup_gnupg
 # https://github.com/BurntSushi/ripgrep/issues/193
 alias rgf='rg --files | rg'
 
+
+#######################################################################
+#                             MacOS Only                              #
+#######################################################################
+
+# copy pwd to clipboard
+alias cpwd='pwd | pbcopy'
+
+#######################################################################
+#                                 Lua                                 #
+#######################################################################
+# https://fennel-lang.org/setup#downloading-fennel
+function setup_lua() {
+  # install lua rocks locally, e.g
+  # luarocks install --local fennel
+  mkdir -p ~/.luarocks/bin
+  export PATH=$PATH:"$HOME/.luarocks/bin"
+}
+
+setup_lua
+
+
 #######################################################################
 #                            Daily Update                             #
 #######################################################################
@@ -971,10 +994,3 @@ function daily_update() {
   # nim updates
   choosenim update self && choosenim update devel && choosenim update stable
 }
-
-#######################################################################
-#                             MacOS Only                              #
-#######################################################################
-
-# copy pwd to clipboard
-alias cpwd='pwd | pbcopy'
