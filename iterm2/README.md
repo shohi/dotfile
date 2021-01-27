@@ -36,8 +36,10 @@ mkdir -p ~/workshop/github/ohmyzsh
 git clone https://github.com/ohmyzsh/ohmyzsh ~/workshop/github/ohmyzsh/ohmyzsh
 
 sh -c ~/workshop/github/ohmyzsh/ohmyzsh/tools/install.sh
-
 ```
+
+Note:
+1. [Failed to connect to raw.githubusercontent.com port 443](https://github.com/hawtim/blog/issues/10)
 
 ### 2. fonts
 install **powerline/fonts** (https://github.com/powerline/fonts)
