@@ -1,6 +1,6 @@
 ** New Mac Setup
 
-1. Install =homebrew= (require v2.6.0+) - [[https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/][TsingHua Mirror]]
+1. Install =homebrew= (require v2.6.0+) - [[https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/][TsingHua Mirror]] / [[https://zhuanlan.zhihu.com/p/111014448][Hoembrew 国内自动安装]]
 
 2. Install =karabiner-elements (v13.0.0)= from github releases [[./karabiner/README.md][Karabiner Setup]]
 
