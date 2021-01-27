@@ -9,7 +9,7 @@
   brew install --cask switchhosts
   #+end_src
 
-4. Install [[./iterm2/README.md][ohmyzsh]
+4. Install [[./iterm2/README.md][ohmyzsh]]
 
 5. Install =bash_profile=
   #+begin_src bash
