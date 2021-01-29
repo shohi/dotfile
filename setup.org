@@ -35,8 +35,12 @@
   brew install --cask alfred
   brew install --cask firefox
   brew install --cask docker
-  brew install --cask visualvm
   brew install --cask fliqlo
+
+  # install java first
+  # https://www.kagura.me/dev/20200424112618.html
+  brew install --cask visualvm
+
 
   # cellar
   brew install ranger
