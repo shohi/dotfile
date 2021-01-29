@@ -1,5 +1,13 @@
 # customized snippets for Go
 
+snippet pkg "Add package declartion" b
+`!p
+snip.rv="package " + os.path.basename(os.path.dirname(path))
+`
+
+$0
+endsnippet
+
 snippet ptd "Panic With TODO" b
 panic("TODO")
 endsnippet

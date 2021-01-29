@@ -126,7 +126,8 @@ function setup_shortcuts() {
   alias ls_ssh='ps aux | grep "ssh"'
 }
 
-setup_homebrew
+# use https://gitee.com/cunkai/HomebrewCN
+# setup_homebrew
 setup_locale
 setup_path
 setup_git

@@ -4,3 +4,10 @@
 snippet dtime "YYYY-mm-dd hh:mm:ss" w
 `!v strftime("%Y-%m-%d %H:%M:%S")`
 endsnippet
+
+snippet ptest "test file path"
+`!p
+snip.rv = path + "  " + os.path.basename(os.path.dirname(path))
+# snip.rv = os.path.abspath(path)
+`
+endsnippet
