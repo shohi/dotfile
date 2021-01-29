@@ -74,7 +74,7 @@ Plug 'mhinz/vim-mix-format'
 
 " FIXME: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
-Plug 'Olical/conjure', { 'tag': 'v4.11.0' }
+Plug 'Olical/conjure', { 'tag': 'v4.13.0' }
 
 " permut - swap columns
 Plug 'jlemetay/permut'
@@ -242,6 +242,9 @@ Plug 'bakpakin/fennel.vim'
 " plenary.nvim - All the lua functions I don't want to write twice.
 Plug 'nvim-lua/plenary.nvim'
 
+" git-blame -  Git Blame plugin for Neovim written in Lua
+" Plug 'f-person/git-blame.nvim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -271,6 +274,10 @@ filetype plugin on        " enable filetype plugin
 " clear highlighting on escape in normal mode
 nnoremap <silent> <esc> :noh<return><esc>
 nnoremap <silent> <esc>^[ <esc>^[
+
+" help window
+" NOTE: this will hidden git-gutter-hunk settings
+nnoremap <silent> <leader>h :Helptags<CR>
 
 " fast saving
 nnoremap <leader>w :w!<CR>
