@@ -269,7 +269,9 @@ set autoread              " set to auto read when a file is changed from the out
 set ignorecase            " when searching try to be smart about cases
 set smartcase
 
-filetype plugin on        " enable filetype plugin
+filetype plugin indent on        " enable filetype plugin
+set noswapfile
+set colorcolumn=80
 
 " clear highlighting on escape in normal mode
 nnoremap <silent> <esc> :noh<return><esc>
@@ -465,6 +467,14 @@ let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 let g:go_test_show_name = 1
 
+" highlight
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
 " use quickfix instead of location list
 " the unimpaired plugin makes location switch more pleasant :-)
 " - *[q*     |:cprevious|
@@ -496,6 +506,7 @@ augroup gogroup
   autocmd FileType go nmap <silent> <Leader>cc <Plug>(go-coverage-toggle)
   autocmd FileType go nmap <silent> <leader>pt <Plug>(go-test)
   autocmd FileType go nmap <silent> <leader>gb :<C-u>call <SID>build_go_files()<CR>
+  " TODO: add GoAddTag toggling
 augroup end
 
 
@@ -1258,3 +1269,32 @@ omap <leader><tab> <plug>(fzf-maps-o)
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" To install useful key bindings and fuzzy completion
+" $(brew --prefix)/opt/fzf/install
+"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 highlight                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Highlights the current word under the cursor
+let g:highlight_current_keyword = 0
+function! s:ToggleKeywordHighlight()
+  if g:highlight_current_keyword == 0
+    augroup highlight_keyword
+      au!
+      autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+    augroup END
+    let g:highlight_current_keyword = 1
+  else
+    augroup highlight_keyword
+      au!
+    augroup END
+    match none
+    let g:highlight_current_keyword = 0
+  endif
+endfunction
+
+augroup hlcursor
+  autocmd!
+  nnoremap <silent> <leader>lw :<C-u>call <SID>ToggleKeywordHighlight()<CR>
+augroup end
