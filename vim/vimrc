@@ -244,6 +244,8 @@ Plug 'nvim-lua/plenary.nvim'
 
 " git-blame -  Git Blame plugin for Neovim written in Lua
 " Plug 'f-person/git-blame.nvim'
+" nvim-colorizer - The fastest Neovim colorizer
+Plug 'norcalli/nvim-colorizer.lua'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -358,6 +360,11 @@ colorscheme zenburn
 "  " Use 'nord7' as foreground color for Vim comment titles.
 "  autocmd ColorScheme nord highlight Comment ctermfg=3 guifg=#7b88a1
 " augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 colorizer                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+lua require'colorizer'.setup()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
