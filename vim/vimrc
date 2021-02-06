@@ -22,9 +22,15 @@ Plug 'tpope/vim-surround'
 
 " NERDtree
 Plug 'preservim/nerdtree'
-Plug 'preservim/nerdcommenter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dsimidzija/vim-nerdtree-ignore'
+
+" Comenter
+if has('nvim')
+  Plug 'tpope/vim-commentary'
+else
+  Plug 'b3nj5m1n/kommentary'
+endif
 
 " git status
 Plug 'tpope/vim-fugitive'
@@ -247,6 +253,17 @@ Plug 'nvim-lua/plenary.nvim'
 " nvim-colorizer - The fastest Neovim colorizer
 Plug 'norcalli/nvim-colorizer.lua'
 
+" neoterm -  Wrapper of some vim/neovim's :terminal functions.
+Plug 'kassio/neoterm'
+
+" vimpeccable - Neovim plugin that allows you to easily write your .vimrc in lua
+" https://github.com/svermeulen/vimpeccable
+" Plug 'svermeulen/vimpeccable'
+" Plug 'svermeulen/vimpeccable-lua-vimrc-example'
+
+" interactive real time neovim scratchpad for embedded lua engine
+Plug 'rafcamlet/nvim-luapad'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -415,38 +432,6 @@ function! s:only_and_nerdtree()
   let l:currentWindowID = win_getid()
   windo if win_getid() != l:currentWindowID && &filetype != 'nerdtree' | close | endif
 endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                             NERDTree Commenter                             "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" refer, <s>https://github.com/scrooloose/nerdcommenter</s>
-" changed to https://github.com/preservim/nerdcommenter
-
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-" Use compact syntax for prettified multi-line comments
-let g:NERDCompactSexyComs = 1
-
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-
-" Set a language to use its alternate delimiters by default
-let g:NERDAltDelims_java = 1
-
-" Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-
-" Enable NERDCommenterToggle to check all selected lines is commented or not
-let g:NERDToggleCheckAllLines = 1
-
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
