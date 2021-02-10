@@ -980,6 +980,19 @@ function setup_lua() {
 
 setup_lua
 
+#######################################################################
+#                               neovim                                #
+#######################################################################
+# neva - neovim version manager
+# TODO: install `neva` scripts
+# https://github.com/shohi/neva
+function setup_neovim() {
+  mkdir -p $HOME/.neva/bin $HOME/.neva/downloads $HOME/.neva/versions
+
+  export PATH="$HOME/.neva/bin":"$HOME/.neva/nvim/bin":$PATH
+}
+
+setup_neovim
 
 #######################################################################
 #                            Daily Update                             #
