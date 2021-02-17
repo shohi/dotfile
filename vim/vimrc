@@ -153,6 +153,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " go autocomplete
+" TODO: use https://github.com/nvim-lua/completion-nvim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " visual indent
@@ -200,9 +201,6 @@ Plug 'tpope/vim-abolish'
 
 " Toml
 Plug 'cespare/vim-toml'
-
-" vim-clap - generic finder and dispatcher
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
 " quickfix
 " Plug 'romainl/vim-qf'
@@ -263,6 +261,11 @@ Plug 'kassio/neoterm'
 
 " interactive real time neovim scratchpad for embedded lua engine
 Plug 'rafcamlet/nvim-luapad'
+
+" telescope.nvim -  Find, Filter, Preview, Pick. All lua, all the time.
+Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -381,7 +384,7 @@ colorscheme zenburn
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 colorizer                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-lua require'colorizer'.setup()
+lua require('colorizer').setup()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -495,7 +498,7 @@ augroup gogroup
   autocmd FileType go nmap <silent> <leader>gl :GoMetaLinter<CR>
   autocmd FileType go nmap <silent> <leader>ec :GoErrCheck<CR>
   autocmd FileType go nmap <silent> <leader>ft :GoTestFunc<CR>
-  autocmd FileType go nmap <silent> <Leader>cc <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <silent> <leader>cc <Plug>(go-coverage-toggle)
   autocmd FileType go nmap <silent> <leader>pt <Plug>(go-test)
   autocmd FileType go nmap <silent> <leader>gb :<C-u>call <SID>build_go_files()<CR>
   " TODO: add GoAddTag toggling
@@ -525,21 +528,6 @@ autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
 autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 autocmd FileType rust nmap <leader>ta :RustTest! -- --nocapture<CR>
 autocmd FileType rust nmap <leader>tt :RustTest -- --nocapture<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  vim-clap                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
-" https://github.com/liuchengxu/vim-clap
-let g:clap_provider_grep_delay = 50
-" let g:clap_provider_grep_opts = '-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
-
-nnoremap <C-p> :Clap files<CR>
-nnoremap <leader>* :Clap grep ++query=<cword><CR>
-nnoremap <leader>fg :Clap grep<CR>
-nnoremap <leader>fb :Clap buffers<CR>
-nnoremap <leader>fh :Clap history<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -830,8 +818,8 @@ tnoremap <A-l> <C-\><C-N><C-w>l
 " let g:translator_window_enable_icon = 'false'
 
 " Echo translation in the cmdline
-nmap <silent> <Leader>t <Plug>Translate
-vmap <silent> <Leader>t <Plug>TranslateV
+nmap <silent> <leader>t <Plug>Translate
+vmap <silent> <leader>t <Plug>TranslateV
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -886,9 +874,9 @@ function! s:toggle_limelight()
 endfunction
 
 " toggle functions for goyo and limelight
-nmap <silent> <Leader>gl :<C-u>call <SID>toggle_limelight()<CR>
-xmap <silent> <Leader>gl :<C-u>call <SID>toggle_limelight()<CR>
-nmap <silent> <Leader>gg :Goyo<CR>
+nmap <silent> <leader>gl :<C-u>call <SID>toggle_limelight()<CR>
+xmap <silent> <leader>gl :<C-u>call <SID>toggle_limelight()<CR>
+nmap <silent> <leader>gg :Goyo<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -912,8 +900,7 @@ function! s:toggle_mkdp()
   endif
 endfunction
 
-nmap <silent> <Leader>m :<C-u>call <SID>toggle_mkdp()<CR>
-
+nmap <silent> <leader>m :<C-u>call <SID>toggle_mkdp()<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1239,7 +1226,7 @@ nmap # <Plug>(anzu-sharp-with-echo)
 " indentLine
 "
 let g:indentLine_fileType = ['yaml', 'yml']
-let g:indentLine_color_gui = '#D08770'
+let g:indentLine_color_gui = "#D08770"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  beacon                                    "
@@ -1290,3 +1277,13 @@ augroup hlcursor
   autocmd!
   nnoremap <silent> <leader>lw :<C-u>call <SID>ToggleKeywordHighlight()<CR>
 augroup end
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               telescope.nvim                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Using lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').command_history()<cr>
