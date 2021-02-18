@@ -27,9 +27,9 @@ Plug 'dsimidzija/vim-nerdtree-ignore'
 
 " Comenter
 if has('nvim')
-    Plug 'tpope/vim-commentary'
+  Plug 'tpope/vim-commentary'
 else
-    Plug 'b3nj5m1n/kommentary'
+  Plug 'b3nj5m1n/kommentary'
 endif
 
 " git status
@@ -316,24 +316,24 @@ vnoremap <silent> # :<C-u>call <SID>visual_selection('', '')<CR>?<C-R>=@/<CR><CR
 
 " helper functions
 function! s:cmd_line(str)
-    call feedkeys(":" . a:str)
+  call feedkeys(":" . a:str)
 endfunction
 
 function! s:visual_selection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
+  let l:saved_reg = @"
+  execute "normal! vgvy"
 
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+  let l:pattern = escape(@", "\\/.*'$^~[]")
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-    if a:direction == 'gv'
-        call s:cmd_line("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call s:cmd_line("%s" . '/'. l:pattern . '/')
-    endif
+  if a:direction == 'gv'
+    call s:cmd_line("Ack '" . l:pattern . "' " )
+  elseif a:direction == 'replace'
+    call s:cmd_line("%s" . '/'. l:pattern . '/')
+  endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
+  let @/ = l:pattern
+  let @" = l:saved_reg
 endfunction
 
 " fast editing vimrc
@@ -349,9 +349,9 @@ nnoremap <leader><leader> :set cursorline! cursorcolumn!<CR>
 " NOTE use .vimrc/nvimrc to set project-wise setting
 " shell/vim indent
 augroup mycustom
-    autocmd!
-    autocmd FileType sh,vim setlocal shiftwidth=2 softtabstop=2 expandtab
-    autocmd FileType json setlocal shiftwidth=4 softtabstop=4 expandtab
+  autocmd!
+  autocmd FileType sh,vim setlocal shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType json setlocal shiftwidth=4 softtabstop=4 expandtab
 augroup end
 
 " mapping to open and close quickfix window
@@ -439,8 +439,8 @@ let g:NERDTreeCaseSensitiveSort=1
 " only work on vim 8+
 " command! Only call only_and_nerdtree()
 function! s:only_and_nerdtree()
-    let l:currentWindowID = win_getid()
-    windo if win_getid() != l:currentWindowID && &filetype != 'nerdtree' | close | endif
+  let l:currentWindowID = win_getid()
+  windo if win_getid() != l:currentWindowID && &filetype != 'nerdtree' | close | endif
 endfunction
 
 
@@ -488,8 +488,8 @@ let g:go_list_type="quickfix"
 " lint
 let g:go_metalinter_command = "golangci-lint"
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'deadcode',
-            \ 'gosimple', 'ineffassign', 'staticcheck',
-            \ 'structcheck', 'unused', 'varcheck']
+      \ 'gosimple', 'ineffassign', 'staticcheck',
+      \ 'structcheck', 'unused', 'varcheck']
 
 " " fast editing go alternative files
 " TODO:
@@ -497,29 +497,29 @@ let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck', 'deadcode',
 " - GoFillStruct
 " - GoIfErr
 augroup gogroup
-    autocmd!
-    autocmd FileType go nmap <silent> gr :GoReferrers<CR>
-    autocmd FileType go nmap <silent> gi :GoImplements<CR>
+  autocmd!
+  autocmd FileType go nmap <silent> gr :GoReferrers<CR>
+  autocmd FileType go nmap <silent> gi :GoImplements<CR>
 
-    autocmd FileType go nmap <silent> <leader>ga :GoAlternate<CR>
-    autocmd FileType go nmap <silent> <leader>gl :GoMetaLinter<CR>
-    autocmd FileType go nmap <silent> <leader>ec :GoErrCheck<CR>
-    autocmd FileType go nmap <silent> <leader>ft :GoTestFunc<CR>
-    autocmd FileType go nmap <silent> <leader>cc <Plug>(go-coverage-toggle)
-    autocmd FileType go nmap <silent> <leader>pt <Plug>(go-test)
-    autocmd FileType go nmap <silent> <leader>gb :<C-u>call <SID>build_go_files()<CR>
-    " TODO: add GoAddTag toggling
+  autocmd FileType go nmap <silent> <leader>ga :GoAlternate<CR>
+  autocmd FileType go nmap <silent> <leader>gl :GoMetaLinter<CR>
+  autocmd FileType go nmap <silent> <leader>ec :GoErrCheck<CR>
+  autocmd FileType go nmap <silent> <leader>ft :GoTestFunc<CR>
+  autocmd FileType go nmap <silent> <leader>cc <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <silent> <leader>pt <Plug>(go-test)
+  autocmd FileType go nmap <silent> <leader>gb :<C-u>call <SID>build_go_files()<CR>
+  " TODO: add GoAddTag toggling
 augroup end
 
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
-    let l:file = expand('%')
-    if l:file =~# '^\f\+_test\.go$'
-        call go#test#Test(0, 1)
-    elseif l:file =~# '^\f\+\.go$'
-        call go#cmd#Build(0)
-    endif
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
 endfunction
 
 
@@ -530,13 +530,13 @@ let g:rustfmt_autosave = 1
 let g:racer_experimental_completer = 1
 
 augroup rustgroup
-    autocmd!
-    autocmd FileType rust nmap gd <Plug>(rust-def)
-    autocmd FileType rust nmap gs <Plug>(rust-def-split)
-    autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
-    autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
-    autocmd FileType rust nmap <leader>ta :RustTest! -- --nocapture<CR>
-    autocmd FileType rust nmap <leader>tt :RustTest -- --nocapture<CR>
+  autocmd!
+  autocmd FileType rust nmap gd <Plug>(rust-def)
+  autocmd FileType rust nmap gs <Plug>(rust-def-split)
+  autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
+  autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
+  autocmd FileType rust nmap <leader>ta :RustTest! -- --nocapture<CR>
+  autocmd FileType rust nmap <leader>tt :RustTest -- --nocapture<CR>
 augroup end
 
 
@@ -605,18 +605,18 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 " nim linter already integrated in ale
 " - 'nim': ['nimlsp', 'nimcheck']
 let g:ale_linters = {
-            \ 'javascript': ['eslint'],
-            \ 'go': ['golangci-lint'],
-            \ }
+      \ 'javascript': ['eslint'],
+      \ 'go': ['golangci-lint'],
+      \ }
 
 " default - '--enable-all'
 " let g:ale_go_golangci_lint_options='--fast'
 
 " auto fix
 let g:ale_fixers = {
-            \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \ 'javascript': ['eslint'],
-            \ }
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'javascript': ['eslint'],
+      \ }
 
 " set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
@@ -698,32 +698,32 @@ nnoremap <leader>tb :TagbarToggle<CR>
 " refer-1, https://github.com/majutsushi/tagbar/wiki#google-go
 " refer-2, https://github.com/jstemmer/gotags
 let g:tagbar_type_go = {
-            \ 'ctagstype' : 'go',
-            \ 'kinds'     : [
-            \ 'p:package',
-            \ 'i:imports:1',
-            \ 'c:constants',
-            \ 'v:variables',
-            \ 't:types',
-            \ 'n:interfaces',
-            \ 'w:fields',
-            \ 'e:embedded',
-            \ 'm:methods',
-            \ 'r:constructor',
-            \ 'f:functions'
-            \ ],
-            \ 'sro' : '.',
-            \ 'kind2scope' : {
-            \ 't' : 'ctype',
-            \ 'n' : 'ntype'
-            \ },
-            \ 'scope2kind' : {
-            \ 'ctype' : 't',
-            \ 'ntype' : 'n'
-            \ },
-            \ 'ctagsbin'  : 'gotags',
-            \ 'ctagsargs' : '-sort -silent'
-            \ }
+      \ 'ctagstype' : 'go',
+      \ 'kinds'     : [
+      \ 'p:package',
+      \ 'i:imports:1',
+      \ 'c:constants',
+      \ 'v:variables',
+      \ 't:types',
+      \ 'n:interfaces',
+      \ 'w:fields',
+      \ 'e:embedded',
+      \ 'm:methods',
+      \ 'r:constructor',
+      \ 'f:functions'
+      \ ],
+      \ 'sro' : '.',
+      \ 'kind2scope' : {
+      \ 't' : 'ctype',
+      \ 'n' : 'ntype'
+      \ },
+      \ 'scope2kind' : {
+      \ 'ctype' : 't',
+      \ 'ntype' : 'n'
+      \ },
+      \ 'ctagsbin'  : 'gotags',
+      \ 'ctagsargs' : '-sort -silent'
+      \ }
 
 " rust tagbar setting
 " refer-1, https://github.com/majutsushi/tagbar/wiki#rust
@@ -734,37 +734,37 @@ let g:rust_use_custom_ctags_defs = 1  " if using rust.vim
 "  TODO: how to use ENV variable in vimrc
 "  'ctagsbin' : '/path/to/your/universal/ctags'
 let g:tagbar_type_rust = {
-            \ 'ctagstype' : 'rust',
-            \ 'kinds' : [
-            \ 'n:modules',
-            \ 's:structures:1',
-            \ 'i:interfaces',
-            \ 'c:implementations',
-            \ 'f:functions:1',
-            \ 'g:enumerations:1',
-            \ 't:type aliases:1:0',
-            \ 'v:constants:1:0',
-            \ 'M:macros:1',
-            \ 'm:fields:1:0',
-            \ 'e:enum variants:1:0',
-            \ 'P:methods:1',
-            \ ],
-            \ 'sro': '::',
-            \ 'kind2scope' : {
-            \ 'n': 'module',
-            \ 's': 'struct',
-            \ 'i': 'interface',
-            \ 'c': 'implementation',
-            \ 'f': 'function',
-            \ 'g': 'enum',
-            \ 't': 'typedef',
-            \ 'v': 'variable',
-            \ 'M': 'macro',
-            \ 'm': 'field',
-            \ 'e': 'enumerator',
-            \ 'P': 'method',
-            \ },
-            \ }
+      \ 'ctagstype' : 'rust',
+      \ 'kinds' : [
+      \ 'n:modules',
+      \ 's:structures:1',
+      \ 'i:interfaces',
+      \ 'c:implementations',
+      \ 'f:functions:1',
+      \ 'g:enumerations:1',
+      \ 't:type aliases:1:0',
+      \ 'v:constants:1:0',
+      \ 'M:macros:1',
+      \ 'm:fields:1:0',
+      \ 'e:enum variants:1:0',
+      \ 'P:methods:1',
+      \ ],
+      \ 'sro': '::',
+      \ 'kind2scope' : {
+      \ 'n': 'module',
+      \ 's': 'struct',
+      \ 'i': 'interface',
+      \ 'c': 'implementation',
+      \ 'f': 'function',
+      \ 'g': 'enum',
+      \ 't': 'typedef',
+      \ 'v': 'variable',
+      \ 'M': 'macro',
+      \ 'm': 'field',
+      \ 'e': 'enumerator',
+      \ 'P': 'method',
+      \ },
+      \ }
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -868,22 +868,22 @@ nnoremap <leader>fd :CopyDirectoryPath<CR>
 
 " goyo & limelight integration
 augroup goyogroup
-    autocmd!
-    autocmd User GoyoEnter Limelight
-    autocmd User GoyoLeave Limelight!
+  autocmd!
+  autocmd User GoyoEnter Limelight
+  autocmd User GoyoLeave Limelight!
 augroup end
 
 " kbd for goyo and limelight
 " https://stackoverflow.com/questions/20579142/toggle-function-in-vim
 let s:enable_limelight=0
 function! s:toggle_limelight()
-    if s:enable_limelight
-        Limelight!
-        let s:enable_limelight=0
-    else
-        Limelight
-        let s:enable_limelight=1
-    endif
+  if s:enable_limelight
+    Limelight!
+    let s:enable_limelight=0
+  else
+    Limelight
+    let s:enable_limelight=1
+  endif
 endfunction
 
 " toggle functions for goyo and limelight
@@ -904,13 +904,13 @@ let g:mkdp_auto_close = 0
 
 let s:enable_mkdp=0
 function! s:toggle_mkdp()
-    if s:enable_mkdp
-        MarkdownPreviewStop
-        let s:enable_mkdp=0
-    else
-        MarkdownPreview
-        let s:enable_mkdp=1
-    endif
+  if s:enable_mkdp
+    MarkdownPreviewStop
+    let s:enable_mkdp=0
+  else
+    MarkdownPreview
+    let s:enable_mkdp=1
+  endif
 endfunction
 
 nnoremap <silent> <leader>m :<C-u>call <SID>toggle_mkdp()<CR>
@@ -936,14 +936,14 @@ set shortmess+=c
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion.
@@ -969,11 +969,11 @@ nnoremap <silent> gi <Plug>(coc-implementation)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
 endfunction
 
 
@@ -985,14 +985,14 @@ nnoremap <leader>rn <Plug>(coc-rename)
 " nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup cocgroup
-    autocmd!
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
-    " Highlight symbol under cursor on CursorHold
-    autocmd CursorHold * silent call CocActionAsync('highlight')
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
@@ -1135,17 +1135,17 @@ nnoremap <silent> <leader>ff :Autoformat<CR>
 " npm install -g clang-format
 
 augroup autoformat_group
-    autocmd!
-    " auto format on save for [sh,py]
-    " https://github.com/z0mbix/vim-shfmt/blob/master/plugin/shfmt.vim
-    autocmd BufWritePre *.sh :Autoformat
-    autocmd FileType sh autocmd BufWritePre <buffer> :Autoformat
+  autocmd!
+  " auto format on save for [sh,py]
+  " https://github.com/z0mbix/vim-shfmt/blob/master/plugin/shfmt.vim
+  autocmd BufWritePre *.sh :Autoformat
+  autocmd FileType sh autocmd BufWritePre <buffer> :Autoformat
 
-    " TODO: add formatter for vimscript
+  " TODO: add formatter for vimscript
 
-    " auto format on save for python
-    " autocmd BufWritePre *.py :Autoformat
-    " autocmd FileType python autocmd BufWritePre <buffer> :Autoformat
+  " auto format on save for python
+  " autocmd BufWritePre *.py :Autoformat
+  " autocmd FileType python autocmd BufWritePre <buffer> :Autoformat
 augroup END
 
 
@@ -1169,9 +1169,9 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " nim-lang
 let g:neoformat_nim_custom= {
-            \ 'exe': 'nimpretty',
-            \ 'replace': 1,
-            \ }
+      \ 'exe': 'nimpretty',
+      \ 'replace': 1,
+      \ }
 
 let g:neoformat_enabled_nim= ['custom']
 let g:neoformat_run_all_formatters = 0
@@ -1182,16 +1182,16 @@ let g:neoformat_run_all_formatters = 0
 "                                 javascript                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup js_rc
-    autocmd!
-    autocmd BufNewFile,BufRead *.eslintrc,*.babelrc set syntax=json
+  autocmd!
+  autocmd BufNewFile,BufRead *.eslintrc,*.babelrc set syntax=json
 augroup end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 vimscript                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup nvim_rc
-    autocmd!
-    autocmd BufNewFile,BufRead *.vimrc,*.nvimrc set syntax=vim
+  autocmd!
+  autocmd BufNewFile,BufRead *.vimrc,*.nvimrc set syntax=vim
 augroup end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1272,24 +1272,24 @@ inoremap <c-x><c-l> <plug>(fzf-complete-line)
 " Highlights the current word under the cursor
 let g:highlight_current_keyword = 0
 function! s:ToggleKeywordHighlight()
-    if g:highlight_current_keyword == 0
-        augroup highlight_keyword
-            au!
-            autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
-        augroup END
-        let g:highlight_current_keyword = 1
-    else
-        augroup highlight_keyword
-            au!
-        augroup END
-        match none
-        let g:highlight_current_keyword = 0
-    endif
+  if g:highlight_current_keyword == 0
+    augroup highlight_keyword
+      au!
+      autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+    augroup END
+    let g:highlight_current_keyword = 1
+  else
+    augroup highlight_keyword
+      au!
+    augroup END
+    match none
+    let g:highlight_current_keyword = 0
+  endif
 endfunction
 
 augroup hlcursor
-    autocmd!
-    nnoremap <silent> <leader>lw :<C-u>call <SID>ToggleKeywordHighlight()<CR>
+  autocmd!
+  nnoremap <silent> <leader>lw :<C-u>call <SID>ToggleKeywordHighlight()<CR>
 augroup end
 
 
