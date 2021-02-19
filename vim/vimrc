@@ -299,10 +299,6 @@ set colorcolumn=80
 nnoremap <silent> <esc> :noh<return><esc>
 nnoremap <silent> <esc>^[ <esc>^[
 
-" help window
-" NOTE: this will hidden git-gutter-hunk settings
-nnoremap <silent> <leader>h :Helptags<CR>
-
 " fast saving
 nnoremap <leader>w :w!<CR>
 
@@ -343,6 +339,10 @@ nnoremap <leader>ev :vsplit ~/.vimrc<CR>
 " fast sourcing vimrc
 nnoremap <leader>sv :source ~/.vimrc<CR>
 
+" Source Vim configuration file and install plugins
+" https://pragmaticpineapple.com/improving-vim-workflow-with-fzf/
+nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
+
 " highlight cursorline
 nnoremap <leader><leader> :set cursorline! cursorcolumn!<CR>
 
@@ -370,6 +370,7 @@ set secure
 " https://learnvimscriptthehardway.stevelosh.com/chapters/10.html
 inoremap jk <esc>
 inoremap <esc> <nop>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                color scheme                                "
@@ -1253,19 +1254,29 @@ let g:indentLine_color_gui = "#D08770"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/junegunn/fzf.vim
 
+nnoremap <leader>ff :GFiles<cr>
+nnoremap <leader>fg :Rg<cr>
+nnoremap <leader>fb :Buffers<cr>
+nnoremap <leader>fh :History:<cr>
+
+" help window
+" NOTE: this will hidden git-gutter-hunk settings
+nnoremap <silent> <leader>h :Helptags<CR>
+
 " Mapping selecting mappings
-nnoremap <leader><tab> <plug>(fzf-maps-n)
-xnoremap <leader><tab> <plug>(fzf-maps-x)
-onoremap <leader><tab> <plug>(fzf-maps-o)
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 
 " Insert mode completion
-inoremap <c-x><c-k> <plug>(fzf-complete-word)
-inoremap <c-x><c-f> <plug>(fzf-complete-path)
-inoremap <c-x><c-l> <plug>(fzf-complete-line)
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " To install useful key bindings and fuzzy completion
 " $(brew --prefix)/opt/fzf/install
-"
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 highlight                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1296,8 +1307,9 @@ augroup end
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               telescope.nvim                               "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NOTE: use fzf instead of telescope
 " Using lua functions
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').command_history()<cr>
+" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+" nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+" nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+" nnoremap <leader>fh <cmd>lua require('telescope.builtin').command_history()<cr>
