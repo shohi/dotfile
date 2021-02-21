@@ -295,9 +295,9 @@ filetype plugin indent on        " enable filetype plugin
 set noswapfile
 set colorcolumn=80
 
-" clear highlighting on escape in normal mode
-nnoremap <silent> <esc> :noh<return><esc>
-nnoremap <silent> <esc>^[ <esc>^[
+" clear highlighting by hitting return in normal mode
+" https://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting
+nnoremap <silent> <CR> :noh<CR><CR>
 
 " fast saving
 nnoremap <leader>w :w!<CR>
@@ -342,6 +342,8 @@ nnoremap <leader>sv :source ~/.vimrc<CR>
 " Source Vim configuration file and install plugins
 " https://pragmaticpineapple.com/improving-vim-workflow-with-fzf/
 nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
+nnoremap <silent><leader>2 :source ~/.vimrc \| :PlugUpdate<CR>
+nnoremap <silent><leader>3 :source ~/.vimrc \| :PlugClean<CR>
 
 " highlight cursorline
 nnoremap <leader><leader> :set cursorline! cursorcolumn!<CR>
