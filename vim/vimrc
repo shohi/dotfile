@@ -275,6 +275,12 @@ if has('nvim')
   Plug 'nvim-telescope/telescope.nvim'
 endif
 
+" vim-rt-format - Prettify Current Line on Enter !!
+Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
+
+" vim-floaterm - Terminal manager for (neo)vim
+Plug 'voldikss/vim-floaterm'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 

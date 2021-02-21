@@ -995,6 +995,22 @@ function setup_neovim() {
 setup_neovim
 
 #######################################################################
+#                                z.lua                                #
+#######################################################################
+# https://github.com/skywind3000/z.lua/blob/master/README.cn.md
+# TODO: setup z.lua
+function setup_z_lua() {
+  # install kubectl-alias
+  local user="skywind3000"
+  local repo="z.lua"
+
+  _install_github_repo "${user}" "${repo}"
+
+  # TODO: init z.lua
+}
+setup_z_lua
+
+#######################################################################
 #                            Daily Update                             #
 #######################################################################
 
