@@ -78,9 +78,11 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'elixir-editors/vim-elixir'
 Plug 'mhinz/vim-mix-format'
 
-" FIXME: only work for neovim
+" NOTE: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
-Plug 'Olical/conjure', { 'tag': 'v4.13.0' }
+if has('nvim')
+    Plug 'Olical/conjure', { 'tag': 'v4.14.1' }
+endif
 
 " permut - swap columns
 Plug 'jlemetay/permut'
@@ -244,12 +246,16 @@ Plug 'tbastos/vim-lua'
 Plug 'bakpakin/fennel.vim'
 
 " plenary.nvim - All the lua functions I don't want to write twice.
-Plug 'nvim-lua/plenary.nvim'
+if has('nvim')
+  Plug 'nvim-lua/plenary.nvim'
+endif
 
 " git-blame -  Git Blame plugin for Neovim written in Lua
 " Plug 'f-person/git-blame.nvim'
 " nvim-colorizer - The fastest Neovim colorizer
-Plug 'norcalli/nvim-colorizer.lua'
+if has('nvim')
+  Plug 'norcalli/nvim-colorizer.lua'
+endif
 
 " neoterm -  Wrapper of some vim/neovim's :terminal functions.
 Plug 'kassio/neoterm'
@@ -263,9 +269,11 @@ Plug 'kassio/neoterm'
 Plug 'rafcamlet/nvim-luapad'
 
 " telescope.nvim -  Find, Filter, Preview, Pick. All lua, all the time.
-Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+if has('nvim')
+  Plug 'nvim-lua/popup.nvim'
+  " Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+endif
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -394,7 +402,9 @@ colorscheme zenburn
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 colorizer                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-lua require('colorizer').setup()
+if has('nvim')
+  lua require('colorizer').setup()
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
