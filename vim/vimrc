@@ -81,7 +81,7 @@ Plug 'mhinz/vim-mix-format'
 " NOTE: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
 if has('nvim')
-    Plug 'Olical/conjure', { 'tag': 'v4.14.1' }
+  Plug 'Olical/conjure', { 'tag': 'v4.14.1' }
 endif
 
 " permut - swap columns
@@ -280,6 +280,11 @@ Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
 
 " vim-floaterm - Terminal manager for (neo)vim
 Plug 'voldikss/vim-floaterm'
+
+" nvim-peekup -  dynamically show content of vim registers
+if has('nvim')
+  Plug 'gennaro-tedesco/nvim-peekup'
+endif
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
