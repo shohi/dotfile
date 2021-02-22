@@ -81,7 +81,7 @@ Plug 'mhinz/vim-mix-format'
 " NOTE: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
 if has('nvim')
-  Plug 'Olical/conjure', { 'tag': 'v4.14.1' }
+  Plug 'Olical/conjure', { 'tag': 'v4.14.0' }
 endif
 
 " permut - swap columns
@@ -235,6 +235,11 @@ Plug 'osyo-manga/vim-anzu'
 " fzf - A command-line fuzzy finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" nvim-lspfuzzy -  A Neovim plugin to make the LSP client use FZF
+if has('nvim')
+  Plug 'ojroques/nvim-lspfuzzy'
+endif
 
 " wordmotion - More useful word motions for Vim
 Plug 'chaoren/vim-wordmotion'
@@ -1298,6 +1303,10 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " To install useful key bindings and fuzzy completion
 " $(brew --prefix)/opt/fzf/install
+"
+if has('nvim')
+  lua require('lspfuzzy').setup {}
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
