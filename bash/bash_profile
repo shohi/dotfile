@@ -284,7 +284,11 @@ function setup_golang() {
 function use_goproxy() {
   # refer, https://goproxy.io/
   # export GO111MODULE=on
-  export GOPROXY=https://goproxy.io
+  # test whether GOPROXY has already been set
+  if [ -n "${GOPROXY}" ]; then
+    return
+  fi
+  export GOPROXY=https://goproxy.io,direct
   # export GOPROXY=https://athens.azurefd.net
   # export GOPROXY=https://mirrors.aliyun.com/goproxy/
 }
@@ -1009,6 +1013,26 @@ function setup_z_lua() {
   # TODO: init z.lua
 }
 setup_z_lua
+
+#######################################################################
+#                               direnv                                #
+#######################################################################
+# https://github.com/direnv/direnv
+function setup_direnv() {
+  if [[ ! -x "$(command -v direnv)" ]]; then
+    echo "plz install direnv firstly - brew install direnv"
+    return 1
+  fi
+
+  # https://stackoverflow.com/questions/9910966/how-to-get-shell-to-self-detect-using-zsh-or-bash
+
+  # https://github.com/direnv/direnv/blob/master/docs/hook.md
+  # If using zsh, add the line to ~/.zshrc - `eval "$(direnv hook zsh)"`
+  # TODO: check shell dialect
+  # eval "$(direnv hook bash)"
+}
+
+setup_direnv
 
 #######################################################################
 #                            Daily Update                             #
