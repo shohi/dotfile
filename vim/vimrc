@@ -458,7 +458,8 @@ noremap <leader>ne :NERDTree<CR>
 noremap <leader>nn :NERDTreeToggle<CR>
 noremap <leader>nt :NERDTreeToggle<CR>
 noremap <leader>nf :NERDTreeFocus<CR>
-noremap <leader>no :<C-u>call <SID>only_and_nerdtree()<CR>
+noremap <leader>no :<C-u>call <SID>only_current_and_nerdtree()<CR>
+noremap <leader>ns :<C-u>call <SID>nerdtree_show()<CR>
 
 " turn on case-sensitive sort
 let g:NERDTreeCaseSensitiveSort=1
@@ -466,10 +467,23 @@ let g:NERDTreeCaseSensitiveSort=1
 " Close all windows except the current one and NERDTree
 " https://vi.stackexchange.com/questions/13331/close-all-windows-except-the-current-one-and-nerdtree
 " only work on vim 8+
-" command! Only call only_and_nerdtree()
-function! s:only_and_nerdtree()
+" command! Only call only_current_and_nerdtree()
+function! s:only_current_and_nerdtree()
   let l:currentWindowID = win_getid()
-  windo if win_getid() != l:currentWindowID && &filetype != 'nerdtree' | close | endif
+  windo if win_getid() != l:currentWindowID && &filetype !=? 'nerdtree' | close | endif
+endfunction
+
+" Show file navigation in nerdtree and still keep focus on current window
+" https://vi.stackexchange.com/questions/15918/quit-a-window-by-its-win-getid-identifier
+" https://stackoverflow.com/questions/32802143/vim-function-to-switch-between-splits/32802251
+function! s:nerdtree_show()
+  if &filetype ==? "nerdtree"
+    return
+  endif
+
+  let l:currentWin = winnr()
+  execute 'NERDTreeFind'
+  execute l:currentWin . "wincmd w"
 endfunction
 
 
