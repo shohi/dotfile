@@ -397,6 +397,17 @@ set secure
 inoremap jk <esc>
 inoremap <esc> <nop>
 
+" cmdline mode mappings
+" https://stackoverflow.com/questions/12315612/move-forward-backwards-one-word-in-command-mode
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                color scheme                                "
