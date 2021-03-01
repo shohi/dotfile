@@ -301,5 +301,11 @@ Plug 'farmergreg/vim-lastplace'
 "   Plug 'rmagatti/auto-session'
 " endif
 
+" vim-keysound - Play typewriter sound in Vim when you are typing a letter
+Plug 'skywind3000/vim-keysound'
+
+" pomodoro.vim - Bring the beauty of the Pomodoro technique to (Neo)Vim
+Plug 'tricktux/pomodoro.vim'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()

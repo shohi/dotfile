@@ -931,3 +931,21 @@ augroup end
 " brew tap homebrew/cask-fonts
 " brew install --cask font-hack-nerd-font
 " TODO: fix font issue
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 vim-sound                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" require sdl2 installed
+" pyenv activate neovim3
+" brew install sdl2
+" brew install sdl2_mixer
+let g:keysound_enable = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                pomodoro.vim                                "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" FIXME: show status with airline
+" set statusline=%#ErrorMsg#%{pomo#status_bar()}%#StatusLine#
+nnoremap <leader>pm :PomodoroStatus<CR>
+nnoremap <leader>ps :PomodoroStart<CR>
+nnoremap <leader>pt :PomodoroStop<CR>

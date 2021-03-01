@@ -73,16 +73,16 @@ endfunction
 
 " fast editing vimrc
 " $MYVIMRC is not `~/.vimrc` when using neovim
-nnoremap <leader>ev :vsplit ~/.vimrc<CR>
+nnoremap <leader>ev :vsplit ~/.vim/vimrc<CR>
 
 " fast sourcing vimrc
-nnoremap <leader>sv :source ~/.vimrc<CR>
+nnoremap <leader>sv :source ~/.vim/vimrc<CR>
 
 " Source Vim configuration file and install plugins
 " https://pragmaticpineapple.com/improving-vim-workflow-with-fzf/
-nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
-nnoremap <silent><leader>2 :source ~/.vimrc \| :PlugUpdate<CR>
-nnoremap <silent><leader>3 :source ~/.vimrc \| :PlugClean<CR>
+nnoremap <silent><leader>1 :source ~/.vim/vimrc \| :PlugInstall<CR>
+nnoremap <silent><leader>2 :source ~/.vim/vimrc \| :PlugUpdate<CR>
+nnoremap <silent><leader>3 :source ~/.vim/vimrc \| :PlugClean<CR>
 
 " highlight cursorline
 nnoremap <leader><leader> :set cursorline! cursorcolumn!<CR>
