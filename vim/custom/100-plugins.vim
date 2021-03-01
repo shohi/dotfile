@@ -296,10 +296,11 @@ Plug 'liuchengxu/vista.vim'
 Plug 'farmergreg/vim-lastplace'
 
 " auto-session - A small automated session manager for Neovim
-" FIXME: not work with NERDTree
-" if has('nvim')
-"   Plug 'rmagatti/auto-session'
-" endif
+" NOTE: require setup `prehook` to close nerdtree before save
+" not work well with NERDTree automatically
+if has('nvim')
+  Plug 'rmagatti/auto-session'
+endif
 
 " vim-keysound - Play typewriter sound in Vim when you are typing a letter
 Plug 'skywind3000/vim-keysound'
