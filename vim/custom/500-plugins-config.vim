@@ -791,7 +791,7 @@ let g:neoformat_run_all_formatters = 0
 augroup js_rc
   autocmd!
   autocmd BufNewFile,BufRead *.eslintrc,*.babelrc set syntax=json
-augroup end
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 vimscript                                  "
@@ -867,6 +867,24 @@ nnoremap <leader>fh :History:<cr>
 
 " help window
 nnoremap <silent> <leader>h :Helptags<CR>
+
+" search current file directory
+" https://vi.stackexchange.com/questions/24927/open-fzf-in-current-directory-of-file-i-am-viewing
+nnoremap <leader>fl :Files %:p:h<CR>
+
+" search file in current working directory
+" https://github.com/junegunn/fzf.vim/issues/360
+nnoremap <leader>fc :<C-U>call fzf#vim#files(getcwd())<CR>
+
+" search content in current working directory
+" https://github.com/junegunn/fzf.vim#advanced-customization
+" TODO: figure out what's going on here
+command! -bang -nargs=* Rgg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'dir': getcwd()}), <bang>0)
+
+nnoremap <leader>fw :Rgg<CR>
 
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
@@ -949,3 +967,8 @@ let g:keysound_enable = 1
 nnoremap <leader>pm :PomodoroStatus<CR>
 nnoremap <leader>ps :PomodoroStart<CR>
 nnoremap <leader>pt :PomodoroStop<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  startify                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:startify_disable_at_vimenter = 1

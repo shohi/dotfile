@@ -70,7 +70,7 @@ Plug 'mhinz/vim-mix-format'
 " NOTE: only work for neovim
 " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
 if has('nvim')
-  Plug 'Olical/conjure', { 'tag': 'v4.14.0' }
+  Plug 'Olical/conjure', { 'tag': 'v4.15.0' }
 endif
 
 " permut - swap columns
@@ -306,6 +306,12 @@ Plug 'skywind3000/vim-keysound'
 
 " pomodoro.vim - Bring the beauty of the Pomodoro technique to (Neo)Vim
 Plug 'tricktux/pomodoro.vim'
+
+" vim-test - Run your tests at the speed of thought
+Plug 'vim-test/vim-test'
+
+" vim-startify - The fancy start screen for Vim.
+Plug 'mhinz/vim-startify'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
