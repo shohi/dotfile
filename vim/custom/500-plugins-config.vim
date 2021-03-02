@@ -244,6 +244,10 @@ let g:UltiSnipsSnippetDirectories=["MyUltiSnips", "UltiSnips"]
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
+" https://stackoverflow.com/questions/58081390/why-doesnt-ultisnips-listing-of-available-snippets-work
+" https://github.com/SirVer/ultisnips/issues/859
+" NOTE: work in insert-mode
+let g:UltiSnipsListSnippets="<c-l>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 which-key                                  "
@@ -879,10 +883,23 @@ nnoremap <leader>fc :<C-U>call fzf#vim#files(getcwd())<CR>
 " search content in current working directory
 " https://github.com/junegunn/fzf.vim#advanced-customization
 " TODO: figure out what's going on here
+" https://github.com/preservim/nerdtree/issues/254
+function! s:GetNERDTreeRootOrWorkingDir()
+  if !exists("g:NERDTree")
+    return getcwd()
+  endif
+
+  if type(g:NERDTree.ForCurrentTab()) == v:t_dict
+      return g:NERDTree.ForCurrentTab().getRoot().path.str()
+  endif
+
+  return getcwd()
+endfunction
+
 command! -bang -nargs=* Rgg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'dir': getcwd()}), <bang>0)
+  \   fzf#vim#with_preview({'dir': <SID>GetNERDTreeRootOrWorkingDir()}), <bang>0)
 
 nnoremap <leader>fw :Rgg<CR>
 

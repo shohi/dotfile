@@ -115,6 +115,15 @@ cnoremap <C-f> <Right>
 cnoremap <M-b> <S-Left>
 cnoremap <M-f> <S-Right>
 
+" window resize mapping
+" https://vim.fandom.com/wiki/Fast_window_resizing_with_plus/minus_keys
+" Maps Alt-[h,j,k,l] to resizing a window split
+" NOTE: Conflict with vim-move
+nnoremap <silent> <C-a> <C-w>>
+nnoremap <silent> <C-b> <C-w><
+nnoremap <silent> - <C-W>-
+nnoremap <silent> + <C-W>+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   spell                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
