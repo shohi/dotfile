@@ -968,16 +968,6 @@ augroup end
 " TODO: fix font issue
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 vim-keysound                               "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" require sdl2 installed
-" pyenv activate neovim3
-" pip3 install pysdl2
-" brew install sdl2
-" brew install sdl2_mixer
-let g:keysound_enable = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                pomodoro.vim                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FIXME: show status with airline
@@ -990,3 +980,16 @@ nnoremap <leader>pt :PomodoroStop<CR>
 "                                  startify                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:startify_disable_at_vimenter = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  vim-test                                  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/vim-test/vim-test
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nnoremap <silent> t<C-n> :TestNearest<CR>
+nnoremap <silent> t<C-f> :TestFile<CR>
+nnoremap <silent> t<C-s> :TestSuite<CR>
+nnoremap <silent> t<C-l> :TestLast<CR>
+nnoremap <silent> t<C-g> :TestVisit<CR>
+
+let test#go#runner = 'gotest'

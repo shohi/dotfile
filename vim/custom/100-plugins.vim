@@ -303,7 +303,10 @@ if has('nvim')
 endif
 
 " vim-keysound - Play typewriter sound in Vim when you are typing a letter
-Plug 'skywind3000/vim-keysound'
+" FIXME: not work with vim
+if has('nvim')
+  Plug 'skywind3000/vim-keysound'
+endif
 
 " pomodoro.vim - Bring the beauty of the Pomodoro technique to (Neo)Vim
 Plug 'tricktux/pomodoro.vim'
