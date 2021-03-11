@@ -111,7 +111,7 @@ augroup gogroup
   autocmd FileType go nmap <silent> gr :GoReferrers<CR>
   autocmd FileType go nmap <silent> gi :GoImplements<CR>
 
-  autocmd FileType go nmap <silent> <leader>ga :GoAlternate<CR>
+  autocmd FileType go nmap <silent> <leader>ga :GoAlternate!<CR>
   autocmd FileType go nmap <silent> <leader>gl :GoMetaLinter<CR>
   autocmd FileType go nmap <silent> <leader>ec :GoErrCheck<CR>
   autocmd FileType go nmap <silent> <leader>ft :GoTestFunc<CR>
