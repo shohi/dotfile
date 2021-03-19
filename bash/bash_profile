@@ -466,7 +466,7 @@ function setup_java() {
     # https://github.com/AdoptOpenJDK/homebrew-openjdk
     echo "install opendjdk"
     brew tap AdoptOpenJDK/openjdk
-    brew cask install adoptopenjdk
+    brew install --cask adoptopenjdk
   fi
 
   local jh

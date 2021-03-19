@@ -317,5 +317,11 @@ Plug 'vim-test/vim-test'
 " vim-startify - The fancy start screen for Vim.
 Plug 'mhinz/vim-startify'
 
+" nvim-jdtls -  Extensions for the built-in LSP support in Neovim for
+" eclipse.jdt.ls
+if has('nvim')
+  Plug 'mfussenegger/nvim-jdtls'
+endif
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
