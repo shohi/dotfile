@@ -2,7 +2,7 @@
 vim configuration integrated with `tmux` and `iterm2` on MacOS using `neovim`
 distribution.
 
-- [] add Makefile for scripts installation
+- [ ] add Makefile for scripts installation
 
 ## Setup
 
