@@ -304,7 +304,8 @@ Plug 'farmergreg/vim-lastplace'
 " NOTE: require setup `prehook` to close nerdtree before save
 " not work well with NERDTree automatically
 if has('nvim')
-  Plug 'rmagatti/auto-session'
+  Plug 'shohi/auto-session', {'branch': 'feat/add-setup'}
+  "Plug 'rmagatti/auto-session'
 endif
 
 " vim-keysound - Play typewriter sound in Vim when you are typing a letter

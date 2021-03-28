@@ -5,9 +5,9 @@ local g = vim.g
 -- hop.nvim -  Neovim motions on speed!
 -- https://github.com/phaazon/hop.nvim
 api.nvim_set_keymap('n',
-    's',
-    "<cmd>lua require('hop').hint_words()<cr>",
-    {})
+  's',
+  "<cmd>lua require('hop').hint_words()<cr>",
+  {})
 
 
 -- nvim-colorizer.lua - The fastest Neovim colorizer
@@ -17,4 +17,8 @@ require('colorizer').setup()
 
 -- auto-session - A small automated session manager for Neovim
 -- https://github.com/rmagatti/auto-session
-g.auto_session_pre_save_cmds = {"tabdo NERDTreeClose"}
+-- g.auto_session_pre_save_cmds = {"tabdo NERDTreeClose"}
+
+require('auto-session').setup {
+  pre_save_cmds = {"tabdo NERDTreeClose"}
+}
