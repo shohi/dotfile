@@ -87,3 +87,9 @@ endfunction
 
 " not work with supertab
 " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               nvim-lsp-tools                               "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/kabouzeid/nvim-lspinstall
+lua require('shohi/lua-setting')

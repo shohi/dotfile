@@ -939,6 +939,9 @@ function setup_gnupg() {
   # Also correct the permissions and access rights on the directory
   chmod 600 ~/.gnupg/*
   chmod 700 ~/.gnupg
+
+  # kill gpg-agent to make it restart forcely
+  alias gka='gpgconf --kill gpg-agent'
 }
 
 setup_gnupg

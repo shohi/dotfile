@@ -70,6 +70,7 @@ mv $PWD/vim/custom ~/.vim/
 mv $PWD/vim/plugin ~/.vim/
 mv $PWD/vim/ftplugin ~/.vim/
 mv $PWD/vim/after ~/.vim/
+mv $PWD/lua ~/.vim/
 
 # 4. customized snippets
 # put `MyUltiSnips` folder to one of `runtimepath`, usually the runtimepath

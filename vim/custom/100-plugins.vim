@@ -328,5 +328,11 @@ if has('nvim')
   Plug 'mfussenegger/nvim-jdtls'
 endif
 
+" nvim language server related
+if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'kabouzeid/nvim-lspinstall'
+endif
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
