@@ -92,4 +92,4 @@ endfunction
 "                               nvim-lsp-tools                               "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/kabouzeid/nvim-lspinstall
-lua require('shohi/lua-setting')
+lua require('shohi/lsp-setting')
