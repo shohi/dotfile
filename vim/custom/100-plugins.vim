@@ -122,7 +122,7 @@ Plug 'liuchengxu/vim-which-key'
 
 " easymotion
 " https://github.com/easymotion/vim-easymotion
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 
 " tagbar
 Plug 'majutsushi/tagbar'
@@ -322,17 +322,33 @@ Plug 'vim-test/vim-test'
 " vim-startify - The fancy start screen for Vim.
 Plug 'mhinz/vim-startify'
 
-" nvim-jdtls -  Extensions for the built-in LSP support in Neovim for
-" eclipse.jdt.ls
+" nvim only plugins
 if has('nvim')
-  Plug 'mfussenegger/nvim-jdtls'
-endif
 
-" nvim language server related
-if has('nvim')
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  "                                nvim lsp                                 "
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " nvim language server related
   Plug 'neovim/nvim-lspconfig'
   Plug 'kabouzeid/nvim-lspinstall'
+
+  " nvim-jdtls -  Extensions for the built-in LSP support in Neovim for
+" eclipse.jdt.ls
+  Plug 'mfussenegger/nvim-jdtls'
+
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  "                               nvim tools                                "
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " gitabra -  Magit-lite for neovim
+  Plug 'Odie/gitabra'
+
+  " hop.nvim -  Neovim motions on speed
+  Plug 'phaazon/hop.nvim'
+
 endif
+
+" vim-dotoo -  Org-mode like task logging & time tracking in Vim
+Plug 'dhruvasagar/vim-dotoo'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()

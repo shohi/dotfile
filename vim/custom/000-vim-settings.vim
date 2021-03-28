@@ -124,6 +124,18 @@ nnoremap <silent> <C-b> <C-w><
 nnoremap <silent> - <C-W>-
 nnoremap <silent> + <C-W>+
 
+" buffer mapping
+" https://www.reddit.com/r/vim/comments/m9chaf/what_are_your_favourite_mappings_esc_ctrlw_others/
+
+" kill current buffer
+" kill all buffers
+" previous buffer
+" next buffer
+nnoremap <leader>k :bd<cr>
+nnoremap <leader>c :%bd<cr>
+nnoremap <C-b>p :bprev<cr>
+nnoremap <C-b>n :bnext<cr>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   spell                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -136,6 +148,7 @@ set nospell
 set spelllang=en_us
 
 " set hightlight style for spell check error
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 highlight                                  "
@@ -162,3 +175,12 @@ augroup hlcursor
   autocmd!
   nnoremap <silent> <leader>lw :<C-u>call <SID>ToggleKeywordHighlight()<CR>
 augroup end
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   format                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://vi.stackexchange.com/questions/19663/neovim-single-line-comments-also-format-the-next-line
+" formatoptions is buffer local
+" set formatoptions-=ro
+autocmd! BufEnter * set formatoptions-=ro

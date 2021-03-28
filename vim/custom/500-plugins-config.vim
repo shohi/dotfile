@@ -275,20 +275,22 @@ let g:vmt_dont_insert_fence = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 easymotion                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/easymotion/vim-easymotion
-" Disable default mappings
-let g:EasyMotion_do_mapping = 0
+if &rtp =~ 'easymotion'
+  " https://github.com/easymotion/vim-easymotion
+  " Disable default mappings
+  let g:EasyMotion_do_mapping = 0
 
-" Turn on case-insensitive feature
-let g:EasyMotion_smartcase = 1
+  " Turn on case-insensitive feature
+  let g:EasyMotion_smartcase = 1
 
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nnoremap s <Plug>(easymotion-overwin-f2)
+  " `s{char}{char}{label}`
+  " Need one more keystroke, but on average, it may be more comfortable.
+  nnoremap s <Plug>(easymotion-overwin-f2)
 
-" JK motions: Line motions
-nnoremap <leader>j <Plug>(easymotion-j)
-nnoremap <leader>k <Plug>(easymotion-k)
+  " JK motions: Line motions
+  nnoremap <leader>j <Plug>(easymotion-j)
+  nnoremap <leader>k <Plug>(easymotion-k)
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

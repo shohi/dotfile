@@ -1,5 +1,8 @@
--- https://github.com/kabouzeid/nvim-lspinstall
+-- setup of lsp-related plugins
 local cmd = vim.cmd
+
+-- nvim-lspinstall -
+-- https://github.com/kabouzeid/nvim-lspinstall
 local li = require('lspinstall')
 local lc = require('lspconfig')
 

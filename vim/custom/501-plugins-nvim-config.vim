@@ -3,16 +3,6 @@ if !has('nvim')
   finish
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 colorizer                                  "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-lua require('colorizer').setup()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                auto-session                                "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/rmagatti/auto-session
-let g:auto_session_pre_save_cmds = ["tabdo NERDTreeClose"]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 vim-keysound                               "
@@ -23,6 +13,7 @@ let g:auto_session_pre_save_cmds = ["tabdo NERDTreeClose"]
 " brew install sdl2
 " brew install sdl2_mixer
 let g:keysound_enable = 1
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 nvim-compe                                 "
@@ -87,9 +78,3 @@ endfunction
 
 " not work with supertab
 " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               nvim-lsp-tools                               "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/kabouzeid/nvim-lspinstall
-lua require('shohi/lsp-setting')
