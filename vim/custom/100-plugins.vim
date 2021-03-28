@@ -143,9 +143,14 @@ Plug 'wellle/targets.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
-" go autocomplete
-" TODO: use https://github.com/nvim-lua/completion-nvim
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" autocomplete
+if has('nvim')
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/vim-vsnip-integ'
+  Plug 'hrsh7th/nvim-compe'
+else
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 
 " visual indent
 Plug 'nathanaelkane/vim-indent-guides'

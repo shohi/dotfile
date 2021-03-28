@@ -69,7 +69,6 @@ endfunction
 " which work better that LanguageClient [LC]
 let g:go_def_mapping_enabled = 1
 
-" NOTE: vim-go using gopls does not work well with coc.nvim.
 " let g:go_gopls_enabled = 1
 let g:go_def_mode = 'gopls'
 let g:go_referrers_mode = 'gopls'
@@ -523,184 +522,186 @@ nnoremap <silent> <leader>m :<C-u>call <SID>toggle_mkdp()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  coc.nvim                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" https://github.com/neoclide/coc.nvim
+" https://stackoverflow.com/questions/13710364/viml-checking-if-function-exists/48178537
+if &rtp =~ 'coc.nvim'
+  " https://github.com/neoclide/coc.nvim
 
-" Better display for messages
-" set cmdheight=2
+  " Better display for messages
+  " set cmdheight=2
 
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
+  " You will have bad experience for diagnostic messages when it's default 4000.
+  set updatetime=300
 
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
+  " don't give |ins-completion-menu| messages.
+  set shortmess+=c
 
-" always show signcolumns
-" set signcolumn=yes
+  " always show signcolumns
+  " set signcolumn=yes
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+  " Use tab for trigger completion with characters ahead and navigate.
+  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+  " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+  " Use <c-space> to trigger completion.
+  inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+  " Coc only does snippet and additional edit on confirm.
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  " Or use `complete_info` if your vim support it, like:
+  " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
-nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
-nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
+  " Use `[g` and `]g` to navigate diagnostics
+  nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
+  nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Remap keys for gotos
-" nmap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> gy <Plug>(coc-type-definition)
-nnoremap <silent> gi <Plug>(coc-implementation)
-" nmap <silent> gr <Plug>(coc-references)
+  " Remap keys for gotos
+  " nmap <silent> gd <Plug>(coc-definition)
+  nnoremap <silent> gy <Plug>(coc-type-definition)
+  nnoremap <silent> gi <Plug>(coc-implementation)
+  " nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+  " Use K to show documentation in preview window
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
 
 
-" Remap for rename current word
-nnoremap <leader>rn <Plug>(coc-rename)
+  " Remap for rename current word
+  nnoremap <leader>rn <Plug>(coc-rename)
 
-" Remap for format selected region
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
+  " Remap for format selected region
+  " xmap <leader>f  <Plug>(coc-format-selected)
+  " nmap <leader>f  <Plug>(coc-format-selected)
 
-augroup cocgroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  augroup cocgroup
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
-  " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-augroup end
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+  augroup end
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xnoremap <leader>a  <Plug>(coc-codeaction-selected)
-nnoremap <leader>a  <Plug>(coc-codeaction-selected)
+  " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+  xnoremap <leader>a  <Plug>(coc-codeaction-selected)
+  nnoremap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap for do codeAction of current line
-nnoremap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nnoremap <leader>qf  <Plug>(coc-fix-current)
+  " Remap for do codeAction of current line
+  nnoremap <leader>ac  <Plug>(coc-codeaction)
+  " Fix autofix problem of current line
+  nnoremap <leader>qf  <Plug>(coc-fix-current)
 
-" Create mappings for function text object, requires document symbols feature of languageserver.
-xnoremap if <Plug>(coc-funcobj-i)
-xnoremap af <Plug>(coc-funcobj-a)
-onoremap if <Plug>(coc-funcobj-i)
-onoremap af <Plug>(coc-funcobj-a)
+  " Create mappings for function text object, requires document symbols feature of languageserver.
+  xnoremap if <Plug>(coc-funcobj-i)
+  xnoremap af <Plug>(coc-funcobj-a)
+  onoremap if <Plug>(coc-funcobj-i)
+  onoremap af <Plug>(coc-funcobj-a)
 
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-" nmap <silent> <C-d> <Plug>(coc-range-select)
-" xmap <silent> <C-d> <Plug>(coc-range-select)
+  " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+  " nmap <silent> <C-d> <Plug>(coc-range-select)
+  " xmap <silent> <C-d> <Plug>(coc-range-select)
 
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
+  " Use `:Format` to format current buffer
+  command! -nargs=0 Format :call CocAction('format')
 
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+  " Use `:Fold` to fold current buffer
+  command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+  " use `:OR` for organize import of current buffer
+  command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+  " Add status line support, for integration with other plugin, checkout `:h coc-status`
+  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+  " Using CocList
+  " Show all diagnostics
+  nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+  " Manage extensions
+  nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+  " Show commands
+  nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+  " Find symbol of current document
+  nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+  " Search workspace symbols
+  nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+  " Do default action for next item.
+  nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+  " Do default action for previous item.
+  nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+  " Resume latest coc list
+  nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-" multiple cursor
-" nmap <silent> <C-c> <Plug>(coc-cursors-position)
-" nmap <silent> <C-d> <Plug>(coc-cursors-word)
-" xmap <silent> <C-d> <Plug>(coc-cursors-range)
-" use normal command like `<leader>xi(`
-" nmap <leader>x  <Plug>(coc-cursors-operator)
+  " multiple cursor
+  " nmap <silent> <C-c> <Plug>(coc-cursors-position)
+  " nmap <silent> <C-d> <Plug>(coc-cursors-word)
+  " xmap <silent> <C-d> <Plug>(coc-cursors-range)
+  " use normal command like `<leader>xi(`
+  " nmap <leader>x  <Plug>(coc-cursors-operator)
 
-" coc for golang
-" refer, https://octetz.com/posts/vim-as-go-ide
-" add following setting to :CocConfig
-"  {
-"    "languageserver": {
-"      "golang": {
-"        "command": "gopls",
-"        "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-"        "filetypes": ["go"]
-"      }
-"    }
-"  }
+  " coc for golang
+  " refer, https://octetz.com/posts/vim-as-go-ide
+  " add following setting to :CocConfig
+  "  {
+  "    "languageserver": {
+  "      "golang": {
+  "        "command": "gopls",
+  "        "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+  "        "filetypes": ["go"]
+  "      }
+  "    }
+  "  }
 
-" coc for python
-" https://github.com/neoclide/coc-python
-"
-" :CocInstall coc-python
-"
-" also need install neovim
-" $> pip3 install neovim
-autocmd! FileType python nnoremap <silent> <leader>si :<C-u>CocCommand python.sortImports<cr>
+  " coc for python
+  " https://github.com/neoclide/coc-python
+  "
+  " :CocInstall coc-python
+  "
+  " also need install neovim
+  " $> pip3 install neovim
+  autocmd! FileType python nnoremap <silent> <leader>si :<C-u>CocCommand python.sortImports<cr>
 
-"
-" coc for bash - needs bash-language-server installed firstly
-" https://github.com/mads-hartmann/bash-language-server
-" {
-"   languageserver": {
-"     "bash": {
-"       "command": "bash-language-server",
-"       "args": ["start"],
-"       "filetypes": ["sh"],
-"       "ignoredRootPaths": ["~"]
-"     }
-"   }
-" }
+  "
+  " coc for bash - needs bash-language-server installed firstly
+  " https://github.com/mads-hartmann/bash-language-server
+  " {
+  "   languageserver": {
+  "     "bash": {
+  "       "command": "bash-language-server",
+  "       "args": ["start"],
+  "       "filetypes": ["sh"],
+  "       "ignoredRootPaths": ["~"]
+  "     }
+  "   }
+  " }
 
-" coc for rust
-" https://github.com/fannheyward/coc-rust-analyzer
-"
-" :CocInstall coc-rust-analyzer
+  " coc for rust
+  " https://github.com/fannheyward/coc-rust-analyzer
+  "
+  " :CocInstall coc-rust-analyzer
 
-" coc for R
-" https://github.com/neoclide/coc-r-lsp
-"
-" :CocInstall coc-r-lsp
-
+  " coc for R
+  " https://github.com/neoclide/coc-r-lsp
+  "
+  " :CocInstall coc-r-lsp
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 vim-header                                 "
