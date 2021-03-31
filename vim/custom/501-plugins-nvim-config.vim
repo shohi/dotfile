@@ -20,6 +20,8 @@ let g:keysound_enable = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/hrsh7th/nvim-compe
 set completeopt=menuone,noselect
+" https://www.reddit.com/r/vim/comments/8zx75v/what_is_the_minimal_code_to_trigger/
+inoremap . .<C-x><C-o>
 
 let g:compe = {}
 let g:compe.enabled = v:true
