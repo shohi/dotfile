@@ -305,7 +305,7 @@ Plug 'farmergreg/vim-lastplace'
 " not work well with NERDTree automatically
 if has('nvim')
   Plug 'shohi/auto-session', {'branch': 'feat/add-setup'}
-  "Plug 'rmagatti/auto-session'
+  " Plug 'rmagatti/auto-session'
 endif
 
 " vim-keysound - Play typewriter sound in Vim when you are typing a letter
@@ -334,7 +334,7 @@ if has('nvim')
   Plug 'kabouzeid/nvim-lspinstall'
 
   " nvim-jdtls -  Extensions for the built-in LSP support in Neovim for
-" eclipse.jdt.ls
+  " eclipse.jdt.ls
   Plug 'mfussenegger/nvim-jdtls'
 
   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -350,6 +350,11 @@ endif
 
 " vim-dotoo -  Org-mode like task logging & time tracking in Vim
 Plug 'dhruvasagar/vim-dotoo'
+
+" numb.nvim -  Peek lines just when you intend
+if has('nvim')
+  Plug 'nacro90/numb.nvim'
+endif
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()

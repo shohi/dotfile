@@ -18,7 +18,9 @@ require('colorizer').setup()
 -- auto-session - A small automated session manager for Neovim
 -- https://github.com/rmagatti/auto-session
 -- g.auto_session_pre_save_cmds = {"tabdo NERDTreeClose"}
-
 require('auto-session').setup {
   pre_save_cmds = {"tabdo NERDTreeClose"}
 }
+
+-- numb.nvim - Peek lines just when you intend
+require('numb').setup()
