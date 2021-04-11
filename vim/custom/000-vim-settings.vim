@@ -184,3 +184,20 @@ augroup end
 " formatoptions is buffer local
 " set formatoptions-=ro
 autocmd! BufEnter * set formatoptions-=ro
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 completion                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" don't give |ins-completion-menu| messages.
+" NOTE: company with coc
+set shortmess+=c
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                    make                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" copy from https://github.com/jqno/dotfiles/blob/main/vim/vimrc
+
+" " *** Prefix <leader>m: running make
+nnoremap <leader>mm :Make<CR>

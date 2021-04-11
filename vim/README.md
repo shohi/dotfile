@@ -66,11 +66,14 @@ mv $PWD/vim/vimrc ~/.vim/vimrc
 # ln -s $PWD/vim/plugin ~/.vim/
 # ln -s $PWD/vim/ftplugin ~/.vim/
 # ln -s $PWD/vim/after ~/.vim/
+# ln -s $PWD/vim/lua ~/.vim/
+# ln -s $PWD/vim/config/coc-settings.json ~/.vim/
 mv $PWD/vim/custom ~/.vim/
 mv $PWD/vim/plugin ~/.vim/
 mv $PWD/vim/ftplugin ~/.vim/
 mv $PWD/vim/after ~/.vim/
 mv $PWD/lua ~/.vim/
+mv $PWD/vim/config/coc-settings.json ~/.vim/
 
 # 4. customized snippets
 # put `MyUltiSnips` folder to one of `runtimepath`, usually the runtimepath

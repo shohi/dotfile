@@ -9,6 +9,9 @@ call plug#begin('~/.vim/plugged')
 " surround
 Plug 'tpope/vim-surround'
 
+" sleuth.vim: Heuristically set buffer options
+Plug 'tpope/vim-sleuth'
+
 " NERDtree
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -66,12 +69,6 @@ Plug 'terryma/vim-multiple-cursors'
 " Elixir and formatter
 Plug 'elixir-editors/vim-elixir'
 Plug 'mhinz/vim-mix-format'
-
-" NOTE: only work for neovim
-" https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
-if has('nvim')
-  Plug 'Olical/conjure', { 'tag': 'v4.15.0' }
-endif
 
 " permut - swap columns
 Plug 'jlemetay/permut'
@@ -144,13 +141,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " autocomplete
-if has('nvim')
-  Plug 'hrsh7th/vim-vsnip'
-  Plug 'hrsh7th/vim-vsnip-integ'
-  Plug 'hrsh7th/nvim-compe'
-else
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-endif
+" NOTE: use coc as it fits well for java development
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " visual indent
 Plug 'nathanaelkane/vim-indent-guides'
@@ -174,7 +166,6 @@ Plug 'jalvesaq/nvim-r'
 " NOTE: vim-autoformat does not support formatters which can't read input
 " from stdin or write output to stdout.
 Plug 'chiel92/vim-autoformat'
-
 Plug 'sbdchd/neoformat'
 
 " javascript
@@ -230,11 +221,6 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" nvim-lspfuzzy -  A Neovim plugin to make the LSP client use FZF
-if has('nvim')
-  Plug 'ojroques/nvim-lspfuzzy'
-endif
-
 " wordmotion - More useful word motions for Vim
 Plug 'chaoren/vim-wordmotion'
 
@@ -244,17 +230,9 @@ Plug 'tbastos/vim-lua'
 " fennel.vim -  Syntax highlighting for Fennel
 Plug 'bakpakin/fennel.vim'
 
-" plenary.nvim - All the lua functions I don't want to write twice.
-if has('nvim')
-  Plug 'nvim-lua/plenary.nvim'
-endif
 
 " git-blame -  Git Blame plugin for Neovim written in Lua
 " Plug 'f-person/git-blame.nvim'
-" nvim-colorizer - The fastest Neovim colorizer
-if has('nvim')
-  Plug 'norcalli/nvim-colorizer.lua'
-endif
 
 " neoterm -  Wrapper of some vim/neovim's :terminal functions.
 Plug 'kassio/neoterm'
@@ -264,29 +242,16 @@ Plug 'kassio/neoterm'
 " Plug 'svermeulen/vimpeccable'
 " Plug 'svermeulen/vimpeccable-lua-vimrc-example'
 
-" interactive real time neovim scratchpad for embedded lua engine
-Plug 'rafcamlet/nvim-luapad'
-
-" telescope.nvim -  Find, Filter, Preview, Pick. All lua, all the time.
-if has('nvim')
-  Plug 'nvim-lua/popup.nvim'
-  " Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-endif
-
 " vim-rt-format - Prettify Current Line on Enter !!
 Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' }
 
 " vim-floaterm - Terminal manager for (neo)vim
 Plug 'voldikss/vim-floaterm'
 
-" nvim-peekup -  dynamically show content of vim registers
-if has('nvim')
-  Plug 'gennaro-tedesco/nvim-peekup'
-endif
-
 " vim-json - A better JSON for Vim
 Plug 'elzr/vim-json'
+" vim-jsonc - Vim syntax highlighting plugin for JSON with C-style line (//) and block (/* */) comments.
+Plug 'kevinoid/vim-jsonc'
 
 " vim-highlightedyank - Make the yanked region apparent!
 Plug 'machakann/vim-highlightedyank'
@@ -300,20 +265,6 @@ Plug 'liuchengxu/vista.vim'
 " vim-lastplace -  Intelligently reopen files at your last edit position in Vim.
 Plug 'farmergreg/vim-lastplace'
 
-" auto-session - A small automated session manager for Neovim
-" NOTE: require setup `prehook` to close nerdtree before save
-" not work well with NERDTree automatically
-if has('nvim')
-  Plug 'shohi/auto-session', {'branch': 'feat/add-setup'}
-  " Plug 'rmagatti/auto-session'
-endif
-
-" vim-keysound - Play typewriter sound in Vim when you are typing a letter
-" FIXME: not work with vim
-if has('nvim')
-  Plug 'skywind3000/vim-keysound'
-endif
-
 " pomodoro.vim - Bring the beauty of the Pomodoro technique to (Neo)Vim
 Plug 'tricktux/pomodoro.vim'
 
@@ -323,8 +274,23 @@ Plug 'vim-test/vim-test'
 " vim-startify - The fancy start screen for Vim.
 Plug 'mhinz/vim-startify'
 
+" vim-dotoo -  Org-mode like task logging & time tracking in Vim
+Plug 'dhruvasagar/vim-dotoo'
+
+" vimspector - A multi-language debugging system for Vim
+Plug 'puremourning/vimspector'
+
+" dispatch.vim - Asynchronous build and test dispatcher
+Plug 'tpope/vim-dispatch'
+
 " nvim only plugins
 if has('nvim')
+
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  "                                lua-utils                                "
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " plenary.nvim - All the lua functions I don't want to write twice.
+  Plug 'nvim-lua/plenary.nvim'
 
   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   "                                nvim lsp                                 "
@@ -335,7 +301,15 @@ if has('nvim')
 
   " nvim-jdtls -  Extensions for the built-in LSP support in Neovim for
   " eclipse.jdt.ls
-  Plug 'mfussenegger/nvim-jdtls'
+  " Plug 'mfussenegger/nvim-jdtls'
+
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  "                                complete                                 "
+  """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " NOTE: nvim-compe installed but not used
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/vim-vsnip-integ'
+  Plug 'hrsh7th/nvim-compe'
 
   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   "                               nvim tools                                "
@@ -346,14 +320,44 @@ if has('nvim')
   " hop.nvim -  Neovim motions on speed
   Plug 'phaazon/hop.nvim'
 
-endif
+  " telescope.nvim -  Find, Filter, Preview, Pick. All lua, all the time.
+  Plug 'nvim-lua/popup.nvim'
+  " Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
 
-" vim-dotoo -  Org-mode like task logging & time tracking in Vim
-Plug 'dhruvasagar/vim-dotoo'
+  " interactive real time neovim scratchpad for embedded lua engine
+  Plug 'rafcamlet/nvim-luapad'
 
-" numb.nvim -  Peek lines just when you intend
-if has('nvim')
+  " numb.nvim -  Peek lines just when you intend
   Plug 'nacro90/numb.nvim'
+
+  " auto-session - A small automated session manager for Neovim
+  " NOTE: require setup `prehook` to close nerdtree before save
+  " not work well with NERDTree automatically
+  Plug 'shohi/auto-session', {'branch': 'feat/add-setup'}
+  " Plug 'rmagatti/auto-session'
+
+  " vim-keysound - Play typewriter sound in Vim when you are typing a letter
+  " FIXME: not work with vim
+  Plug 'skywind3000/vim-keysound'
+
+  " nvim-peekup -  dynamically show content of vim registers
+  Plug 'gennaro-tedesco/nvim-peekup'
+
+  " nvim-colorizer - The fastest Neovim colorizer
+  Plug 'norcalli/nvim-colorizer.lua'
+
+  " NOTE: only work for neovim
+  " https://oli.me.uk/getting-started-with-clojure-neovim-and-conjure-in-minutes/
+  Plug 'Olical/conjure', { 'tag': 'v4.15.0' }
+
+  " nvim-lspfuzzy -  A Neovim plugin to make the LSP client use FZF
+  Plug 'ojroques/nvim-lspfuzzy'
+
+  " Nvim Treesitter configurations and abstraction layer
+  " We recommend updating the parsers on update
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 endif
 
 " List ends here. Plugins become visible to Vim after this call.
