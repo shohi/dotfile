@@ -124,6 +124,10 @@ function setup_shortcuts() {
 
   # list ssh processes
   alias ls_ssh='ps aux | grep "ssh"'
+
+  # db shortcuts
+  alias dbmy='mkdir -p ~/workshop/db/mysql/data && cd ~/workshop/db/mysql'
+  alias dbpg='mkdir -p ~/workshop/db/pg/data && cd ~/workshop/db/pg'
 }
 
 # use https://gitee.com/cunkai/HomebrewCN
