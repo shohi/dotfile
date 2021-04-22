@@ -283,6 +283,9 @@ Plug 'puremourning/vimspector'
 " dispatch.vim - Asynchronous build and test dispatcher
 Plug 'tpope/vim-dispatch'
 
+" vim-vue
+Plug 'posva/vim-vue'
+
 " nvim only plugins
 if has('nvim')
 

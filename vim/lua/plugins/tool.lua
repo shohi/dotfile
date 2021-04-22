@@ -19,7 +19,7 @@ require('colorizer').setup()
 -- https://github.com/rmagatti/auto-session
 -- g.auto_session_pre_save_cmds = {"tabdo NERDTreeClose"}
 require('auto-session').setup {
-  pre_save_cmds = {"tabdo NERDTreeClose"}
+  pre_save_cmds = {"tabdo NERDTreeClose", "tabdo TagbarClose"}
 }
 
 -- numb.nvim - Peek lines just when you intend
