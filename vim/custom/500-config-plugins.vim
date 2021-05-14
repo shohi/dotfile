@@ -774,3 +774,12 @@ let test#go#runner = 'gotest'
 "                                vim-dispatch                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <leader>m<Esc> :AbortDispatch<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                   vim-qf                                   "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://stackoverflow.com/questions/1747091/how-do-you-use-vims-quickfix-feature
+nmap <silent> <leader>oo <Plug>(qf_qf_toggle)
+nmap <C-j> <Plug>(qf_qf_previous)
+nmap <C-k> <Plug>(qf_qf_next)

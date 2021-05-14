@@ -90,7 +90,7 @@ Plug 'mbbill/undotree'
 Plug 'tpope/vim-repeat'
 
 " unimpaired - pairs of handy bracket mappings
-Plug 'tpope/vim-unimpaired'
+" Plug 'tpope/vim-unimpaired'
 
 " auto-pairs
 Plug 'jiangmiao/auto-pairs'
@@ -190,7 +190,7 @@ Plug 'tpope/vim-abolish'
 Plug 'cespare/vim-toml'
 
 " quickfix
-" Plug 'romainl/vim-qf'
+Plug 'romainl/vim-qf'
 
 " endwise
 " Plug 'tpope/vim-endwise'

@@ -83,13 +83,15 @@ nnoremap <leader>sv :source ~/.vim/vimrc<CR>
 nnoremap <silent><leader>1 :source ~/.vim/vimrc \| :PlugInstall<CR>
 nnoremap <silent><leader>2 :source ~/.vim/vimrc \| :PlugUpdate<CR>
 nnoremap <silent><leader>3 :source ~/.vim/vimrc \| :PlugClean<CR>
+nnoremap <silent><leader>4 :PlugUpgrade<CR>
 
 " highlight cursorline
 nnoremap <leader><leader> :set cursorline! cursorcolumn!<CR>
 
 " mapping to open and close quickfix window
-nnoremap <silent> <leader>oo :copen<CR>
-nnoremap <silent> <leader>oc :cclose<CR>
+" use vim-qf
+" nnoremap <silent> <leader>oo :copen<CR>
+" nnoremap <silent> <leader>oc :cclose<CR>
 
 " per project setting
 " https://medium.com/@dnrvs/per-project-settings-in-nvim-fc8c8877d970
