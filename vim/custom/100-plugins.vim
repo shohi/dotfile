@@ -337,8 +337,7 @@ if has('nvim')
   " auto-session - A small automated session manager for Neovim
   " NOTE: require setup `prehook` to close nerdtree before save
   " not work well with NERDTree automatically
-  Plug 'shohi/auto-session', {'branch': 'feat/add-setup'}
-  " Plug 'rmagatti/auto-session'
+  Plug 'rmagatti/auto-session'
 
   " vim-keysound - Play typewriter sound in Vim when you are typing a letter
   " FIXME: not work with vim
