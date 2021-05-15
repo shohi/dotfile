@@ -140,10 +140,6 @@ Plug 'wellle/targets.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
-" autocomplete
-" NOTE: use coc as it fits well for java development
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 " visual indent
 Plug 'nathanaelkane/vim-indent-guides'
 

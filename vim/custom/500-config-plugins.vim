@@ -577,6 +577,14 @@ let g:neoformat_enabled_nim= ['custom']
 let g:neoformat_run_all_formatters = 0
 " let g:neoformat_verbose = 1 " only affects the verbosity of Neoformat
 
+" lua
+let g:neoformat_enabled_lua= ['luaformatter']
+
+augroup noeformat
+  autocmd!
+  autocmd BufWritePre *.lua Neoformat
+augroup END
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 javascript                                 "
