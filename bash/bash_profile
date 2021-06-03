@@ -533,7 +533,12 @@ function init_pyenv() {
   # eval "$(pyenv init - zsh --no-rehash)"
   #
   # remove `zsh` as it does not work with virtualenv
-  eval "$(pyenv init - --no-rehash)"
+  # eval "$(pyenv init - --no-rehash)"
+
+  # From v2.0.0, use following setting to initialize pyenv
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init --path)"
 
   # optional - add utils for pyenv virtualenv
   # https://github.com/pyenv/pyenv-virtualenv
@@ -686,11 +691,11 @@ function setup_rust() {
       local conf
       conf=$(
       cat <<HEREDOC
-# [source.crates-io]
-# registry = "https://github.com/rust-lang/crates.io-index"
-# replace-with = 'ustc'
-[source.ustc]
-registry = "https://mirrors.ustc.edu.cn/crates.io-index"
+      # [source.crates-io]
+      # registry = "https://github.com/rust-lang/crates.io-index"
+      # replace-with = 'ustc'
+      [source.ustc]
+      registry = "https://mirrors.ustc.edu.cn/crates.io-index"
 HEREDOC
 )
 
@@ -746,8 +751,15 @@ function setup_emacs() {
   fi
 
   alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs -nw"
+  alias emacsd="/Applications/Emacs.app/Contents/MacOS/Emacs --daemon"
   alias emacsclient="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
+  alias emacsc="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -t -c -a= "
   alias cd_emacs='cd ~/.emacs.d'
+}
+
+# https://stackoverflow.com/questions/1167484/how-to-gracefully-shutdown-emacs-daemon
+function emacs_stop() {
+  emacsclient -e "(kill-emacs)"
 }
 
 setup_emacs

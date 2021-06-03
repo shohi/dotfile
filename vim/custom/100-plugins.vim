@@ -309,6 +309,7 @@ if has('nvim')
   Plug 'hrsh7th/vim-vsnip'
   Plug 'hrsh7th/vim-vsnip-integ'
   Plug 'hrsh7th/nvim-compe'
+  Plug 'rafamadriz/friendly-snippets'
 
   """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   "                               nvim tools                                "
